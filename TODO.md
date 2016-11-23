@@ -264,4 +264,105 @@ Where this would give the 23rd element?
 And that gives a way to change elements without getting the entire array
 
 
+--------
+Controller definition
+-------
+A controller should contain all the utils necessary for inserting data in the application
+and communicating with the outside world.
+
+To this extent it needs some basic functionalities out of the box:
+- Ajax
+- Sockets
+- SSE
+- DOM Api
+- HTTP server
+- File IO
+
+- Storage (this could be the same API for both nodejs and browser.
+      It takes a configuration object (that sits on the state tree)
+      and depending where it is it acts accordingly)
+      -- although this might be better handled at db level
+
+A controller takes a model and outputs a patch which is fed in the system
+Ad-hoc patches make the architecture less streamlined.
+
+The architecture of a controller consists of:
+path -> fns -> async -> fns -> patch
+
+The patch should also be predictable. In usage so far, a wildcard match
+would be perfect for this:
+
+[ entity/\*/title ] would be the patch
+
+so a controller can be defined as:
+path/s X -> path/s Y
+
+And thus making it more reliable
+By giving this information from the very begning one shouldn't build a patch
+at the end, just give a value that will be mapped to the specified path
+
+var c1 = controller(['/foo/bar', '/bam'])
+  .map(add)
+  .filter(isNotEmpty)
+  .ajax(x => { request })
+
+module.exports = merge([controller1, controller2])
+  .map(x => ({
+    op: 'add',
+    path: `/foo/${x.id}`,
+    value: x
+  }))
+
+-- If the ajax is on a patch api then this will return
+a patch
+
+controller('/foo/bar', ['/foo1', '/foo2'])
+
+controller.patch -> will create a patch object, it is also polymorphic
+so it can take string arguments or a function for composition
+
+controller.patch(x => 
+
+
+------
+Aggregating patches
+------
+There should be a single way of making patches in the system thus
+ensuring that every component is created in a linear fashion.
+
+This should be enforced - although not many people will like this - 
+this could be a best practice actually instead of being enforced...
+creating the API should guide towards this way of doing things.
+
+
+------
+JSONMVC + FP (ramda or lodashfp)
+------
+Define all functions as globals (as ramda-loader does) so that fp
+can be done simply and out of the box - with minimal learning curve:
+you can write JS as you like and slowly discover the FP Api
+
+
+------
+Build process
+-----
+Comes with a build process already defined (e.g. webpack/brocolli etc) which serves
+by default a certain environemnt - e.g ES6.
+Implement an error handling layer that takes the code that developers write and
+if it's in a different module system (CommonJS vs AMD, etc) then it gives
+a relevant error message mentioning to the developer that he can change this setting
+as he pleases.
+
+The idea is to have this a flexible as possible so that it makes the developer productive
+from day one (it doesn't need to configure anything) and allows him to further refine
+the build process as he's progressing with his app development.
+
+A hybrid build process might be nice! In which JSONMVC does some parts while the custom
+system the developer puts into place handles the rest.
+
+Adding typescript would be easy - just include a module jsonmvc-typescript and there you go,
+you can now configure the build process as you please (with a build sandbox containing all
+the best practices)
+Same goes for webpack, jsonmvc-webpack, etc.
+
 
