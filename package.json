@@ -1,0 +1,31 @@
+{
+  "name": "jsonmvc",
+  "version": "0.1.0",
+  "description": "The JSON Architecture MVC implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsonmvc/jsonmvc.git"
+  },
+  "keywords": [
+    "json",
+    "mvc",
+    "framework",
+    "functional",
+    "architecture",
+    "data"
+  ],
+  "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsonmvc/jsonmvc/issues"
+  },
+  "homepage": "https://github.com/jsonmvc/jsonmvc#readme",
+  "devDependencies": {
+    "fast-json-patch": "^1.1.1",
+    "uniq": "^1.0.1"
+  }
+}
