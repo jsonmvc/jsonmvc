@@ -667,3 +667,9 @@ Everything that can be a schema becomes a schema. This requires
 a bit more thought and more approachable when one has already
 used the runtime to gain the insights of the framework
 
+
+----
+Build
+----
+Don't include dist in the repo:
+http://gsuntop.com/blog/post/npm-front-end/
