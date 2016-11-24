@@ -230,10 +230,38 @@ in your data table.
   <button id="foo"></button>
 </div>
 
-db.on('/events/hover/#123 #foo')
-db.on('/events/click/#123 ul li')
-db.on('/events/click/#dis .foo[data-path="asdf"]:nth-child(2)[attr^=val]')
+db.on('/ui/hover/#123 #foo')
+db.on('/ui/click/#123 ul li')
+db.on('/ui/click/#dis .foo[data-path="asdf"]:nth-child(2)[attr^=val]')
 
+
+-----
+Event system
+-----
+An event system can also be made using this architecture
+
+// To get the last remove_item event
+db.on('/events/REMOVE_ITEM/-', x => {
+  console.log('A new event', x)
+})
+
+db.patch({
+  op: 'add',
+  path: '/events/REMOVE_ITEM/-',
+  value: {
+    id: 12
+  }
+})
+
+// or
+db.patch('add', '/events/REMOVE_ITEM/-', { id: 12 })
+
+Events are stored in an array so the entry index
+represents it's id.
+
+In order to prevent changing the array order the developer
+can specify this in the schema, dissallowing any alterating
+operation besided "add".
 
 --------
 Make patch polymorphic
@@ -321,8 +349,14 @@ controller('/foo/bar', ['/foo1', '/foo2'])
 controller.patch -> will create a patch object, it is also polymorphic
 so it can take string arguments or a function for composition
 
-controller.patch(x => 
+Implementing RxJS 5 it will be easy to create a slim down api
+for the controller using RxJS functions. This in part will make
+it easy for developers to grasp the API while still providing
+great extensibility by having it Rx compatible.
 
+Of course, it would be great if the developer could choose if
+he doesn't want to integrate with Rx. The change is minimap
+as the API is simple and only uses basic methods.
 
 ------
 Aggregating patches
@@ -365,4 +399,172 @@ you can now configure the build process as you please (with a build sandbox cont
 the best practices)
 Same goes for webpack, jsonmvc-webpack, etc.
 
+
+------
+Benchmarking
+------
+
+Create a chrome dev tool that shows stats about patching and updates.
+
+Add a dev flag for measuring performance for every step made by the platform.
+
+Create two code bases that uses code replacement based on patterns in order
+to add and remove checks and timers for development / production monitoring
+in essence removing any redundancy caused by monitoring code.
+
+
+------
+Helper tools
+------
+- Tell me more about your functions (dynamic nodes), a helper that allows you
+to optimize the handling of dynamic nodes. E.g. generate random data and 
+observe some patterns that allow you to define cases in which the fn shouldn't
+be triggered if the inputs have changed in a given range.
+
+- Find edge cases and boundries for your functions through the random generated code.
+Allows you to review each failing/erronous case. Also works for dynamic dependencies
+on other nodes - be able to track down which node causes the subsequent issue.
+
+- Find performance issues through generating larger and larger datasets for the given
+dynamic nodes. Generate a graphical representation of the performance / complexity
+of the function. It also gives a first entry for developers not familiar with
+the O notation - makes it easier for them to grasp it and start implementing 
+some advices to make the function work faster.
+
+- Implement an AutoIssuer that submits issues on your behalf on the jsonmvc repository
+when you're in development mode. When encountering a thrown exception at the top of
+the document that might stem from jsonmvc, a pop-up or a notification in the chrome
+dev tool extension that allows you to edit the description and submit.
+In order to keep the issues traceable you need to login with your github account first.
+
+
+------
+Data structure
+------
+
+/conf
+- Make components get their settings from the data tree. This way developers can keep all
+their code clean - no more passing variables with settings or instantiating objects. Just
+make the component (controller) listen on a given location to get its initial settings.
+If those settings change the behaviour of the controller changes accordingly - you never
+have to worry about misconfiguration or reconfiguring at runtime!
+/conf/router => {
+  base: '/',
+  routes: { .. }
+  .. etc
+}
+
+/env
+- Keep environment variables defined on the data tree. This way you don't need to sprinkle
+your code with env stuff that might need a compilation step to replace with a reference
+or have a global object you need to maintain. This way you can just write:
+if (db.get('/env/APP_ENV') === 'development') {
+  // do stuff for dev mode
+}
+
+/err
+- Keep all errors in the same place. This holds both system (jsonmvc) defined errors but also
+developer defined errors. This way all error handling can be neatly decoupled from code that
+throws an error. Jsonmvc has stability at its core which means you app will never crash
+if you have an error - just the erroring functionality would have been terminated early.
+If you need to retry, show an alert to the user or anyhing else you just use this entry
+point thus ensuring perfect composability of the system.
+
+db.on('/err/AJAX_FAIL/-', x => {
+  let request = db.get(`/ajax/requests/${x.id}`)
+  console.log('The following AJAX request encountered a failing error', request, x)
+})
+
+/ajax
+- This is something almost every application will have so it would nice to have it
+defined at the root. You can see all ajax requests that were added, sent or handled here.
+This can be composed of:
+/ajax/requests/[request_id] => [request_body]
+/ajax/byStatus/[status_id] => gives a list of ajax request based on its status
+
+/dom
+- This is a listener for events from the dom. This is used for maping component
+actions in a controller
+controller('/
+
+
+
+
+-----
+API
+----
+Consider using short variables for Model (m), View (v) and Controller (c) to make
+it easier to type.
+
+View:
+----
+v({
+  title: '/articles/23/title',
+  description: '/articles/23/description'
+},
+<div>
+  <h1>{ title }</h1>
+  <p>{ description }</p>
+</div>
+)
+
+otherwise you can just give the view a css selector to use at runtime:
+v({ data... }, '#foobar')
+or given a css selector as a name and data:
+
+v({ data },
+<div id="foo">
+  { v('bar') }
+</div>
+)
+
+Of course going further this can be defined a json schema for even more
+code simplification
+
+Model:
+-----
+m('/foo', ['/foo2', '/foo3'], fn)
+m('/foo', '/foo2', fn)
+
+This is actually very dull but OK! The model doesn't have any complications.
+This api really has only 3 methods.
+To simplify usage you can give either a list of nodes or a single node
+the the model is listening
+
+Controller:
+-----
+c(['/foo', '/bar']) // multi listen
+  .map((x, y) => x + y)
+  .filter(x => x > 2)
+  .onValue(x => db.patch('add', '/bamboo', x))
+
+c('/foo') // single listener
+
+c('/foo', '/bar') // single listner with provided output that generates a patch at onValue
+  .map(x => x + 1)
+  .onValue(db.patch)
+Although this might create confusion - Better not... The controller only takes listeners
+
+Small concern: the model has location first then deps while controllers are the other way around...
+This means that the controller can only have deps as arguments
+
+So final API:
+c('/foo')
+c(['/foo', '/bar'])
+
+db:
+-----
+db.on('/foo')
+db.on(['/foo', '/bar'])
+
+db.get('/foo')
+
+db.has('/foo')
+
+db.patch('add', '/foo', 23)
+db.patch({})
+db.patch([{}, {}])
+
+[NOTE]: This must be the smallest API in a framework every created. Really can't get smaller than this...
+Simplicity.
 
