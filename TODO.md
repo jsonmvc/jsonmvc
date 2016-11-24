@@ -568,3 +568,102 @@ db.patch([{}, {}])
 [NOTE]: This must be the smallest API in a framework every created. Really can't get smaller than this...
 Simplicity.
 
+-----
+Application schema
+-----
+Besides having a runtime option, the developer can also
+define his mvc as a schema file:
+
+m: // preferred
+  /foo/bar:
+    nodes:
+      - /foo2
+      - /foo3
+    file: foobar // which will sit in models/foobar.js
+    or
+    fn: add // lodash functions
+
+// or
+m:
+  foo:
+    bar:
+      nodes:
+        - /foo2
+        - /foo3
+      file: foobar
+
+// or
+m:
+  foobar:
+    node: /foo/bar
+    on:
+      - /foo2
+      - /foo3
+
+v:
+  #article:
+    title: /article/title
+    description: /article/description
+c:
+  fooController:
+    - /foo
+    - /bar
+
+
+Also a list notation might make things more concise:
+
+m:
+  /foo/bar:
+    on: ['/foo2', '/foo3']
+    fn: fooBar
+c:
+  foo: ['/foo', '/bar']
+
+-----
+Modules
+-----
+Instead of "components". A module is:
+each of a set of standardized parts or independent units
+that can be used to construct a more complex structure,
+such as an item of furniture or a building.
+
+Perfect definition for what we're after.
+
+A module contains views, controllers, models and schemas that create
+a complete and self sustained functionality.
+
+E.g. the article module, the cart module, etc.
+
+It also has it's own tests that validate everything works
+as intended.
+
+Modules are added to an application simply in it's
+application schema.
+e.g
+modules:
+  - cart
+  - comment
+  - article
+  - product
+
+Modules are extensible through a simple overwrite system.
+
+
+-----
+Pitch
+-----
+The framework is simple yet versatile in its way of defining 
+(either at runtime or as schemas) and thus it would interesting
+in having two modes in which developers approach it:
+
+Beginner
+----
+Everything is shown as runtime and the code is in its
+simplest form.
+
+Advanced
+----
+Everything that can be a schema becomes a schema. This requires
+a bit more thought and more approachable when one has already
+used the runtime to gain the insights of the framework
+
