@@ -437,6 +437,9 @@ the document that might stem from jsonmvc, a pop-up or a notification in the chr
 dev tool extension that allows you to edit the description and submit.
 In order to keep the issues traceable you need to login with your github account first.
 
+- Submit benchmarks for performance from chrome dev tool. Or make it easy for developers
+to run the performance suite and submit the results.
+
 
 ------
 Data structure
@@ -458,9 +461,10 @@ have to worry about misconfiguration or reconfiguring at runtime!
 - Keep environment variables defined on the data tree. This way you don't need to sprinkle
 your code with env stuff that might need a compilation step to replace with a reference
 or have a global object you need to maintain. This way you can just write:
-if (db.get('/env/APP_ENV') === 'development') {
+if (get('/env/APP_ENV') === 'development') {
   // do stuff for dev mode
 }
+
 
 /err
 - Keep all errors in the same place. This holds both system (jsonmvc) defined errors but also
@@ -485,9 +489,7 @@ This can be composed of:
 /dom
 - This is a listener for events from the dom. This is used for maping component
 actions in a controller
-controller('/
-
-
+controller('/dom/click/#foobar button')
 
 
 -----
@@ -502,11 +504,19 @@ v({
   title: '/articles/23/title',
   description: '/articles/23/description'
 },
-<div>
+<div id="barbaz">
   <h1>{ title }</h1>
   <p>{ description }</p>
 </div>
 )
+
+<div id="bamboo">
+  { > #foobar }
+</div>
+
+<div id="foobar">
+
+</div>
 
 otherwise you can just give the view a css selector to use at runtime:
 v({ data... }, '#foobar')
@@ -551,6 +561,21 @@ This means that the controller can only have deps as arguments
 So final API:
 c('/foo')
 c(['/foo', '/bar'])
+
+c('/dom/click/#userDetails button')
+  .map(x => x.value !== false)
+  .ajax(x => {
+
+  })
+
+c('/http/status')
+  .filter(x => x === false)
+  .http(x => get('/conf/http'))
+
+c('/sse/status')
+  .filter(x => x === false)
+  .sse(x => get('/conf/sse'))
+
 
 db:
 -----
@@ -600,10 +625,40 @@ m:
       - /foo2
       - /foo3
 
+// or
+m:
+  /foo/bar:
+  - /foo2/title
+    /barCount
+    fooFunction
+
+// or
+m:
+  /foo/bar:
+    nodes:
+    - /foo2
+      /bar
+    fn: fooFunction
+
+m: 
+  /foo/tasd
+  /foo/asdf123
+  /foo/123123
+  /foo/123123
+
+m:
+  foo:
+    asdf
+    asdf
+    werwer
+
+
+---
 v:
   #article:
     title: /article/title
     description: /article/description
+
 c:
   fooController:
     - /foo
@@ -673,3 +728,55 @@ Build
 ----
 Don't include dist in the repo:
 http://gsuntop.com/blog/post/npm-front-end/
+
+
+
+----
+Functions
+----
+Global defined functions that can be referenced in an yaml files
+and in code:
+fn/sum.js
+
+```
+import { fn } from 'jsonmvc'
+fn.sum(123)
+```
+
+m.yml
+m:
+  foo:
+    bar:
+      nodes:
+      - /foo/bar
+        /baz
+      fn: sum
+
+When defined like this functions are validated for number of arguments
+to match the given nodes.
+
+-----
+Folder structure
+-----
+
+schema/:
+- m.yml
+  v.yml
+  schema.yml
+  data.yml
+
+src/:
+  fn/:
+  - foo.js
+  client/:
+    m/:
+    - foo.js
+    v/:
+    - foo.js
+    c/:
+    - foo.js
+  server/:
+    m/:
+    - foo.js
+    c/:
+    - foo.js
