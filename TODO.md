@@ -780,3 +780,15 @@ src/:
     - foo.js
     c/:
     - foo.js
+
+
+-----
+Function Optimisation
+-----
+Due to the fact that every model is a function and that
+the entire application will likely be simplified like this a great
+opportunity here is to provide:
+1. Ciclomatic complexity analisis for functions
+2. Automated big O generation for functions
+3. V8 Deoptimization determination using https://github.com/petkaantonov/bluebird/wiki/Optimization-killers
+
