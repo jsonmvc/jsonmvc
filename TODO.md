@@ -213,6 +213,8 @@ in your data table.
   <button id="foo"></button>
 </div>
 
+// V2:
+
 <div id="123">
   <h1>{ title }</h1>
   <span>Your name is { userName }</span>
@@ -223,7 +225,6 @@ in your data table.
       <p>{ value.title }</p>
       <p>{ value.description }</p>
       <span data-each="{ value.comments }">
-
       </span>
     </li>
   </ul>
@@ -233,7 +234,6 @@ in your data table.
 db.on('/ui/hover/#123 #foo')
 db.on('/ui/click/#123 ul li')
 db.on('/ui/click/#dis .foo[data-path="asdf"]:nth-child(2)[attr^=val]')
-
 
 -----
 Event system
@@ -305,6 +305,20 @@ To this extent it needs some basic functionalities out of the box:
 - DOM Api
 - HTTP server
 - File IO
+
+c('/user/login').ajax('/user/session')
+
+
+v({
+  isError: /user/login/error
+  message: /user/errorMessage
+},
+<div data-if="isError">
+  <p>{ message }</p>
+</div>
+)
+
+
 
 - Storage (this could be the same API for both nodejs and browser.
       It takes a configuration object (that sits on the state tree)
@@ -500,7 +514,9 @@ it easier to type.
 
 View:
 ----
-v({
+import { v } from 'jsonmvc'
+
+module.exports = v({
   title: '/articles/23/title',
   description: '/articles/23/description'
 },
@@ -530,6 +546,33 @@ v({ data },
 
 Of course going further this can be defined a json schema for even more
 code simplification
+
+For component life cycle hooks, these are added to the data structure and can be listened from controllers:
+
+c('/view/articles/mounted')
+c('/view/articles/unmounted')
+
+In order to unmount a component one can do so through a patch changing the visibility flag. No this needs to be done through a dynamic node.
+
+get('/view/articles/shouldMount') // true
+By default all view elements have visibility true
+but this can be overwritten using a model.
+Note that a controller can't write at this location
+
+Actually this is a flag given from the data structure and not 
+something that is intrinsic to the framework:
+
+<app>
+<login data-if="{ invalidSession }"></login>
+</app>
+
+where:
+app:
+  invalidSession: /user/login/isValidSession
+
+Thus, the usual shouldMount stuff is really down to the developer
+and how he thinks of naming an creating his structure
+
 
 Model:
 -----
@@ -562,11 +605,20 @@ So final API:
 c('/foo')
 c(['/foo', '/bar'])
 
-c('/dom/click/#userDetails button')
-  .map(x => x.value !== false)
-  .ajax(x => {
+// USE UI instead of DOM to ensure compatibility
 
-  })
+c('/ui/click/#newTodo')
+  .filter(isEmpty)
+  .map(todoTemplate)
+  .map(x => patch('add', '/todos/${x.id}', x))
+
+todoTemplate(title) -> {
+  title: title,
+  id: 123,
+  completed: false,
+  editing: false
+}
+
 
 c('/http/status')
   .filter(x => x === false)
@@ -771,8 +823,19 @@ src/:
   client/:
     m/:
     - foo.js
+      bar.js
     v/:
-    - foo.js
+      - login/:
+          login.yml
+          login.html
+        admin/:
+          all.yml
+          admin.html
+          dashboard.html
+          news.html
+      foo.html
+      foo.yml
+      bar.js
     c/:
     - foo.js
   server/:
@@ -791,4 +854,67 @@ opportunity here is to provide:
 1. Ciclomatic complexity analisis for functions
 2. Automated big O generation for functions
 3. V8 Deoptimization determination using https://github.com/petkaantonov/bluebird/wiki/Optimization-killers
+
+
+import { m, v, c, exists, patch } from 'jsonmvc'
+
+
+----
+Performance
+----
+After finalizing add benchmark to
+https://github.com/krausest/js-framework-benchmark
+
+Also implement dbmonster to showcase performance:
+http://cdn.rawgit.com/lhorie/mithril.js/rewrite/examples/dbmonster/mithril/index.html
+
+Also implement to ensure inlining:
+https://github.com/cujojs/most/issues/137
+
+
+Implement mostjs
+
+
+-----
+Chrome Dev Tool
+------
+- Implement a graphical timeline (use d3) where a developer can see when
+patches have been applied and what nodes have been triggered afterwards.
+Also show stats similar to the Timeline tool from Chrome Dev Tools.
+- Show long running functions or too much object clonning happening.
+- Show from what stream the patches came from and also allow the developer to see in reverse
+how the stream processed data.
+- If a stream makes an Ajax call - register that too and show how long it took, what headers it had, etc
+using the available JSON data (this is from the point of view of the application not the browser)
+- If a stream makes too many patches inform the developer that maybe a debounce would be appropiate
+(example: if a stream monitors mouse movement and sends for each movement a patch)
+- Allow the developer to create paralel branches of execution by changing a certain patch
+- Show the state tree validated continually using the json schema
+- The developer can also click on a branch/value and see highlighted in the timeline the last patch
+that changed that value (or all the patches that changed that value)
+- When the developer clicks anywhere on the Timeline the time is stopped and taken to that location
+- Allow break-points after every patching - similar to breakpoints from Dev Tool > At exception.
+The developer can see what value was modified and what dynamic nodes will be triggered.
+- Select a certain dynamic node and test values against it to quickly test how well its behaving.
+- Show the entire chain of dynamic nodes and allow the developer to isolate them and feed values 
+in at any depth in order to see the full processing stack
+- Also show which dynamic node is listened to - either its a view (highlight it in the browser) or
+a controller (a stream).
+- Show which dynamic nodes aren't used in the application!
+- Show what esential data isn't used in the application
+- Filter the timeline in order to show:
+-- ui event patches
+-- controller stream patches
+-- models computation
+-- rendered views (their changed properties)
+-- network events
+-- errors/warnings as they occured
+- Also, show a full action from when the user clicks somewhere until views are updated and the
+patching stops
+- Allow the developer to isolate certain flows in order to figure out the dependencies between
+application events
+- Allow the developer to time everything
+- Record a historical data in localstorage in order to compare similar flows in the future or
+model computation
+
 
