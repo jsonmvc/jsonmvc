@@ -918,3 +918,45 @@ application events
 model computation
 
 
+------
+JSON Schema
+------
+
+$:
+  foo: string
+  id: /[A-Z]+/
+  title: string
+
+data:
+  bar: $foo
+  bam:
+    type: model
+    fn: bamFn
+    args: /data/bar
+    returns: string
+  baz:
+    type: model
+    fn: bazFn
+    args:
+    - /data/bar
+    - /data/bam
+    returns:
+      type: object
+      keys: $id
+      values: $title
+
+- Instead of defining on the data schema what a function returns, instead
+read the function file JSDoc comments or TypeScript/Flow definitions.
+This way a check can be made between the compatibility of the mentioned
+data streams and the argument types it needs. Of course, this will cause
+a conflict betwee the two definitions and as such a single source of truth
+should be used.
+Because of the fact that the function documentation can change in terms
+of what it returns or what it accepts, it should really conform to what
+the data schema says.
+Indeed, the best option is to keep the "returns" argument on the data schema
+in order to inform other nodes (and allow the use of $ref) on what the function
+is expected to return
+Thus, the chosen function (regardless of its code, comments, etc) need to 
+conform to the schema.
+
