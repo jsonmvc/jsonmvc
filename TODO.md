@@ -966,3 +966,9 @@ CSS
 ------
 Use http://styletron.js.org for ultra CSS performance:
 https://github.com/hellofresh/css-in-js-perf-tests
+
+
+-----
+Coding standards
+-----
+http://standardjs.com/
