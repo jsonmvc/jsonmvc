@@ -2,8 +2,9 @@
   "name": "jsonmvc",
   "version": "0.1.0",
   "description": "The JSON Architecture MVC implementation",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "node test/index.js"
   },
   "repository": {
@@ -25,9 +26,9 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc#readme",
   "devDependencies": {
-    "fast-json-patch": "^1.1.1",
+    "jsonmvc-db": "^0.2.1",
     "lodash": "^4.17.2",
-    "rxjs": "^5.0.0-rc.4",
-    "uniq": "^1.0.1"
+    "most": "^1.1.1",
+    "inferno": "^1.0.0-beta26"
   }
 }
