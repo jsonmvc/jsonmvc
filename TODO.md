@@ -972,3 +972,19 @@ https://github.com/hellofresh/css-in-js-perf-tests
 Coding standards
 -----
 http://standardjs.com/
+
+
+-----
+App structure
+-----
+src
+- controllers/
+- models/
+- views/
+- schema/
+-- data.yml
+-- default.yml
+-- models.yml
+-- controllers.yml
+-- views.yml
+

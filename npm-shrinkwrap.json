@@ -3,70 +3,60 @@
   "version": "0.1.0",
   "dependencies": {
     "@most/multicast": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "from": "@most/multicast@>=1.2.3 <2.0.0",
-      "resolved": "https://registry.npmjs.org/@most/multicast/-/multicast-1.2.4.tgz"
+      "resolved": "https://registry.npmjs.org/@most/multicast/-/multicast-1.2.5.tgz",
+      "dev": true
     },
     "@most/prelude": {
       "version": "1.4.1",
       "from": "@most/prelude@>=1.4.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/@most/prelude/-/prelude-1.4.1.tgz"
-    },
-    "fast-json-patch": {
-      "version": "1.1.2",
-      "from": "fast-json-patch@>=1.1.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/fast-json-patch/-/fast-json-patch-1.1.2.tgz"
-    },
-    "inferno": {
-      "version": "1.0.0-beta26",
-      "from": "inferno@beta26",
-      "resolved": "https://registry.npmjs.org/inferno/-/inferno-1.0.0-beta26.tgz"
+      "resolved": "https://registry.npmjs.org/@most/prelude/-/prelude-1.4.1.tgz",
+      "dev": true
     },
     "jsonmvc-db": {
       "version": "0.2.1",
       "from": "jsonmvc-db@>=0.2.1 <0.3.0",
+      "resolved": "https://registry.npmjs.org/jsonmvc-db/-/jsonmvc-db-0.2.1.tgz",
+      "dev": true,
       "dependencies": {
         "lodash": {
           "version": "4.17.2",
           "from": "lodash@>=4.17.2 <5.0.0",
-          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz"
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
+          "dev": true
         },
         "setimmediate": {
           "version": "1.0.5",
           "from": "setimmediate@>=1.0.5 <2.0.0",
-          "resolved": "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz"
+          "resolved": "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz",
+          "dev": true
         },
         "uniq": {
           "version": "1.0.1",
           "from": "uniq@>=1.0.1 <2.0.0",
-          "resolved": "https://registry.npmjs.org/uniq/-/uniq-1.0.1.tgz"
+          "resolved": "https://registry.npmjs.org/uniq/-/uniq-1.0.1.tgz",
+          "dev": true
         }
       }
     },
     "lodash": {
       "version": "4.17.2",
-      "from": "lodash@latest",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz"
+      "from": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
+      "dev": true
     },
     "most": {
       "version": "1.1.1",
-      "from": "most@latest",
-      "resolved": "https://registry.npmjs.org/most/-/most-1.1.1.tgz"
-    },
-    "rxjs": {
-      "version": "5.0.0-rc.4",
-      "from": "rxjs@latest",
-      "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.0.0-rc.4.tgz"
+      "from": "most@>=1.1.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/most/-/most-1.1.1.tgz",
+      "dev": true
     },
     "symbol-observable": {
       "version": "1.0.4",
-      "from": "symbol-observable@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.0.4.tgz"
-    },
-    "uniq": {
-      "version": "1.0.1",
-      "from": "uniq@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/uniq/-/uniq-1.0.1.tgz"
+      "from": "symbol-observable@>=1.0.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.0.4.tgz",
+      "dev": true
     }
   }
 }
