@@ -5,7 +5,19 @@ const jsonmvc = require('./../src/index.js')
 let controllers = {
   incFoo: stream => {
     return stream
-      .map(x => x.foo + 1)
+      .map(x => x + 1)
+  },
+  err: stream => {
+    return stream
+      .filter(x => x.length > 0)
+      .map(x => {
+        console.log('Triggered an error', JSON.stringify(x, null, ' '))
+        return {
+          op: 'add',
+          path: '/bar',
+          value: 123
+        }
+      })
   }
 }
 
@@ -40,10 +52,8 @@ let schema = {
     }
   },
   controllers: {
-    incFoo: {
-      time: '/button/timestamp',
-      foo: '/foo'
-    }
+    incFoo: '/foo',
+    err: '/err/patch'
   },
   models: {
     '/bam': {

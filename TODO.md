@@ -986,5 +986,11 @@ src
 -- default.yml
 -- models.yml
 -- controllers.yml
--- views.yml
 
+
+---
+DB
+---
+Expose to the developer only the following db methods:
+- get
+- has
