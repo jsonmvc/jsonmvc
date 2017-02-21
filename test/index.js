@@ -1,6 +1,7 @@
 'use strict'
 
 const jsonmvc = require('./../src/index.js')
+/*
 
 let controllers = {
   incFoo: stream => {
@@ -20,10 +21,14 @@ let controllers = {
       })
   }
 }
+*/
+
+let controllers = {}
 
 let views = {
   header: '<div>Header <h1>{{ title }}</h1></div>',
-  content: '<div>Content <p>{{ nofoo }}</p></div>'
+  content: '<footer></footer><div>Content <p>{{ nofoo }}</p></div>',
+  footer: '<header></header><div>Footer</div>'
 }
 
 let models = {
@@ -45,7 +50,8 @@ let schema = {
   },
   views: {
     header: {
-      title: '/bar/baz'
+      title: '/bar/<id>/<title>/<id>/baz',
+      content: '/bam/<id>/<foo>/bar'
     },
     content: {
       nofoo: '/foo'
@@ -63,7 +69,9 @@ let schema = {
   }
 }
 
-let config = {}
+let config = {
+  rootElement: '#app'
+}
 
 let instance = jsonmvc({
   config: config,
