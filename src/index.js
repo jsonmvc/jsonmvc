@@ -39,7 +39,7 @@ const jsonmvc = o => {
   /**
    * Views
    */
-  instances.views = createViews(o.views, o.schema.views)
+  instances.views = createViews(db, o.views, o.schema.views)
 
   let def = 'theHeader'
 

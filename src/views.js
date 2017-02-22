@@ -3,13 +3,9 @@ const Emitter = require('events').EventEmitter
 const most = require('most')
 const shortid = require('shortid')
 const PROP_REGEX = /<([a-z]+)>/g
+const _ = require('lodash')
 
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
-
-
-function getPaths() {
-
-}
 
 function updateInstanceData(db, schema, props, data, self, prop, val) {
 
@@ -19,42 +15,54 @@ function updateInstanceData(db, schema, props, data, self, prop, val) {
 
   // For all the paths that are impacted by this prop
   props.schema.tokens[prop].props.forEach(x => {
-    let path = schema[x]
-    let usedProps = props.schema.paths[path]
+    let path = getPath(schema, props, self, x)
 
-    // The path can have multiple props required
-    usedProps.forEach(y => {
-      path = path.replace(new RegExp(props.schema.tokens[y].token, 'g'), self[y])
-    })
+    let listener = createDataListener(db, path, data, x)
 
-    // @TODO: Remove when db.on returns also undefined values
-    let v = db.get(path)
-    if (undefined !== v) {
-      // @TODO: Remove when db.get returns a copy of its caching
-      // instead of the actual cache
-      v = JSON.parse(JSON.stringify(v))
-    }
-    data[x] = v
-
-    // Listen on next values
-    props.schema.subscribes[prop].push(db.on(path, v => {
-      if (undefined !== v) {
-        v = JSON.parse(JSON.stringify(v))
-      }
-      data[x] = v
-    }))
-
+    props.schema.subscribes[prop].push(listener)
   })
+
 }
 
-function createView(name, html, schema, siblings) {
+function createDataListener(db, path, data, prop) {
+
+  // @TODO: Remove when db.on returns also undefined values
+  let v = db.get(path)
+  if (undefined !== v) {
+    // @TODO: Remove when db.get returns a copy of its caching
+    // instead of the actual cache
+    v = JSON.parse(JSON.stringify(v))
+  }
+
+  data[prop] = v
+
+  // Listen on next values
+  return db.on(path, v => {
+    if (undefined !== v) {
+      v = JSON.parse(JSON.stringify(v))
+    }
+    data[prop] = v
+  })
+
+}
+
+function getPath(schema, props, instance, prop) {
+  let path = schema[prop]
+  let usedProps = props.schema.paths[path]
+
+  // The path can have multiple props required
+  usedProps.forEach(y => {
+    path = path.replace(new RegExp(props.schema.tokens[y].token, 'g'), instance[y])
+  })
+
+  return path
+}
+
+function createView(db, name, html, schema, siblings) {
 
   let emitter = new Emitter()
-  let controller = 'THE CONTROLER'
   let stream = most.fromEvent('patch', emitter)
-  let data = {}
   let self
-  let id = shortid.generate()
 
   let props = {
 
@@ -127,22 +135,19 @@ function createView(name, html, schema, siblings) {
     subscribes: {}
   })
 
-  emitter.emit('patch', {
-    op: 'add',
-    path: `/views/${name}`,
-    value: {
-      instances: {}
-    }
-  })
 
   // Watch for changes on the instance properties
   props.watchers = props.required.reduce((acc, x) => {
 
     acc[x] = function (val) {
+      let self = this
+      let props = self.__JSONMVC_PROPS
+      let data = self.__JSONMVC_DATA
+      let rootPath = self.__JSONMVC_ROOT
       updateInstanceData(db, schema, props, data, self, x, val)
       emitter.emit('patch', {
         op: 'add',
-        path: `/views/${name}/instances/${id}/props/${x}`,
+        path: `${rootPath}/props/${x}`,
         value: val
       })
     }
@@ -152,45 +157,72 @@ function createView(name, html, schema, siblings) {
 
   let component = Vue.component(name, {
     template: html,
-    mounted: () => {
+    mounted: function () {
+      let rootPath = this.__JSONMVC_ROOT
 
       emitter.emit('patch', {
         op: 'add',
-        path: `/views/${name}/instance`,
-        value: 'bar'
+        path: `${rootPath}/mounted`,
+        value: true
       })
 
     },
-    beforeDestroy: () => ({}),
-    data: function () {
-      self = this
+    beforeDestroy: function () {
 
-      Object.keys(schema).forEach(x => {
-        let path = schema[x]
-        let usedProps = props.schema.paths[path]
-
-        // The path can have multiple props required
-        usedProps.forEach(y => {
-          path = path.replace(new RegExp(props.schema.tokens[y].token, 'g'), self[y])
-        })
-
-        let v = db.get(path)
-        if (undefined !== v) {
-          v = JSON.parse(JSON.stringify(v))
-        }
-
-        data[x] = v
-
-        db.on(path, v => {
-          if (undefined !== v) {
-            v = JSON.parse(JSON.stringify(v))
-          }
-          data[x] = v
-        })
-
+      console.log('Destroyed')
+      emitter.emit('patch', {
+        op: 'add',
+        path: `/views/${name}/instances/${id}/mounted`,
+        value: false
       })
 
-      return data
+    },
+    data: function () {
+      let self = this
+
+      // Instance setup
+      ;(function () {
+        let id = shortid.generate()
+        let rootPath = `/views/${name}/instances/${id}`
+
+        self.__JSONMVC_ID = id
+        self.__JSONMVC_PROPS = JSON.parse(JSON.stringify(props))
+        self.__JSONMVC_ROOT = rootPath
+        self.__JSONMVC_DATA = {}
+
+        emitter.emit('patch', {
+          op: 'add',
+          path: rootPath,
+          value: {}
+        })
+      }())
+
+      // Data setup
+      ;(function () {
+        let props = self.__JSONMVC_PROPS
+        let data = self.__JSONMVC_DATA
+
+        Object.keys(schema).forEach(x => {
+          let path = getPath(schema, props, self, x)
+
+          let listener = createDataListener(db, path, data, x)
+
+
+          props.schema.paths[schema[x]].forEach(y => {
+            props.schema.subscribes[y].push(listener)
+          })
+
+          if (!props.subscribes[x]) {
+            props.subscribes[x] = []
+          }
+
+          props.subscribes[x].push(listener)
+
+        })
+
+      }())
+
+      return self.__JSONMVC_DATA
     },
     watch: props.watchers,
     components: siblings,
@@ -204,7 +236,7 @@ function createView(name, html, schema, siblings) {
 }
 
 
-function createViews(views, schema) {
+function createViews(db, views, schema) {
   let names = Object.keys(views)
 
   // Define deps
@@ -233,10 +265,32 @@ function createViews(views, schema) {
       return acc2
     }, {})
 
-    acc[x] = createView(x, views[x], schema[x], siblings)
+    acc[x] = createView(db, x, views[x], schema[x], siblings)
 
     return acc
   }, {})
+
+  // Apply patches on db
+  Object.keys(instances).forEach(x => {
+
+    let instance = instances[x]
+
+    instance.unsubscribe = instance.stream.subscribe({
+      next: x => {
+        if (x && !_.isArray(x)) {
+          x = [x]
+        }
+        db.patch(x)
+      },
+      complete: x => {
+        console.log(`View ${name} stream has ended`)
+      },
+      error: x => {
+        console.error(`View ${name} stream has an error`, x)
+      }
+    })
+
+  })
 
   return instances
 }
