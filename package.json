@@ -31,6 +31,7 @@
     "jsonmvc-db": "^0.5.3",
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
     "most": "^1.1.1",
+    "shortid": "^2.2.6",
     "vue": "^2.1.10"
   }
 }

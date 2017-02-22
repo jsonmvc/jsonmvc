@@ -41,7 +41,7 @@ const jsonmvc = o => {
    */
   instances.views = createViews(o.views, o.schema.views)
 
-  let def = 'bam'
+  let def = 'theHeader'
 
   // Instantiate views
   let mainView = new Vue({
