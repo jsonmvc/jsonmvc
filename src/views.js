@@ -167,62 +167,57 @@ function createView(db, name, html, schema, siblings) {
       })
 
     },
-    beforeDestroy: function () {
+    beforeCreate: function () {
+      let self = this
+      let id = shortid.generate()
+      let rootPath = `/views/${name}/instances/${id}`
 
-      console.log('Destroyed')
+      self.__JSONMVC_ID = id
+      self.__JSONMVC_PROPS = JSON.parse(JSON.stringify(props))
+      self.__JSONMVC_ROOT = rootPath
+      self.__JSONMVC_DATA = {}
+
       emitter.emit('patch', {
         op: 'add',
-        path: `/views/${name}/instances/${id}/mounted`,
-        value: false
+        path: rootPath,
+        value: {}
+      })
+    },
+    destroyed: function () {
+      let rootPath = this.__JSONMVC_ROOT
+
+      emitter.emit('patch', {
+        op: 'add',
+        path: `${rootPath}/destroyedAt`,
+        value: new Date().getTime()
       })
 
     },
     data: function () {
       let self = this
 
-      // Instance setup
-      ;(function () {
-        let id = shortid.generate()
-        let rootPath = `/views/${name}/instances/${id}`
+      let props = self.__JSONMVC_PROPS
+      let data = self.__JSONMVC_DATA
 
-        self.__JSONMVC_ID = id
-        self.__JSONMVC_PROPS = JSON.parse(JSON.stringify(props))
-        self.__JSONMVC_ROOT = rootPath
-        self.__JSONMVC_DATA = {}
+      Object.keys(schema).forEach(x => {
+        let path = getPath(schema, props, self, x)
 
-        emitter.emit('patch', {
-          op: 'add',
-          path: rootPath,
-          value: {}
-        })
-      }())
-
-      // Data setup
-      ;(function () {
-        let props = self.__JSONMVC_PROPS
-        let data = self.__JSONMVC_DATA
-
-        Object.keys(schema).forEach(x => {
-          let path = getPath(schema, props, self, x)
-
-          let listener = createDataListener(db, path, data, x)
+        let listener = createDataListener(db, path, data, x)
 
 
-          props.schema.paths[schema[x]].forEach(y => {
-            props.schema.subscribes[y].push(listener)
-          })
-
-          if (!props.subscribes[x]) {
-            props.subscribes[x] = []
-          }
-
-          props.subscribes[x].push(listener)
-
+        props.schema.paths[schema[x]].forEach(y => {
+          props.schema.subscribes[y].push(listener)
         })
 
-      }())
+        if (!props.subscribes[x]) {
+          props.subscribes[x] = []
+        }
 
-      return self.__JSONMVC_DATA
+        props.subscribes[x].push(listener)
+
+      })
+
+      return data
     },
     watch: props.watchers,
     components: siblings,
