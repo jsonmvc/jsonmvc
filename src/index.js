@@ -8,20 +8,9 @@ const Vue = require('vue/dist/vue.common.js')
 
 const createControllers = require('./controllers/controllers')
 const createViews = require('./views/views')
-const createModels = require('./models')
+const createModels = require('./models/models')
 
-function mountView(el, component) {
-  let root = document.querySelector(el)
-  let container = document.createElement('div')
-  root.append(container)
-
-  let view = new Vue({
-    el: `${el} > div`,
-    render: h => h(component)
-  })
-
-  return view
-}
+const mountView = require('./lib/mountView')
 
 function update(db, instances, o, data) {
 
