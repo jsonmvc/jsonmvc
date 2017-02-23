@@ -6,10 +6,9 @@ const jsonmvcDB = require('jsonmvc-db')
 const Emitter = require('events').EventEmitter
 const Vue = require('vue/dist/vue.common.js')
 
-const createControllers = require('./controllers')
-const createViews = require('./views')
+const createControllers = require('./controllers/controllers')
+const createViews = require('./views/views')
 const createModels = require('./models')
-
 
 function mountView(el, component) {
   let root = document.querySelector(el)
@@ -24,22 +23,23 @@ function mountView(el, component) {
   return view
 }
 
-function update(instances, o, data) {
-  let refresh = {
-    controllers: data.controllers !== undefined,
-    views: data.views !== undefined
-  }
+function update(db, instances, o, data) {
 
   if (data.schema) {
 
     o.schema = _.merge(o.schema, data.schema)
 
     if (data.schema.views) {
-      refresh.views = true
+      data.views = o.views
     }
 
     if (data.schema.controllers) {
-      refresh.controllers = true
+
+      data.controllers = {}
+      Object.keys(data.schema.controllers).forEach(x => {
+        data.controllers[x] = o.controllers[x]
+      })
+
     }
 
   }
@@ -54,7 +54,7 @@ function update(instances, o, data) {
       }
     })
 
-    let controllers = createControllers(o.schema.controllers, data.controllers)
+    let controllers = createControllers(db, o.schema.controllers, data.controllers)
 
     Object.keys(controllers).forEach(x => {
       instances.controllers[x] = controllers[x]
@@ -88,6 +88,11 @@ function update(instances, o, data) {
     mountView(o.schema.config.rootEl, instances.views[o.schema.config.rootComponent].component)
   }
 
+  if (data.models) {
+
+
+  }
+
 }
 
 const jsonmvc = o => {
@@ -113,7 +118,7 @@ const jsonmvc = o => {
   /**
    * Models
    */
-  instances.models = createModels(o.models)
+  instances.models = createModels(db, o.models, o.schema.models)
 
   /**
    * Views
@@ -125,12 +130,12 @@ const jsonmvc = o => {
   /**
    * Controllers
    */
-  instances.controllers = createControllers(o.schema.controllers, o.controllers)
+  instances.controllers = createControllers(db, o.schema.controllers, o.controllers)
 
   return {
     update: newO => {
 
-      update(instances, o, newO)
+      update(db, instances, o, newO)
 
     }
   }
