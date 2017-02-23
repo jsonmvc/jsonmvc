@@ -155,7 +155,13 @@ function createView(db, name, html, schema, siblings) {
     return acc
   }, {})
 
-  let component = Vue.component(name, {
+  let component = {
+    stream,
+    component: null,
+    instance: null
+  }
+
+  component.component = Vue.component(name, {
     template: html,
     mounted: function () {
       let rootPath = this.__JSONMVC_ROOT
@@ -176,6 +182,8 @@ function createView(db, name, html, schema, siblings) {
       self.__JSONMVC_PROPS = JSON.parse(JSON.stringify(props))
       self.__JSONMVC_ROOT = rootPath
       self.__JSONMVC_DATA = {}
+
+      component.instance = self
 
       emitter.emit('patch', {
         op: 'add',
@@ -224,10 +232,7 @@ function createView(db, name, html, schema, siblings) {
     props: props.required
   })
 
-  return {
-    component,
-    stream
-  }
+  return component
 }
 
 
@@ -270,7 +275,7 @@ function createViews(db, views, schema) {
 
     let instance = instances[x]
 
-    instance.unsubscribe = instance.stream.subscribe({
+    let usedStream = instance.stream.subscribe({
       next: x => {
         if (x && !_.isArray(x)) {
           x = [x]
@@ -284,6 +289,10 @@ function createViews(db, views, schema) {
         console.error(`View ${name} stream has an error`, x)
       }
     })
+
+    instance.unsubscribe = function unsubscribeView() {
+      usedStream.unsubscribe()
+    }
 
   })
 

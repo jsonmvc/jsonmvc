@@ -5,15 +5,15 @@ const _ = require('lodash')
 function createController(controller, path) {
   let emitter = new Emitter()
   let inStream = most.fromEvent('data', emitter)
-  let unsubscribes = []
+  let dataUnsubscribes = []
 
-  unsubscribes.push(db.on(path, x => {
+  dataUnsubscribes.push(db.on(path, x => {
     emitter.emit('data', x)
   }))
 
   let outStream = controller(inStream)
 
-  unsubscribes.push(outStream.subscribe({
+  let streamUnsubscribe = outStream.subscribe({
     next: x => {
       if (x && !_.isArray(x)) {
         x = [x]
@@ -26,17 +26,18 @@ function createController(controller, path) {
     error: x => {
       console.error(`Controller ${name} has an error`, x)
     }
-  }))
+  })
 
   return function unsubscribeController() {
-    unsubscribes.forEach(x => {
+    dataUnsubscribes.forEach(x => {
       x()
     })
+    streamUnsubscribe.unsubscribe()
   }
 }
 
 
-function createControllers(controllers, schema) {
+function createControllers(schema, controllers) {
   let names = Object.keys(controllers)
 
   let instances = names.reduce((acc, x) => {
