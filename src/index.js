@@ -57,7 +57,7 @@ function update(db, instances, o, data) {
       instances.views[x].unsubscribe()
     })
 
-    let root = instances.views[o.schema.config.rootComponent]
+    let root = instances.views[o.config.rootComponent]
     root.instance.$destroy()
     root.instance.$el.remove()
 
@@ -74,7 +74,7 @@ function update(db, instances, o, data) {
 
     // Update logic
 
-    mountView(o.schema.config.rootEl, instances.views[o.schema.config.rootComponent].component)
+    mountView(o.config.rootEl, instances.views[o.config.rootComponent].component)
   }
 
   if (data.models) {
@@ -114,7 +114,7 @@ const jsonmvc = o => {
    */
   instances.views = createViews(db, o.views, o.schema.views)
 
-  mountView(o.schema.config.rootEl, instances.views[o.schema.config.rootComponent].component)
+  mountView(o.config.rootEl, instances.views[o.config.rootComponent].component)
 
   /**
    * Controllers
