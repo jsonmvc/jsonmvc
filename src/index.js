@@ -1,5 +1,3 @@
-'use strict'
-
 import { merge } from 'lodash'
 import jsonmvcDB from 'jsonmvc-db'
 import { EventEmitter as Emitter } from 'events'
