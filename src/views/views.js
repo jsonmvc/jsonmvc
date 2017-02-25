@@ -1,4 +1,4 @@
-const _ = require('lodash')
+import { isArray } from 'lodash'
 const createView = require('./create')
 
 function createViews(db, views, schema) {
@@ -42,7 +42,7 @@ function createViews(db, views, schema) {
 
     let usedStream = instance.stream.subscribe({
       next: x => {
-        if (x && !_.isArray(x)) {
+        if (x && !isArray(x)) {
           x = [x]
         }
         db.patch(x)

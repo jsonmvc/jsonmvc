@@ -1,6 +1,7 @@
-const Emitter = require('events').EventEmitter
+import { EventEmitter as Emitter } from 'events'
+import { isArray } from 'lodash'
+
 const most = require('most')
-const _ = require('lodash')
 
 function createController(db, controller, path) {
   let emitter = new Emitter()
@@ -15,7 +16,7 @@ function createController(db, controller, path) {
 
   let streamUnsubscribe = outStream.subscribe({
     next: x => {
-      if (x && !_.isArray(x)) {
+      if (x && !isArray(x)) {
         x = [x]
       }
       db.patch(x)

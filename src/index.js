@@ -1,10 +1,10 @@
 'use strict'
-const fs = require('fs')
-const _ = require('lodash')
-const most = require('most')
-const jsonmvcDB = require('jsonmvc-db')
-const Emitter = require('events').EventEmitter
+
+import { merge } from 'lodash'
+import jsonmvcDB from 'jsonmvc-db'
+import { EventEmitter as Emitter } from 'events'
 const Vue = require('vue/dist/vue.common.js')
+
 
 const createControllers = require('./controllers/controllers')
 const createViews = require('./views/views')
@@ -16,7 +16,7 @@ function update(db, instances, o, data) {
 
   if (data.schema) {
 
-    o.schema = _.merge(o.schema, data.schema)
+    o.schema = merge(o.schema, data.schema)
 
     if (data.schema.views) {
       data.views = o.views

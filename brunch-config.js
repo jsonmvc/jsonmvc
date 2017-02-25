@@ -1,16 +1,24 @@
 exports.files = {
   javascripts: {
     joinTo: {
-      'vendor.js': /^(?!app)/,
+//      'vendor.js': /^(?!app)/,
       'app.js': [
         /^src/,
-        /^test\/app/
+//        /^test\/app/,
+        /^(?!app)/
        ]
     }
   }
 }
 
 exports.paths = {
-  "public": 'public',
+  "public": 'dist',
   "watched": ['test', 'src']
+}
+
+exports.plugins = {
+   babel: {
+    presets: ['latest', 'react'],
+    sourceType: "module"
+  }
 }

@@ -1,5 +1,5 @@
 
-const Emitter = require('events').EventEmitter
+import { EventEmitter as Emitter } from 'events'
 const Vue = require('vue/dist/vue.common.js')
 const most = require('most')
 

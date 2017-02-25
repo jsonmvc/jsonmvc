@@ -2,3 +2,4 @@
 *.log
 app/
 public/
+dist/
