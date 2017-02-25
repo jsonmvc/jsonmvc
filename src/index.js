@@ -58,7 +58,7 @@ function update(db, instances, o, data) {
     })
 
     let root = instances.views[o.config.rootComponent]
-    root.instance.$destroy()
+    root.instance.$destroy(true)
     root.instance.$el.remove()
 
     Object.keys(data.views).forEach(x => {
@@ -81,6 +81,8 @@ function update(db, instances, o, data) {
 
 
   }
+
+  console.log(Object.keys(instances.views).length)
 
 }
 
