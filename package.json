@@ -4,8 +4,9 @@
   "description": "The JSON Architecture MVC implementation",
   "main": "dist/app.js",
   "scripts": {
-    "start": "brunch watch --server",
-    "test": "node test/index.js"
+    "start": "./build/tasks.sh app_start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-docker": "./build/tasks.sh app_build"
   },
   "repository": {
     "type": "git",
@@ -26,14 +27,26 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc#readme",
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "del": "^2.2.2",
+    "file-loader": "^0.10.1",
+    "gulp": "^3.9.1",
+    "gulp-sync": "^0.1.4",
+    "gulp-util": "https://registry.npmjs.org/gulp-util/-/gulp-util-3.0.8.tgz",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.28.0",
+    "json-loader": "^0.5.4",
     "jsonmvc-db": "^0.5.3",
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
     "most": "^1.1.1",
-    "vue": "^2.1.10",
     "shortid": "^2.2.6",
-    "auto-reload-brunch": "^2.7.1",
-    "babel-brunch": "^6.1.1",
-    "babel-preset-latest": "^6.22.0",
-    "babel-preset-react": "^6.23.0"
+    "vue": "^2.1.10",
+    "webpack": "^1.13.2",
+    "webpack-config": "^6.1.2",
+    "webpack-dev-server": "^1.16.3"
   }
 }

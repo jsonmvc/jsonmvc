@@ -1,8 +1,8 @@
-import { merge } from 'lodash'
-import jsonmvcDB from 'jsonmvc-db'
-import { EventEmitter as Emitter } from 'events'
-const Vue = require('vue/dist/vue.common.js')
 
+const merge = require('lodash').merge
+const jsonmvcDb = require('jsonmvc-db')
+const Emitter = require('events').EventEmitter
+const Vue = require('vue')
 
 const createControllers = require('./controllers/controllers')
 const createViews = require('./views/views')
@@ -98,7 +98,7 @@ const jsonmvc = o => {
     }
   })
 
-  let db = jsonmvcDB(o.schema.default)
+  let db = jsonmvcDb(o.schema.default)
 
   window.db = db
 
@@ -129,6 +129,10 @@ const jsonmvc = o => {
     }
   }
 
+}
+
+if (window) {
+  window.jsonmvc = jsonmvc
 }
 
 module.exports = jsonmvc

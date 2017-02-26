@@ -3,3 +3,4 @@ test/
 brunch-config.js
 TODO.md
 *.gz
+src/
