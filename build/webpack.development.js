@@ -19,15 +19,19 @@ const conf = new Config()
     devtool: '#source-map',
     output: {
       path: process.env.DIST_PATH,
+      filename: process.env.LIBRARY_FILE,
       pathinfo: true,
-      publicPath: process.env.BASE_PATH
+      publicPath: process.env.BASE_PATH,
+      library: process.env.LIBRARY_NAME,
+      libraryTarget: 'umd',
+      umdNamedDefine: true
     },
     entry: {
       server: [
         `webpack-dev-server/client?http://${process.env.HOST_IP}:${process.env.HOST_PORT}`,
         'webpack/hot/dev-server'
       ],
-      browser: [
+      library: [
         process.env.SRC_ENTRY
       ],
       app: [
@@ -82,7 +86,10 @@ const conf = new Config()
         { test: /\.js$/, exclude: exclude, loader: 'babel',
           query: {
             presets: ['es2015'],
-            plugins: ['lodash']
+            plugins: [
+              'lodash',
+              'add-module-exports'
+            ]
           }
         }
       ]
