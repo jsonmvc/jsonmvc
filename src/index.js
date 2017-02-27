@@ -106,8 +106,6 @@ const jsonmvc = o => {
 
   let db = jsonmvcDb(o.schema.default)
 
-  window.db = db
-
   let instances = {}
 
   /**
@@ -137,7 +135,7 @@ const jsonmvc = o => {
 
 }
 
-if (window) {
+if (typeof window !== 'undefined') {
   window.jsonmvc = jsonmvc
 }
 
