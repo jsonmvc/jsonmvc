@@ -9,6 +9,7 @@ import del from 'del'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import webpackConfig from './webpack.config.js'
+import { clone, merge } from 'lodash'
 
 const sync = gulpSync(gulp).sync
 
@@ -20,7 +21,29 @@ console.log('Started in ', process.env.NODE_ENV, ' mode')
  * Uses webpack to compile the code.
  */
 gulp.task('client:build', (done) => {
-  webpack(webpackConfig).run(x => done())
+  let runs = 0
+
+  function complete() {
+    runs += 1
+
+    if (runs === 2) {
+      done()
+    }
+
+  }
+  webpack(webpackConfig).run(complete)
+
+  let webpackConfig2 = clone(webpackConfig)
+
+  webpackConfig2 = merge(webpackConfig2, {
+    target: 'node',
+  })
+
+  let temp = webpackConfig2.entry.browser
+  delete webpackConfig2.entry.browser
+  webpackConfig2.entry.node = temp
+
+  webpack(webpackConfig2).run(complete)
 
   // Run both for server and client by changing the webpackconfig
   // accordingly

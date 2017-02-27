@@ -68,6 +68,11 @@ function update(db, instances, o, data) {
       }
     })
 
+    Object.keys(o.views).forEach(x => {
+      console.log(x, o.views[x])
+
+    })
+
     instances.views = createViews(db, o.views, o.schema.views)
 
     // Update logic

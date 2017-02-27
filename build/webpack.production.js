@@ -9,6 +9,8 @@ module.exports = new Config()
       delete config.output.pathinfo
       delete config.devServer
       delete config.entry.server
+      config.plugins.splice(1, 2)
+      delete config.entry.app
       return config;
     }
   })

@@ -3,7 +3,7 @@ import { Config } from 'webpack-config'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 const envVars = {
-  NODE_ENV: `"${process.env.NODE_ENV}"`
+  'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
 }
 
 const exclude = /node_modules/
@@ -27,10 +27,11 @@ const conf = new Config()
         `webpack-dev-server/client?http://${process.env.HOST_IP}:${process.env.HOST_PORT}`,
         'webpack/hot/dev-server'
       ],
-      app: [
-         process.env.SRC_ENTRY
+      browser: [
+        process.env.SRC_ENTRY
       ],
-      vendor: [
+      app: [
+        process.env.APP_ENTRY
       ]
     },
 
@@ -40,7 +41,9 @@ const conf = new Config()
 
         'controllers': `${process.env.SRC_PATH}/controllers`,
         'models': `${process.env.SRC_PATH}/models`,
-        'views': `${process.env.SRC_PATH}/views`
+        'views': `${process.env.SRC_PATH}/views`,
+
+        'vue': 'vue/dist/vue.common.js'
 
       },
       extensions: ['', '.webpack.js', '.web.js', '.ts', '.js', '.css', '.tag', '.yml', '.yaml']
@@ -48,7 +51,6 @@ const conf = new Config()
     plugins: [
       new webpack.DefinePlugin(envVars),
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
       new HtmlWebpackPlugin({
         inject: false,
         template: `${process.env.APP_PATH}/assets/index.ejs`,
@@ -72,6 +74,9 @@ const conf = new Config()
     },
     module: {
       noParse: [
+      ],
+      preLoaders: [
+        { test: /\.vue$/, exclude: exclude, loader: 'html'}
       ],
       loaders: [
         { test: /\.js$/, exclude: exclude, loader: 'babel',
