@@ -1,7 +1,8 @@
 
-const merge = require('lodash').merge
+import { merge } from 'lodash'
+import { EventEmitter } from 'events'
+
 const jsonmvcDb = require('jsonmvc-db')
-const Emitter = require('events').EventEmitter
 const Vue = require('vue')
 
 const createControllers = require('./controllers/controllers')
@@ -141,3 +142,5 @@ if (window) {
 }
 
 module.exports = jsonmvc
+export default jsonmvc
+

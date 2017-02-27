@@ -2,5 +2,7 @@ public/
 test/
 brunch-config.js
 TODO.md
-*.gz
+*.tgz
 src/
+build/
+.babelrc

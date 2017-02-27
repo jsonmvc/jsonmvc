@@ -1,5 +1,5 @@
 
-const Vue = require('vue/dist/vue.common.js')
+const Vue = require('vue')
 
 function mountView(el, component) {
   let root = document.querySelector(el)

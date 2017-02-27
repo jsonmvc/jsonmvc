@@ -82,7 +82,7 @@ const conf = new Config()
         { test: /\.js$/, exclude: exclude, loader: 'babel',
           query: {
             presets: ['es2015'],
-            plugins: []
+            plugins: ['lodash']
           }
         }
       ]

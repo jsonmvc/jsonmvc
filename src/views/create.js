@@ -1,6 +1,6 @@
 
 import { EventEmitter as Emitter } from 'events'
-const Vue = require('vue/dist/vue.common.js')
+const Vue = require('vue')
 const most = require('most')
 
 const shortid = require('shortid')

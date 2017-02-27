@@ -16,7 +16,7 @@ PARAM3=$4
 GULP_SCRIPT="/app/node_modules/.bin/gulp --gulpfile /app/build/gulpfile.babel.js"
 TASKS_SCRIPT="/app/build/tasks.sh"
 
-APP_PORT=80
+APP_PORT=8080
 APP_CONTAINER_NAME=jsonmvc.local
 APP_IMAGE_NAME=jsonmvc
 
