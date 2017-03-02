@@ -29,10 +29,6 @@ const jsonmvc = o => {
 
   let db = jsonmvcDb(o.schema.default)
 
-  if (window && typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 'development') {
-    window.db = db
-  }
-
   let instances = {}
 
   /**
