@@ -29,6 +29,10 @@ const jsonmvc = o => {
 
   let db = jsonmvcDb(o.schema.default)
 
+  if (typeof window !== 'undefined') {
+    window.db = db
+  }
+
   let instances = {}
 
   /**
