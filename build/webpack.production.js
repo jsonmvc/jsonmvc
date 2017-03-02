@@ -11,6 +11,7 @@ module.exports = new Config()
       delete config.entry.server
       config.plugins.splice(1, 2)
       delete config.entry.app
+      config.output.filename = process.env.LIBRARY_FILE
       return config;
     }
   })

@@ -19,9 +19,8 @@ const conf = new Config()
     devtool: '#source-map',
     output: {
       path: process.env.DIST_PATH,
-      filename: process.env.LIBRARY_FILE,
-      pathinfo: true,
       publicPath: process.env.BASE_PATH,
+      pathinfo: true,
       library: process.env.LIBRARY_NAME,
       libraryTarget: 'umd',
       umdNamedDefine: true
