@@ -1,22 +1,79 @@
 
 import { merge } from 'lodash'
 import { EventEmitter } from 'events'
+import DB from 'jsonmvc-db'
+import Vue from 'vue'
+import createControllers from 'controllers/controllers'
+import createViews from 'views/views'
+import createModels from 'models/models'
+import mountView from 'lib/mountView'
+import update from 'lib/update'
 
-const jsonmvcDb = require('jsonmvc-db')
-const Vue = require('vue')
 
-const createControllers = require('./controllers/controllers')
-const createViews = require('./views/views')
-const createModels = require('./models/models')
+const modulesContext = require.context('modules/', true, /\.yaml|js/)
+let modules = {}
+let reg = /^\.\/([a-z0-9]+)\/([a-z]+)\/([a-z0-9]+)/gi
 
-const mountView = require('./lib/mountView')
+modulesContext.keys().forEach(x => {
+  let result = new RegExp(reg).exec(x)
 
-const update = require('./lib/update')
+  if (result === null) {
+    throw new Error(`${x} is not a valid module format`)
+  }
+
+  let name = result[1]
+  let type = result[2]
+  let fileName = result[3]
+
+  if (!modules[name]) {
+    modules[name] = {
+      controllers: {},
+      models: {},
+      views: {},
+      schema: {}
+    }
+  }
+
+  if (!modules[name][type]) {
+    return
+  }
+
+  modules[name][type][fileName] = modulesContext(x)
+})
 
 const jsonmvc = o => {
+
+// @TODO: Simplify the declarations to match the new model
+
+
+// @TODO: These should not overwrite user defined data
+// or at least inform the user that he is trying to overwrite
+// a module
+  Object.keys(modules).forEach(x => {
+    let module = modules[x]
+
+    Object.keys(module.controllers).forEach(y => {
+      let c = module.controllers[y]
+      o.controllers[x + y] = c.stream
+      o.schema.controllers[x + y] = c.args[0]
+    })
+
+    Object.keys(module.models).forEach(y => {
+      let m = module.models[y]
+      o.models[x + y] = m.fn
+      o.schema.models[m.path] = {
+        fn: x + y,
+        args: m.args
+      }
+    })
+
+    o.schema.default = merge(o.schema.default, module.schema.default)
+  })
+
+  console.log(o, modules)
+
   let schema = o.schema
   let config = o.config
-
   /**
    * Ensure defaults
    */
@@ -27,7 +84,7 @@ const jsonmvc = o => {
     }
   })
 
-  let db = jsonmvcDb(o.schema.default)
+  let db = DB(o.schema.default)
 
   if (typeof window !== 'undefined') {
     window.db = db

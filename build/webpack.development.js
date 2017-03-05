@@ -46,6 +46,8 @@ const conf = new Config()
         'models': `${process.env.SRC_PATH}/models`,
         'views': `${process.env.SRC_PATH}/views`,
 
+        'modules': process.env.MODULES_PATH,
+
         'vue': 'vue/dist/vue.common.js'
 
       },
