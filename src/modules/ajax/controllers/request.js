@@ -79,7 +79,6 @@ module.exports = {
 
       return most.from(observable)
     })
-    .tap(x => console.log(x))
 
 }
 
