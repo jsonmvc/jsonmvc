@@ -1,6 +1,5 @@
 
 import { merge } from 'lodash'
-import { EventEmitter } from 'events'
 import DB from 'jsonmvc-db'
 import Vue from 'vue'
 import createControllers from 'controllers/controllers'
@@ -9,13 +8,22 @@ import createModels from 'models/models'
 import mountView from 'lib/mountView'
 import update from 'lib/update'
 
-
 const modulesContext = require.context('modules/', true, /\.yaml|js/)
 let modules = {}
-let reg = /^\.\/([a-z0-9]+)\/([a-z]+)\/([a-z0-9]+)/gi
+let moduleFile = /^\.\/([a-z0-9]+)\/([a-z]+)\/([a-z0-9]+)/gi
+let moduleEntry = /^\.\/([a-z0-9]+)\/index\.js$/gi
+
+let modulesApi = {}
 
 modulesContext.keys().forEach(x => {
-  let result = new RegExp(reg).exec(x)
+  let result = new RegExp(moduleFile).exec(x)
+  let entry = new RegExp(moduleEntry).exec(x)
+
+  if (entry !== null) {
+    modulesApi[entry[1]] = modulesContext(x)
+    return
+
+  }
 
   if (result === null) {
     throw new Error(`${x} is not a valid module format`)
@@ -40,6 +48,13 @@ modulesContext.keys().forEach(x => {
 
   modules[name][type][fileName] = modulesContext(x)
 })
+
+const lib = db => {
+  return Object.keys(modulesApi).reduce((acc, x) => {
+    acc[x] = modulesApi[x](db)
+    return acc
+  }, {})
+}
 
 const jsonmvc = o => {
 
@@ -107,7 +122,7 @@ const jsonmvc = o => {
   /**
    * Controllers
    */
-  instances.controllers = createControllers(db, o.schema.controllers, o.controllers)
+  instances.controllers = createControllers(db, lib, o.schema.controllers, o.controllers)
 
   return {
     update: newO => {
@@ -123,6 +138,4 @@ if (typeof window !== 'undefined') {
   window.jsonmvc = jsonmvc
 }
 
-module.exports = jsonmvc
 export default jsonmvc
-

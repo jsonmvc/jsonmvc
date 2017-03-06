@@ -1,5 +1,5 @@
 
-import { EventEmitter as Emitter } from 'events'
+import Observable from 'zen-observable'
 const Vue = require('vue')
 const most = require('most')
 
@@ -14,8 +14,12 @@ const PROP_REGEX = /<([a-z]+)>/g
 
 function createView(db, name, html, schema, siblings) {
 
-  let emitter = new Emitter()
-  let stream = most.fromEvent('patch', emitter)
+  let observer
+  let observable = new Observable(_observer => {
+    observer = _observer
+  })
+
+  let stream = most.from(observable)
   let self
 
   let props = {
@@ -99,7 +103,7 @@ function createView(db, name, html, schema, siblings) {
       let data = self.__JSONMVC_DATA
       let rootPath = self.__JSONMVC_ROOT
       updateInstanceData(db, schema, props, data, self, x, val)
-      emitter.emit('patch', {
+      observer.next({
         op: 'add',
         path: `${rootPath}/props/${x}`,
         value: val
@@ -120,7 +124,7 @@ function createView(db, name, html, schema, siblings) {
     mounted: function () {
       let rootPath = this.__JSONMVC_ROOT
 
-      emitter.emit('patch', {
+      observer.next({
         op: 'add',
         path: `${rootPath}/mounted`,
         value: true
@@ -139,7 +143,7 @@ function createView(db, name, html, schema, siblings) {
 
       component.instance = self
 
-      emitter.emit('patch', {
+      observer.next({
         op: 'add',
         path: rootPath,
         value: {}
@@ -148,7 +152,7 @@ function createView(db, name, html, schema, siblings) {
     destroyed: function () {
       let rootPath = this.__JSONMVC_ROOT
 
-      emitter.emit('patch', {
+      observer.next({
         op: 'add',
         path: `${rootPath}/destroyedAt`,
         value: new Date().getTime()

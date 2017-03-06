@@ -969,6 +969,19 @@ is expected to return
 Thus, the chosen function (regardless of its code, comments, etc) need to 
 conform to the schema.
 
+!!! Add auto completing data:
+data:
+  createdAt:
+    type: $timestamp
+    init: true
+  updatedAt:
+    type: $timestamp
+    init: true
+    update: true
+
+When an entry is added that doesn't have these filled in, they are added
+automatically according to the params - the createdAt field will hold
+the timestamp at the moment the patch is applied to the db
 
 ------
 CSS

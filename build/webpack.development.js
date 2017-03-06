@@ -40,11 +40,11 @@ const conf = new Config()
 
     resolve: {
       alias: {
-        'lib': process.env.LIB_PATH,
+        'lib': `${process.env.CORE_PATH}/lib`,
 
-        'controllers': `${process.env.SRC_PATH}/controllers`,
-        'models': `${process.env.SRC_PATH}/models`,
-        'views': `${process.env.SRC_PATH}/views`,
+        'controllers': `${process.env.CORE_PATH}/controllers`,
+        'models': `${process.env.CORE_PATH}/models`,
+        'views': `${process.env.CORE_PATH}/views`,
 
         'modules': process.env.MODULES_PATH,
 

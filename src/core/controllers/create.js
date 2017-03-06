@@ -1,18 +1,22 @@
-import { EventEmitter as Emitter } from 'events'
+
+import Observable from 'zen-observable'
 import { isArray } from 'lodash'
 
 const most = require('most')
 
-function createController(db, controller, path) {
-  let emitter = new Emitter()
-  let inStream = most.fromEvent('data', emitter)
+function createController(db, lib, controller, path) {
   let dataUnsubscribes = []
 
-  dataUnsubscribes.push(db.on(path, x => {
-    emitter.emit('data', x)
-  }))
+  let observable = new Observable(observer => {
+    dataUnsubscribes.push(db.on(path, x => {
+      observer.next(x)
+    }))
+  })
 
-  let outStream = controller(inStream)
+  let inStream = most.from(observable)
+  let cLib = lib(db)
+
+  let outStream = controller(inStream, cLib)
 
   let streamUnsubscribe = outStream.subscribe({
     next: x => {

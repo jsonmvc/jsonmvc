@@ -1,0 +1,27 @@
+$:
+
+  timestamp: ^([0-9]{13})$
+  requestId: ^([A-Z0-9a-z]+)$
+
+  request:
+    id: $requestId
+    createdAt: $timestamp
+    sentAt: $timestamp
+    patchedAt: $timestamp
+    receivedAt: $timestamp
+    attempts: number
+    method: [GET, POST, PUT, DELETE]
+    patch: boolean
+    maxAttempts: number
+    labels: array
+    readyState: number
+    statusCode: number
+    statusText: string
+    response: any
+    responseText: string
+    responseHeaders: string
+    url: string
+
+ajax:
+  data:
+    $requestId: $request
