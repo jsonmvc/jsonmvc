@@ -33,13 +33,14 @@ const conf = new Config()
       app: [
         process.env.APP_ENTRY
       ],
-      vendor: [
+      vendors: [
         'most',
         'vue',
         'zen-observable',
         'lodash',
         'jsonmvc-db',
-        '@fdaciuk/ajax'
+        '@fdaciuk/ajax',
+        'shortid'
       ]
     },
 
@@ -63,6 +64,7 @@ const conf = new Config()
       extensions: ['', '.webpack.js', '.web.js', '.ts', '.js', '.css', '.tag', '.yml', '.yaml']
     },
     plugins: [
+      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
       new webpack.DefinePlugin(envVars),
       new webpack.HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({

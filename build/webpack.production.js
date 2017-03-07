@@ -5,24 +5,21 @@ module.exports = new Config()
   .extend({
     './webpack.development.js': function(config) {
       delete config.debug
-      delete config.devtool
+      // delete config.devtool
       delete config.output.pathinfo
       delete config.devServer
       delete config.entry.server
-      config.plugins.splice(1, 2)
+      config.plugins.splice(1, 3)
       delete config.entry.app
-      return config;
+      config.entry[process.env.LIBRARY_NAME] = process.env.SRC_ENTRY
+      return config
     }
   })
   .merge({
     filename: __filename,
     output: {
+      path: process.env.DIST_BROWSER_PATH,
       filename: process.env.LIBRARY_FILE
-    },
-    entry: {
-      library: [
-        process.env.SRC_ENTRY
-      ]
     },
     plugins: [
       new webpack.optimize.DedupePlugin(),

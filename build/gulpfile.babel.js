@@ -9,24 +9,30 @@ import del from 'del'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import webpackConfig from './webpack.config.js'
+import webpackNodeConfig from './webpack.node.js'
 
 const sync = gulpSync(gulp).sync
 
 console.log('Started in ', process.env.NODE_ENV, ' mode')
+
 /**
- * client:build
+ * browser:build
  *
- * Builds the client code from src/client to dist/client
+ * Builds the browser code from src to dist/browser
  * Uses webpack to compile the code.
  */
-gulp.task('client:build', (done) => {
+gulp.task('browser:build', done => {
   webpack(webpackConfig).run(() => done())
+})
+
+gulp.task('node:build', done => {
+  webpack(webpackNodeConfig).run(() => done())
 })
 
 gulp.task('clean', () => del([`${process.env.DIST_PATH}/*`]))
 
-/* client:dev */
-gulp.task('client:dev', () => {
+/* browser:dev */
+gulp.task('browser:dev', () => {
   let compiler = webpack(webpackConfig)
   let server = new WebpackDevServer(compiler, webpackConfig.devServer)
   let port = webpackConfig.devServer.port
@@ -41,6 +47,6 @@ gulp.task('client:dev', () => {
 })
 
 /* build */
-gulp.task('start:production', sync(['clean', 'client:build']))
-gulp.task('start:development', ['client:dev'])
+gulp.task('start:production', sync(['clean', 'browser:build', 'node:build']))
+gulp.task('start:development', ['browser:dev'])
 gulp.task('start:test')
