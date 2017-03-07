@@ -2404,7 +2404,7 @@
     },
     "most": {
       "version": "1.2.2",
-      "from": "most@>=1.1.1 <2.0.0",
+      "from": "most@latest",
       "resolved": "https://registry.npmjs.org/most/-/most-1.2.2.tgz"
     },
     "ms": {
@@ -2712,9 +2712,9 @@
       "dev": true
     },
     "postcss": {
-      "version": "5.2.15",
+      "version": "5.2.16",
       "from": "postcss@>=5.0.6 <6.0.0",
-      "resolved": "https://registry.npmjs.org/postcss/-/postcss-5.2.15.tgz",
+      "resolved": "https://registry.npmjs.org/postcss/-/postcss-5.2.16.tgz",
       "dev": true,
       "dependencies": {
         "supports-color": {
@@ -3426,13 +3426,13 @@
     },
     "source-map": {
       "version": "0.5.6",
-      "from": "source-map@>=0.5.0 <0.6.0",
+      "from": "source-map@>=0.5.3 <0.6.0",
       "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.5.6.tgz"
     },
     "source-map-support": {
-      "version": "0.4.3",
-      "from": "source-map-support@0.4.3",
-      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.4.3.tgz"
+      "version": "0.4.11",
+      "from": "source-map-support@>=0.4.3 <0.5.0",
+      "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.4.11.tgz"
     },
     "sparkles": {
       "version": "1.0.0",
@@ -4056,7 +4056,7 @@
     },
     "zen-observable": {
       "version": "0.4.0",
-      "from": "zen-observable@>=0.4.0 <0.5.0",
+      "from": "zen-observable@latest",
       "resolved": "https://registry.npmjs.org/zen-observable/-/zen-observable-0.4.0.tgz"
     }
   }
