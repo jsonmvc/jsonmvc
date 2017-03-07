@@ -26,7 +26,9 @@ module.exports = new Config()
     target: 'node',
     output: {
       path: process.env.DIST_NODE_PATH,
-      filename: process.env.LIBRARY_NODE_FILE
+      filename: process.env.LIBRARY_NODE_FILE,
+      library: process.env.LIBRARY_NAME,
+      libraryTarget: 'commonjs2'
     },
     entry: process.env.SRC_ENTRY,
     externals: nodeModules,
