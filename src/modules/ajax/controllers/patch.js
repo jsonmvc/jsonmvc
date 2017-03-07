@@ -1,6 +1,6 @@
 
-import Observable from 'zen-observable'
 import * as most from 'most'
+import Observable from 'zen-observable'
 
 module.exports = {
   args: ['/ajax/toPatch'],

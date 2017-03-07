@@ -1,7 +1,7 @@
 
-import Observable from 'zen-observable'
 import { isArray } from 'lodash'
 import * as most from 'most'
+import Observable from 'zen-observable'
 
 import lib from '_lib'
 

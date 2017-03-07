@@ -1,7 +1,7 @@
 
-import Observable from 'zen-observable'
 import Vue from 'vue'
 import * as most from 'most'
+import Observable from 'zen-observable'
 import shortid from 'shortid'
 
 import getPath from '_views/getPath'
