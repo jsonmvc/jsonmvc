@@ -1,6 +1,5 @@
 
 import DB from 'jsonmvc-db'
-import Vue from 'vue'
 
 import createControllers from '_controllers/controllers'
 import createViews from '_views/views'

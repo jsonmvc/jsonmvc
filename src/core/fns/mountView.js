@@ -1,5 +1,5 @@
 
-import Vue from 'vue'
+import Vue from '_vue'
 
 function mountView(el, component) {
   let root = document.querySelector(el)
