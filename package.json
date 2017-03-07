@@ -1,6 +1,6 @@
 {
   "name": "jsonmvc",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "The JSON Architecture MVC implementation",
   "main": "dist/node/jsonmvc.node.js",
   "scripts": {
