@@ -37,6 +37,14 @@
     "zen-observable": "^0.4.0"
   },
   "devDependencies": {
+    "@fdaciuk/ajax": "^2.1.5",
+    "jsonmvc-db": "^0.5.3",
+    "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
+    "most": "^1.2.2",
+    "shortid": "^2.2.6",
+    "source-map-support": "^0.4.3",
+    "vue": "^2.2.1",
+    "zen-observable": "^0.4.0",
     "babel": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
