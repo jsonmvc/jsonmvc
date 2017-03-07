@@ -23,22 +23,11 @@ module.exports = {
               }
             })
 
-          ajax(request).always((content, xhr) => {
-            let response
+          ajax(request).always((response, xhr) => {
             let error
 
             if (xhr.status === 200) {
-              response = xhr.responseText
-
-              if (xhr.responseJSON) {
-                response = xhr.responseJSON
-              } else if (request.url.match(/\.json$/)) {
-                try {
-                  response = JSON.parse(xhr.responseText)
-                } catch (e) {
-                  error = `The request has a '.json' extension and should have returned a valid JSON text`
-                }
-              }
+              // Ensure response is properly parsed
             } else if (xhr.status === 204) {
               response = ''
             }

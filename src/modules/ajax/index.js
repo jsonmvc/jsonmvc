@@ -13,7 +13,7 @@ module.exports = function ajax(db) {
     request = {
       id: shortid.generate(),
       url: request.url,
-      headers: request.headers,
+      headers: request.headers ? request.headers : {},
       labels: request.labels ? request.labels : [request.url],
       method: request.method,
       createdAt: new Date().getTime(), // db.get('/time/ms'),
@@ -21,6 +21,10 @@ module.exports = function ajax(db) {
       maxAttempts: 3,
       attempts: 0,
       patch: request.patch
+    }
+
+    if (request.patch === true) {
+      request.headers['content-type'] = 'application/json'
     }
 
     /**
