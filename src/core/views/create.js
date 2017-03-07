@@ -1,14 +1,14 @@
 
 import Observable from 'zen-observable'
-const Vue = require('vue')
-const most = require('most')
+import Vue from 'vue'
+import * as most from 'most'
+import shortid from 'shortid'
 
-const shortid = require('shortid')
+import getPath from 'views/getPath'
+import createDataListener from 'views/createDataListener'
+import updateInstanceData from 'views/updateInstanceData'
+
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
-
-const getPath = require('./getPath')
-const createDataListener = require('./createDataListener')
-const updateInstanceData = require('./updateInstanceData')
 
 const PROP_REGEX = /<([a-z]+)>/g
 

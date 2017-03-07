@@ -1,5 +1,5 @@
 
-const createController = require('./create')
+import createController from 'controllers/create'
 
 function createControllers(db, lib, schema, controllers) {
   let names = Object.keys(controllers)

@@ -1,5 +1,5 @@
 
-const Vue = require('vue')
+import Vue from 'vue'
 
 function mountView(el, component) {
   let root = document.querySelector(el)

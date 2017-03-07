@@ -1,11 +1,10 @@
 import * as most from 'most'
-import { EventEmitter as Emitter } from 'events'
 import { clone } from 'lodash'
 import shortid from 'shortid'
 
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
 
-module.exports = function ajax(db) {
+module.exports = function ajax(namespace, db) {
   return function createRequest(request) {
 
     request = clone(request)

@@ -5,25 +5,15 @@ import Vue from 'vue'
 import createControllers from 'controllers/controllers'
 import createViews from 'views/views'
 import createModels from 'models/models'
-import mountView from 'lib/mountView'
-import update from 'lib/update'
+import mountView from 'fns/mountView'
+import update from 'fns/update'
 
 const modulesContext = require.context('modules/', true, /\.yaml|js/)
+const moduleFile = /^\.\/([a-z0-9]+)\/([a-z]+)\/([a-z0-9]+)/gi
 let modules = {}
-let moduleFile = /^\.\/([a-z0-9]+)\/([a-z]+)\/([a-z0-9]+)/gi
-let moduleEntry = /^\.\/([a-z0-9]+)\/index\.js$/gi
-
-let modulesApi = {}
 
 modulesContext.keys().forEach(x => {
   let result = new RegExp(moduleFile).exec(x)
-  let entry = new RegExp(moduleEntry).exec(x)
-
-  if (entry !== null) {
-    modulesApi[entry[1]] = modulesContext(x)
-    return
-
-  }
 
   if (result === null) {
     throw new Error(`${x} is not a valid module format`)
@@ -47,6 +37,17 @@ modulesContext.keys().forEach(x => {
   }
 
   modules[name][type][fileName] = modulesContext(x)
+})
+
+
+const libContext = require.context('lib/', true, /\.js/)
+const libFile = /^\.\/([a-z0-9]+)/gi
+let libFns = {}
+
+libContext.keys().forEach(x => {
+  let name = new RegExp(libFile).exec(x)
+  console.log(name)
+
 })
 
 const lib = db => {

@@ -1,5 +1,4 @@
 
-
 /**
  * Reads and validates the following syntax:
  *

@@ -1,8 +1,7 @@
 
 import Observable from 'zen-observable'
 import { isArray } from 'lodash'
-
-const most = require('most')
+import * as most from 'most'
 
 function createController(db, lib, controller, path) {
   let dataUnsubscribes = []

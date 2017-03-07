@@ -1,6 +1,6 @@
 
-const getPath = require('./getPath')
-const createDataListener = require('./createDataListener')
+import getPath from 'views/getPath'
+import createDataListener from 'views/createDataListener'
 
 function updateInstanceData(db, schema, props, data, self, prop, val) {
 

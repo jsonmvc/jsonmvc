@@ -30,9 +30,11 @@ const conf = new Config()
         `webpack-dev-server/client?http://${process.env.HOST_IP}:${process.env.HOST_PORT}`,
         'webpack/hot/dev-server'
       ],
+  /*
       library: [
         process.env.SRC_ENTRY
       ],
+      */
       app: [
         process.env.APP_ENTRY
       ]
@@ -40,13 +42,13 @@ const conf = new Config()
 
     resolve: {
       alias: {
-        'lib': `${process.env.CORE_PATH}/lib`,
+        'lib': process.env.LIB_PATH,
+        'modules': process.env.MODULES_PATH,
 
         'controllers': `${process.env.CORE_PATH}/controllers`,
         'models': `${process.env.CORE_PATH}/models`,
         'views': `${process.env.CORE_PATH}/views`,
-
-        'modules': process.env.MODULES_PATH,
+        'fns': `${process.env.CORE_PATH}/fns`,
 
         'vue': 'vue/dist/vue.common.js'
 
