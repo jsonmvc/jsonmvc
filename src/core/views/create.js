@@ -4,9 +4,9 @@ import Vue from 'vue'
 import * as most from 'most'
 import shortid from 'shortid'
 
-import getPath from 'views/getPath'
-import createDataListener from 'views/createDataListener'
-import updateInstanceData from 'views/updateInstanceData'
+import getPath from '_views/getPath'
+import createDataListener from '_views/createDataListener'
+import updateInstanceData from '_views/updateInstanceData'
 
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
 

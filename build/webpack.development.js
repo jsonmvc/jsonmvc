@@ -30,25 +30,32 @@ const conf = new Config()
         `webpack-dev-server/client?http://${process.env.HOST_IP}:${process.env.HOST_PORT}`,
         'webpack/hot/dev-server'
       ],
-  /*
-      library: [
-        process.env.SRC_ENTRY
-      ],
-      */
       app: [
         process.env.APP_ENTRY
+      ],
+      vendor: [
+        'most',
+        'vue',
+        'zen-observable',
+        'lodash',
+        'jsonmvc-db',
+        '@fdaciuk/ajax'
       ]
     },
 
     resolve: {
       alias: {
-        'lib': process.env.LIB_PATH,
-        'modules': process.env.MODULES_PATH,
 
-        'controllers': `${process.env.CORE_PATH}/controllers`,
-        'models': `${process.env.CORE_PATH}/models`,
-        'views': `${process.env.CORE_PATH}/views`,
-        'fns': `${process.env.CORE_PATH}/fns`,
+        '_lib': process.env.LIB_PATH,
+        '_libs': process.env.LIBS_PATH,
+
+        '_modules': process.env.MODULES_PATH,
+        '_module': process.env.MODULE_PATH,
+
+        '_controllers': `${process.env.CORE_PATH}/controllers`,
+        '_models': `${process.env.CORE_PATH}/models`,
+        '_views': `${process.env.CORE_PATH}/views`,
+        '_fns': `${process.env.CORE_PATH}/fns`,
 
         'vue': 'vue/dist/vue.common.js'
 

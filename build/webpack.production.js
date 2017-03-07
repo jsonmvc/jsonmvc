@@ -11,12 +11,19 @@ module.exports = new Config()
       delete config.entry.server
       config.plugins.splice(1, 2)
       delete config.entry.app
-      config.output.filename = process.env.LIBRARY_FILE
       return config;
     }
   })
   .merge({
     filename: __filename,
+    output: {
+      filename: process.env.LIBRARY_FILE
+    },
+    entry: {
+      library: [
+        process.env.SRC_ENTRY
+      ]
+    },
     plugins: [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurrenceOrderPlugin(true),

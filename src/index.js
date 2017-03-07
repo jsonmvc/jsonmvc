@@ -1,99 +1,28 @@
 
-import { merge } from 'lodash'
 import DB from 'jsonmvc-db'
 import Vue from 'vue'
-import createControllers from 'controllers/controllers'
-import createViews from 'views/views'
-import createModels from 'models/models'
-import mountView from 'fns/mountView'
-import update from 'fns/update'
 
-const modulesContext = require.context('modules/', true, /\.yaml|js/)
-const moduleFile = /^\.\/([a-z0-9]+)\/([a-z]+)\/([a-z0-9]+)/gi
-let modules = {}
+import createControllers from '_controllers/controllers'
+import createViews from '_views/views'
+import createModels from '_models/models'
+import mountView from '_fns/mountView'
+import update from '_fns/update'
+import mergeConfig from '_fns/mergeConfig'
 
-modulesContext.keys().forEach(x => {
-  let result = new RegExp(moduleFile).exec(x)
-
-  if (result === null) {
-    throw new Error(`${x} is not a valid module format`)
-  }
-
-  let name = result[1]
-  let type = result[2]
-  let fileName = result[3]
-
-  if (!modules[name]) {
-    modules[name] = {
-      controllers: {},
-      models: {},
-      views: {},
-      schema: {}
-    }
-  }
-
-  if (!modules[name][type]) {
-    return
-  }
-
-  modules[name][type][fileName] = modulesContext(x)
-})
-
-
-const libContext = require.context('lib/', true, /\.js/)
-const libFile = /^\.\/([a-z0-9]+)/gi
-let libFns = {}
-
-libContext.keys().forEach(x => {
-  let name = new RegExp(libFile).exec(x)
-  console.log(name)
-
-})
-
-const lib = db => {
-  return Object.keys(modulesApi).reduce((acc, x) => {
-    acc[x] = modulesApi[x](db)
-    return acc
-  }, {})
-}
+import modules from '_module'
+import lib from '_lib'
 
 const jsonmvc = o => {
 
 // @TODO: Simplify the declarations to match the new model
 
-
-// @TODO: These should not overwrite user defined data
-// or at least inform the user that he is trying to overwrite
-// a module
-  Object.keys(modules).forEach(x => {
-    let module = modules[x]
-
-    Object.keys(module.controllers).forEach(y => {
-      let c = module.controllers[y]
-      o.controllers[x + y] = c.stream
-      o.schema.controllers[x + y] = c.args[0]
-    })
-
-    Object.keys(module.models).forEach(y => {
-      let m = module.models[y]
-      o.models[x + y] = m.fn
-      o.schema.models[m.path] = {
-        fn: x + y,
-        args: m.args
-      }
-    })
-
-    o.schema.default = merge(o.schema.default, module.schema.default)
-  })
-
-  console.log(o, modules)
+  o = mergeConfig(o, modules)
 
   let schema = o.schema
   let config = o.config
   /**
    * Ensure defaults
    */
-
   Object.keys(o.views).forEach(x => {
     if (!o.schema.views[x]) {
       o.schema.views[x] = {}
@@ -123,7 +52,7 @@ const jsonmvc = o => {
   /**
    * Controllers
    */
-  instances.controllers = createControllers(db, lib, o.schema.controllers, o.controllers)
+  instances.controllers = createControllers(db, o.schema.controllers, o.controllers)
 
   return {
     update: newO => {

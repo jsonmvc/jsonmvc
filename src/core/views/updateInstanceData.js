@@ -1,6 +1,6 @@
 
-import getPath from 'views/getPath'
-import createDataListener from 'views/createDataListener'
+import getPath from '_views/getPath'
+import createDataListener from '_views/createDataListener'
 
 function updateInstanceData(db, schema, props, data, self, prop, val) {
 

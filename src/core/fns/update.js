@@ -1,4 +1,6 @@
 
+import { merge } from 'lodash'
+
 function update(db, instances, o, data) {
 
   if (data.schema) {

@@ -1,5 +1,6 @@
 import { isArray } from 'lodash'
-import createView from 'views/create'
+
+import createView from '_views/create'
 
 function createViews(db, views, schema) {
   let names = Object.keys(views)

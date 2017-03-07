@@ -3,7 +3,9 @@ import Observable from 'zen-observable'
 import { isArray } from 'lodash'
 import * as most from 'most'
 
-function createController(db, lib, controller, path) {
+import lib from '_lib'
+
+function createController(db, name, controller, path) {
   let dataUnsubscribes = []
 
   let observable = new Observable(observer => {
@@ -13,7 +15,7 @@ function createController(db, lib, controller, path) {
   })
 
   let inStream = most.from(observable)
-  let cLib = lib(db)
+  let cLib = lib(`controllers:${name}`, db)
 
   let outStream = controller(inStream, cLib)
 
