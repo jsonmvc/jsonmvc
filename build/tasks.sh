@@ -16,7 +16,6 @@ PARAM3=$4
 GULP_SCRIPT="/app/node_modules/.bin/gulp --gulpfile /app/build/gulpfile.babel.js"
 TASKS_SCRIPT="/app/build/tasks.sh"
 
-APP_PORT=8080
 APP_CONTAINER_NAME=jsonmvc.local
 APP_IMAGE_NAME=jsonmvc
 
@@ -178,7 +177,6 @@ app_start() {
   docker run \
     -v $PWD:/app \
     -h $APP_CONTAINER_NAME \
-    -p $APP_PORT:$APP_PORT \
     -d \
     --env-file ./build/default.env \
     --env-file ./build/custom.env \
@@ -202,7 +200,7 @@ app_stop() {
 # @type build
 # @environment local machine
 browser_start() {
-  chromium-browser --user-data-dir --disable-web-security http://$APP_CONTAINER_NAME:$APP_PORT &
+  chromium-browser --user-data-dir --disable-web-security http://$APP_CONTAINER_NAME:8080 &
 }
 
 # Starts the application server
