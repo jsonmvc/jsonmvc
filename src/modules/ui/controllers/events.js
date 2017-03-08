@@ -20,11 +20,15 @@ module.exports = {
       return most.mergeArray(streams)
     })
     .map(e => {
-      e.preventDefault()
-      return bubbleTo('[data-path]', e)
+      return {
+        el: bubbleTo('[data-path]', e),
+        e: e
+      }
     })
-    .filter(el => el !== null)
-    .map(el => {
+    .filter(x => x.el !== null)
+    .map(x => {
+      x.e.preventDefault()
+      let el = x.el
       let result = {
         path: el.getAttribute('data-path'),
         value: null
