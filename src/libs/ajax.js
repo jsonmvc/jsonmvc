@@ -19,7 +19,8 @@ module.exports = function ajax(namespace, db) {
       readyState: 0,
       maxAttempts: 3,
       attempts: 0,
-      patch: request.patch
+      patch: request.patch,
+      data: request.data
     }
 
     if (request.patch === true) {
