@@ -4055,9 +4055,9 @@
       "dev": true
     },
     "zen-observable": {
-      "version": "0.4.0",
+      "version": "0.5.0",
       "from": "zen-observable@latest",
-      "resolved": "https://registry.npmjs.org/zen-observable/-/zen-observable-0.4.0.tgz"
+      "resolved": "https://registry.npmjs.org/zen-observable/-/zen-observable-0.5.0.tgz"
     }
   }
 }
