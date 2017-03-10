@@ -1,5 +1,5 @@
 
-import { merge, isArray, reduce } from 'lodash'
+import { isArray, reduce } from 'lodash'
 import * as most from 'most'
 import Observable from 'zen-observable'
 
@@ -20,7 +20,7 @@ const lib = db => {
   }, {})
 }
 
-function createController(db, controller, name) {
+function createController(db, controller) {
   let off = () => {}
 
   let observable = new Observable(observer => {
@@ -31,10 +31,8 @@ function createController(db, controller, name) {
     }
   })
 
-  return merge(controller, {
-    result: controller.stream(most.from(observable), lib(db)),
-    off: off
-  })
+  controller.result = controller.stream(most.from(observable), lib(db))
+  controller.off = off
 }
 
 module.exports = createController

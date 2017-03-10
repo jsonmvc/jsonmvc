@@ -1,8 +1,51 @@
 
-import { merge } from 'lodash'
+import { forEach, merge } from 'lodash'
+import bundleModules from '_fns/bundleModules'
+import createControllers from '_controllers/controllers'
+import subscribeController from '_controllers/subscribe'
+import createModels from '_models/models'
 
-function update(db, instances, o, data) {
+function update(instance, modules) {
 
+  let bundle = bundleModules(modules)
+  console.log(instance, bundle)
+
+  if (bundle.controllers) {
+    forEach(bundle.controllers, (controller, name) => {
+      let current = instance.controllers[name]
+      if (current) {
+        current.off()
+        current.subscription.unsubscribe()
+        delete instance.controllers[name]
+      }
+    })
+
+    let newControllers = createControllers(instance.db, bundle.controllers)
+
+    forEach(newControllers, (controller, name) => {
+      instance.controllers[name] = controller
+      controller.subscription = subscribeController(instance.db, controller)
+    })
+
+  }
+
+  if (bundle.models) {
+    forEach(bundle.models, (model, name) => {
+      let current = instance.models[name]
+      if (current) {
+        current.remove()
+        delete instance.models[name]
+      }
+    })
+
+    let newModels = createModels(instance.db, bundle.models)
+
+    forEach(newModels, (model, name) => {
+      instance.models[name] = model
+    })
+  }
+
+  return
   if (data.schema) {
 
     o.schema = merge(o.schema, data.schema)

@@ -1,17 +1,14 @@
 
-import { reduce, clone } from 'lodash'
+import { forEach } from 'lodash'
 
 function createModels(db, models) {
 
-  let instances = reduce(models, (acc, model, k) => {
-    acc[k] = clone(model)
+  forEach(models, model => {
+    db.node(model.path, model.args, model.fn)
+    model.remove = () => console.log('Should remove the node')
+  })
 
-    acc[k].remove = db.node(model.path, model.args, model.fn)
-
-    return acc
-  }, {})
-
-  return instances
+  return models
 }
 
 module.exports = createModels

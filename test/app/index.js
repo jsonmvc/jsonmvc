@@ -6,24 +6,39 @@ let module = loadModule(require.context('./', true, /\.js|yml/))
 document.addEventListener('DOMContentLoaded', function() {
 
   let instance = jsonmvc(module)
-  instance.init()
 
-  /*
+  instance.start()
+
   setTimeout(() => {
     instance.update({
       controllers: {
-        incFoo: stream => {
-          return stream.delay(1000).map(x => x + 10)
+        incFoo: {
+          args: '/foo',
+          stream: stream => stream
+            .delay(1000)
+            .map(x => x + 2)
             .map(x => ({
               op: 'add',
               path: '/foo',
               value: x
             }))
-          }
+        }
       }
     })
   }, 2 * 1000)
 
+  setTimeout(() => {
+    instance.update({
+      models: {
+        bam: {
+          path: '/baloo',
+          args: ['/bar/baz'],
+          fn: x => x + ' bam updated'
+        }
+      }
+    })
+  }, 2 * 1000)
+  /*
 
   let i = 0
   setInterval(() => {

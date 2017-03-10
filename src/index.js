@@ -1,5 +1,5 @@
 
-import { merge, reduce } from 'lodash'
+import { merge, forEach, reduce } from 'lodash'
 
 import DB from 'jsonmvc-db'
 
@@ -10,6 +10,7 @@ import mountView from '_fns/mountView'
 import loadModule from '_fns/loadModule'
 import update from '_fns/update'
 import subscribe from '_controllers/subscribe'
+import bundleModules from '_fns/bundleModules'
 
 /**
  * Modules
@@ -26,19 +27,7 @@ const jsonmvc = module => {
     app: module
   })
 
-  let bundle = reduce(modules, (acc, v1, k1) => {
-    reduce(v1, (acc2, v2, k2) => {
-      if (k2 !== 'data') {
-        v2 = reduce(v2, (acc3, v3, k3) => {
-          acc3[k1 + '/' + k3] = v3
-          return acc3
-        }, {})
-      }
-      acc[k2] = merge(acc[k2], v2)
-      return acc
-    }, {})
-    return acc
-  }, {})
+  let bundle = bundleModules(modules)
 
   let db = DB(bundle.data.initial)
 
@@ -54,13 +43,19 @@ const jsonmvc = module => {
   }
 
   return {
-    update: newModules => {
-      update(db, instances, modules, newModules)
+    update: module => {
+      update(instance, {
+        app: module
+      })
     },
-    init: () => {
-      let mount = db.get('/config/ui/mount')
+    start: () => {
+      let mount = instance.db.get('/config/ui/mount')
       mountView(mount.el, instance.views[mount.component].component)
-      subscribe(instance.db, instance.controllers)
+
+      forEach(instance.controllers, (controller, name) => {
+        controller.subscription = subscribe(instance.db, controller)
+      })
+
     }
   }
 }
