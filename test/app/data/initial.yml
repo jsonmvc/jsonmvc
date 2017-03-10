@@ -1,0 +1,18 @@
+config:
+  rootEl: '#app'
+  rootComponent: 'theHeader'
+
+foo: 123
+bar:
+  baz: asd f
+items:
+- 1
+- 2
+- 3
+bam:
+  '1': bla
+  '2': bloo
+  '3': bing
+  '11':
+    '125':
+      bar: NICE!!

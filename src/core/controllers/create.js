@@ -3,9 +3,7 @@ import { isArray } from 'lodash'
 import * as most from 'most'
 import Observable from 'zen-observable'
 
-import lib from '_lib'
-
-function createController(db, name, controller, path) {
+function createController(db, lib, name, controller, path) {
   let dataUnsubscribes = []
 
   let observable = new Observable(observer => {

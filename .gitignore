@@ -1,5 +1,4 @@
 /node_modules/
 *.log
-app/
 public/
 build/custom.env

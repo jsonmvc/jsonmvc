@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= htmlWebpackPlugin.options.title || 'Web App'%></title>
+
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, minimal-ui" />
+
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+  <% } %>
+
+  <% if (htmlWebpackPlugin.options.baseHref) { %>
+  <base href="<%= htmlWebpackPlugin.options.baseHref %>" />
+  <% } %>
+
+</head>
+<body>
+
+<% if (htmlWebpackPlugin.options.appMountId) { %>
+<div id="<%= htmlWebpackPlugin.options.appMountId%>"></div>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.window) { %>
+<script>
+  <% for (var varName in htmlWebpackPlugin.options.window) { %>
+    window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+  <% } %>
+</script>
+<% } %>
+
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% } %>
+
+<% if (htmlWebpackPlugin.options.devServer) { %>
+<script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
+<% } %>
+
+</body>
+</html>
