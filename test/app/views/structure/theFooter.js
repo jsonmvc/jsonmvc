@@ -5,7 +5,7 @@ module.exports = {
     title: '/foo',
     items: '/items'
   },
-  el: `
+  template: `
     <div>
       <div>Footer {{ title }}</div>
       <div v-for="item in items">

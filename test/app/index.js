@@ -6,6 +6,7 @@ let module = loadModule(require.context('./', true, /\.js|yml/))
 document.addEventListener('DOMContentLoaded', function() {
 
   let instance = jsonmvc(module)
+  instance.init()
 
   /*
   setTimeout(() => {

@@ -4,7 +4,7 @@ module.exports = {
   args: {
     request: '/ajax/data/<id>'
   },
-  el: `
+  template: `
     <li>
       <p>Request id {{ request.id }}</p>
       <div v-for="(value, key) in request" v-if="key !== 'response' && key !== 'responseText'">

@@ -9,7 +9,7 @@ module.exports = {
     ajaxRequestIds: '/ajax/ids',
     patched: '/patched'
   },
-  el: `
+  template: `
     <div>
       <h2>Content {{ title }}</h2>
       <p>Patch was applied: {{ patched }}</p>

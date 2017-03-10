@@ -4,7 +4,7 @@ module.exports = {
   args: {
     count: '/foo'
   },
-  el: `
+  template: `
     <div v-if="count == 124">BLLAAAAAM</div>
   `
 }

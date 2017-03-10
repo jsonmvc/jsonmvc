@@ -6,7 +6,7 @@ module.exports = {
     foo: '/foo',
     time: '/time/hhmmss'
   },
-  el: `
+  template: `
     <div>
       <p>Time: {{ time }}</p>
       <h1>Header: {{ title }}</h1>

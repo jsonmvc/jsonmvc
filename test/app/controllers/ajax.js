@@ -8,5 +8,6 @@ module.exports = {
       labels: ['google'],
       patch: true
     }))
+    .tap(x => console.log(x))
   }
 }

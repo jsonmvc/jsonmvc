@@ -4,7 +4,7 @@ module.exports = {
   args: {
     title: '/bam/<id>'
   },
-  el: `
+  template: `
     <div>
       {{ id }} -
       {{ title }}

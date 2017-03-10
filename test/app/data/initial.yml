@@ -1,6 +1,8 @@
 config:
-  rootEl: '#app'
-  rootComponent: 'theHeader'
+  ui:
+    mount:
+      el: '#app'
+      component: 'theHeader'
 
 foo: 123
 bar:
