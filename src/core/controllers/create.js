@@ -1,43 +1,40 @@
 
-import { isArray } from 'lodash'
+import { merge, isArray, reduce } from 'lodash'
 import * as most from 'most'
 import Observable from 'zen-observable'
 
-function createController(db, lib, name, controller, path) {
-  let dataUnsubscribes = []
+/**
+ * Libs
+ */
+const libContext = require.context('_libs/', true, /\.js/)
+const libs = libContext.keys().reduce((acc, x) => {
+  let name = new RegExp(/^\.\/([a-z0-9]+)/gi).exec(x)[1]
+  acc[name] = libContext(x)
+  return acc
+}, {})
+
+const lib = db => {
+  return reduce(libs, (acc, fn, k) => {
+    acc[k] = fn(db)
+    return acc
+  }, {})
+}
+
+function createController(db, controller, name) {
+  let off = () => {}
 
   let observable = new Observable(observer => {
-    dataUnsubscribes.push(db.on(path, x => {
-      observer.next(x)
-    }))
-  })
-
-  let inStream = most.from(observable)
-  let cLib = lib(`controllers:${name}`, db)
-
-  let outStream = controller(inStream, cLib)
-
-  let streamUnsubscribe = outStream.subscribe({
-    next: x => {
-      if (x && !isArray(x)) {
-        x = [x]
-      }
-      db.patch(x)
-    },
-    complete: x => {
-      console.log(`Controller ${name} has ended`)
-    },
-    error: x => {
-      console.error(`Controller ${name} has an error`, x)
+    let unsub = db.on(controller.args, x => observer.next(x))
+    off = () => {
+      unsub()
+      observer.complete()
     }
   })
 
-  return function unsubscribeController() {
-    dataUnsubscribes.forEach(x => {
-      x()
-    })
-    streamUnsubscribe.unsubscribe()
-  }
+  return merge(controller, {
+    result: controller.stream(most.from(observable), lib(db)),
+    off: off
+  })
 }
 
 module.exports = createController

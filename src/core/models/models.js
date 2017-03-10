@@ -1,13 +1,12 @@
 
+import { reduce, clone } from 'lodash'
 
-function createModels(db, models, schema) {
-  let names = Object.keys(schema)
+function createModels(db, models) {
 
-  let instances = names.reduce((acc, x) => {
-    let model = schema[x]
-    let path = x
+  let instances = reduce(models, (acc, model, k) => {
+    acc[k] = clone(model)
 
-    acc[x] = db.node(path, model.args, models[model.fn])
+    acc[k].remove = db.node(model.path, model.args, model.fn)
 
     return acc
   }, {})

@@ -4,7 +4,7 @@ import shortid from 'shortid'
 
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
 
-module.exports = function ajax(namespace, db) {
+module.exports = function ajax(db) {
   return function createRequest(request) {
 
     request = clone(request)
@@ -15,7 +15,7 @@ module.exports = function ajax(namespace, db) {
       headers: request.headers ? request.headers : {},
       labels: request.labels ? request.labels : [request.url],
       method: request.method,
-      createdAt: new Date().getTime(), // db.get('/time/ms'),
+      createdAt: db.get('/time/ms'),
       readyState: 0,
       maxAttempts: 3,
       attempts: 0,

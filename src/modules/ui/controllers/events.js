@@ -3,8 +3,8 @@ import getValue from './../fns/getValue'
 import bubbleTo from './../fns/bubbleTo'
 
 module.exports = {
-  args: ['/config/ui/events'],
-  stream: stream => stream
+  args: '/config/ui/events',
+  stream: (stream, lib) => stream
     .chain(events => {
       let streams = Object.keys(events).map(x => {
         let e = events[x]
@@ -52,7 +52,7 @@ module.exports = {
       path: x.path,
       value: {
         value: x.value,
-        timestamp: new Date().getTime() // db.get('/time/ms')
+        timestamp: lib.get('/time/ms')
       }
     }))
 }

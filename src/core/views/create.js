@@ -12,7 +12,7 @@ shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWX
 
 const PROP_REGEX = /<([a-z]+)>/g
 
-function createView(db, name, html, schema, siblings) {
+function createView(db, view, siblings) {
 
   let observer
   let observable = new Observable(_observer => {
@@ -47,8 +47,8 @@ function createView(db, name, html, schema, siblings) {
   }
 
   // Find all required props
-  props.required = Object.keys(schema).reduce((acc, x) => {
-    schema[x].replace(PROP_REGEX, (a, b, c, d) => {
+  props.required = Object.keys(view.args).reduce((acc, x) => {
+    view.args[x].replace(PROP_REGEX, (a, b, c, d) => {
       if (acc.indexOf(b) === -1) {
         acc.push(b)
       }
@@ -57,8 +57,8 @@ function createView(db, name, html, schema, siblings) {
   }, [])
 
   // Map all props to all schema paths
-  props.schema = Object.keys(schema).reduce((acc, x) => {
-    let path = schema[x]
+  props.schema = Object.keys(view.args).reduce((acc, x) => {
+    let path = view.args[x]
 
     if (!acc.paths[path]) {
       acc.paths[path] = []
@@ -102,7 +102,7 @@ function createView(db, name, html, schema, siblings) {
       let props = self.__JSONMVC_PROPS
       let data = self.__JSONMVC_DATA
       let rootPath = self.__JSONMVC_ROOT
-      updateInstanceData(db, schema, props, data, self, x, val)
+      updateInstanceData(db, view.args, props, data, self, x, val)
       observer.next({
         op: 'add',
         path: `${rootPath}/props/${x}`,
@@ -119,8 +119,8 @@ function createView(db, name, html, schema, siblings) {
     instance: null
   }
 
-  component.component = Vue.component(name, {
-    template: html,
+  component.component = Vue.component(view.name, {
+    template: view.template,
     mounted: function () {
       let rootPath = this.__JSONMVC_ROOT
 
@@ -134,7 +134,7 @@ function createView(db, name, html, schema, siblings) {
     beforeCreate: function () {
       let self = this
       let id = shortid.generate()
-      let rootPath = `/views/${name}/instances/${id}`
+      let rootPath = `/views/${view.name}/instances/${id}`
 
       self.__JSONMVC_ID = id
       self.__JSONMVC_PROPS = JSON.parse(JSON.stringify(props))
@@ -165,13 +165,13 @@ function createView(db, name, html, schema, siblings) {
       let props = self.__JSONMVC_PROPS
       let data = self.__JSONMVC_DATA
 
-      Object.keys(schema).forEach(x => {
-        let path = getPath(schema, props, self, x)
+      Object.keys(view.args).forEach(x => {
+        let path = getPath(view.args, props, self, x)
 
         let listener = createDataListener(db, path, data, x)
 
 
-        props.schema.paths[schema[x]].forEach(y => {
+        props.schema.paths[view.args[x]].forEach(y => {
           props.schema.subscribes[y].push(listener)
         })
 

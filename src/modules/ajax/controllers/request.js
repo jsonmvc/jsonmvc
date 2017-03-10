@@ -3,7 +3,7 @@ import * as most from 'most'
 import Observable from 'zen-observable'
 
 module.exports = {
-  args: ['/ajax/byStatus/unsent'],
+  args: '/ajax/byStatus/unsent',
   stream: stream => stream
     .filter(x => !!x)
     .chain(reqs => {

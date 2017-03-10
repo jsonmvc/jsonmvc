@@ -1,15 +1,16 @@
 
+import { reduce, clone } from 'lodash'
 import createController from '_controllers/create'
 
-function createControllers(db, schema, controllers) {
-  let names = Object.keys(controllers)
+function createControllers(db, controllers) {
 
-  let instances = names.reduce((acc, x) => {
-    acc[x] = createController(db, x, controllers[x], schema[x])
+  return reduce(controllers, (acc, controller, name) => {
+
+    acc[name] = createController(db, controller, name)
+
     return acc
   }, {})
 
-  return instances
 }
 
 module.exports = createControllers

@@ -1,14 +1,27 @@
-import { isArray } from 'lodash'
+import { isArray, reduce, clone } from 'lodash'
 
 import createView from '_views/create'
+import viewsErrors from '_views/viewsErrors'
 
-function createViews(db, views, schema) {
-  let names = Object.keys(views)
+function createViews(db, views) {
+
+  let err = viewsErrors(views)
+  if (err instanceof Error) {
+    throw err
+  }
+
+  let byNames = reduce(views, (acc, view, file) => {
+    acc[view.name] = clone(view)
+    acc[view.name].file = file
+    return acc
+  }, {})
+
+  let names = Object.keys(byNames)
 
   // Define deps
-  let deps = names.reduce((acc, name) => {
+  let deps = reduce(names, (acc, name) => {
     acc[name] = names.filter(x => {
-      return new RegExp(`</${x}`).test(views[name])
+      return new RegExp(`</${x}>`).test(byNames[name].el)
     })
     return acc
   }, {})
@@ -31,7 +44,7 @@ function createViews(db, views, schema) {
       return acc2
     }, {})
 
-    acc[x] = createView(db, x, views[x], schema[x], siblings)
+    acc[x] = createView(db, byNames[x], siblings)
 
     return acc
   }, {})

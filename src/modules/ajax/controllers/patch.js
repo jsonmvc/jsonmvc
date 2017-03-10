@@ -3,7 +3,7 @@ import * as most from 'most'
 import Observable from 'zen-observable'
 
 module.exports = {
-  args: ['/ajax/toPatch'],
+  args: '/ajax/toPatch',
   stream: stream => stream
     .chain(requests => {
 
