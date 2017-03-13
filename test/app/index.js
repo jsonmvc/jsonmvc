@@ -93,7 +93,6 @@ function stringify(obj) {
 
 if (module.hot) {
     module.hot.accept(context.id, x => {
-      try {
 
       let context = require.context('./', true, /\.js|yml/)
       let newModules = loadModule(context)
@@ -132,10 +131,6 @@ if (module.hot) {
 
       console.log('The changes are', changes)
       instance.update(changes)
-
-    } catch(e) {
-      console.log("error is", e)
-    }
 
     })
 

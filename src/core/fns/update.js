@@ -68,7 +68,6 @@ function update(instance, modules) {
 
   }
 
-  try {
   if (bundle.views) {
 
     forEach(instance.views, view => {
@@ -84,9 +83,6 @@ function update(instance, modules) {
 
     // Update logic
     mountView(config.el, instance.views[config.component].component)
-  }
-  } catch (e) {
-    console.log(e)
   }
 
 }
