@@ -28,15 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 2 * 1000)
 
   setTimeout(() => {
+    db.on('/baloo', x => {
+      console.log('10 Updated', x)
+    })
+    console.log('Before', db.get('/baloo'))
     instance.update({
       models: {
         bam: {
           path: '/baloo',
           args: ['/bar/baz'],
-          fn: x => x + ' bam updated'
+          fn: x => x + ' bam - updated - should make another ajax request'
         }
       }
     })
+    console.log('After', db.get('/baloo'))
   }, 2 * 1000)
   /*
 
