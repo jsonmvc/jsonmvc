@@ -8,7 +8,6 @@ import createModels from '_models/models'
 function update(instance, modules) {
 
   let bundle = bundleModules(modules)
-  console.log(instance, bundle)
 
   if (bundle.controllers) {
     forEach(bundle.controllers, (controller, name) => {
@@ -30,7 +29,9 @@ function update(instance, modules) {
   }
 
   if (bundle.models) {
+    console.log('Updating models')
     forEach(bundle.models, (model, name) => {
+      console.log('Removing', name)
       let current = instance.models[name]
       if (current) {
         current.remove()
@@ -38,6 +39,7 @@ function update(instance, modules) {
       }
     })
 
+    console.log('Creating new models')
     let newModels = createModels(instance.db, bundle.models)
 
     forEach(newModels, (model, name) => {

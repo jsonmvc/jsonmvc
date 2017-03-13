@@ -1,11 +1,14 @@
 
 import jsonmvc, { loadModule } from './../../src/index'
+import { difference } from 'lodash'
 
-let module = loadModule(require.context('./', true, /\.js|yml/))
+let context = require.context('./', true, /\.js|yml/)
+let modules = loadModule(context)
+let instance
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  let instance = jsonmvc(module)
+  instance = jsonmvc(modules)
 
   instance.start()
 
@@ -28,10 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 2 * 1000)
 
   setTimeout(() => {
-    db.on('/baloo', x => {
-      console.log('10 Updated', x)
-    })
-    console.log('Before', db.get('/baloo'))
     instance.update({
       models: {
         bam: {
@@ -41,7 +40,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     })
-    console.log('After', db.get('/baloo'))
+  }, 1 * 1000)
+
+  setTimeout(() => {
+    instance.update({
+      models: {
+        bam: {
+          path: '/baloo',
+          args: ['/bar/baz'],
+          fn: x => x + ' bam - updated third - should make another ajax request'
+        }
+      }
+    })
   }, 2 * 1000)
   /*
 
@@ -73,3 +83,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
 })
 
+function stringify(obj) {
+  return JSON.stringify(obj, function(key, val) {
+    return (typeof val === 'function') ? val.toString() : val; },
+  4)
+}
+
+if (module.hot) {
+    module.hot.accept(context.id, () => {
+      let context = require.context('./', true, /\.js|yml/)
+      let newModules = loadModule(context)
+
+      let changes = {
+        controllers: {},
+        models: {},
+        views: {},
+        data: {}
+      }
+
+      Object.keys(modules).forEach(x => {
+
+        Object.keys(modules[x]).forEach(y => {
+          if (!newModules[x][y]) {
+            changes[x][y] = false
+          } else if (stringify(newModules[x][y]) !== stringify(modules[x][y])) {
+            changes[x][y] = newModules[x][y]
+          }
+        })
+
+      })
+
+      console.log('The changes are', changes)
+      instance.update(changes)
+
+    })
+
+    module.hot.dispose(context.id, x => {
+      console.log('Disposing', x)
+    })
+  } else {
+    console.log('No HMR detected')
+  }
