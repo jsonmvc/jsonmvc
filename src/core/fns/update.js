@@ -11,6 +11,8 @@ function update(instance, modules) {
 
   let bundle = bundleModules(modules)
 
+    console.log(bundle)
+
   if (bundle.controllers) {
     forEach(bundle.controllers, (controller, name) => {
       let current = instance.controllers[name]

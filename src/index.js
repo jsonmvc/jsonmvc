@@ -6,11 +6,11 @@ import DB from 'jsonmvc-db'
 import createControllers from '_controllers/controllers'
 import createViews from '_views/views'
 import createModels from '_models/models'
-import mountView from '_fns/mountView'
 import loadModule from '_fns/loadModule'
 import update from '_fns/update'
-import subscribe from '_controllers/subscribe'
 import bundleModules from '_fns/bundleModules'
+import start from '_fns/start'
+import reloadHMR from '_fns/reloadHMR'
 
 /**
  * Modules
@@ -43,19 +43,21 @@ const jsonmvc = module => {
   }
 
   return {
+    module,
     update: module => {
       update(instance, {
         app: module
       })
     },
     start: () => {
-      let mount = instance.db.get('/config/ui/mount')
-      mountView(mount.el, instance.views[mount.component].component)
 
-      forEach(instance.controllers, (controller, name) => {
-        controller.subscription = subscribe(instance.db, controller)
-      })
-
+      if (document.readyState === "complete") {
+        start(instance)
+      } else {
+        document.addEventListener('DOMContentLoaded', function () {
+          start(instance)
+        })
+      }
     }
   }
 }
@@ -65,7 +67,8 @@ if (typeof window !== 'undefined') {
 }
 
 export {
-  loadModule
+  loadModule,
+  reloadHMR
 }
 
 export default jsonmvc

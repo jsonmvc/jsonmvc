@@ -11,7 +11,7 @@ module.exports = {
   },
   template: `
     <div>
-      <h2>Content 765345 {{ title }}</h2>
+      <h2>Content 12321 {{ title }}</h2>
       <p>Patch was applied: {{ patched }}</p>
       {{ content }}
       <button data-path="/ui/button" data-value="5">Press me see '/ui/button'</button>
