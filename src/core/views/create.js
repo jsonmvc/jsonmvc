@@ -152,6 +152,16 @@ function createView(db, view, siblings) {
     destroyed: function () {
       let rootPath = this.__JSONMVC_ROOT
 
+      let sub = this.__JSONMVC_PROPS.subscribes
+
+      Object.keys(sub).forEach(x => {
+        if (sub[x]) {
+          sub[x].forEach(y => {
+            y()
+          })
+        }
+      })
+
       observer.next({
         op: 'add',
         path: `${rootPath}/destroyedAt`,
@@ -169,7 +179,6 @@ function createView(db, view, siblings) {
         let path = getPath(view.args, props, self, x)
 
         let listener = createDataListener(db, path, data, x)
-
 
         props.schema.paths[view.args[x]].forEach(y => {
           props.schema.subscribes[y].push(listener)

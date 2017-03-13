@@ -6,7 +6,7 @@ config:
 
 foo: 123
 bar:
-  baz: asd f
+  baz: asd f1123123
 items:
 - 1
 - 2

@@ -87,6 +87,9 @@ const conf = new Config()
       stats: 'errors-only',
       port: process.env.HOST_PORT,
       host: process.env.HOST_IP,
+      watchOptions: {
+        aggregateTimeout: 100
+      }
     },
     module: {
       noParse: [

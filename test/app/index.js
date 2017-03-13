@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   instance.start()
 
+/*
   setTimeout(() => {
     instance.update({
       controllers: {
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     })
   }, 2 * 1000)
+  */
   /*
 
   let i = 0
@@ -90,7 +92,9 @@ function stringify(obj) {
 }
 
 if (module.hot) {
-    module.hot.accept(context.id, () => {
+    module.hot.accept(context.id, x => {
+      try {
+
       let context = require.context('./', true, /\.js|yml/)
       let newModules = loadModule(context)
 
@@ -111,10 +115,27 @@ if (module.hot) {
           }
         })
 
+        Object.keys(newModules[x]).forEach(y => {
+          if (!modules[x][y]) {
+            changes[x][y] = newModules[x][y]
+          }
+        })
+
       })
+
+      // Because using Vue doesn't allow changing children
+      // we need to recreate the whole tree
+      // @TODO: Remove this once Vue is removed from the framework
+      if (Object.keys(changes.views).length > 0) {
+        changes.views = newModules.views
+      }
 
       console.log('The changes are', changes)
       instance.update(changes)
+
+    } catch(e) {
+      console.log("error is", e)
+    }
 
     })
 

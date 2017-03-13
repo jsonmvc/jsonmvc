@@ -1,9 +1,11 @@
 
-import { forEach, merge } from 'lodash'
+import { forEach, merge, isPlainObject } from 'lodash'
 import bundleModules from '_fns/bundleModules'
 import createControllers from '_controllers/controllers'
 import subscribeController from '_controllers/subscribe'
 import createModels from '_models/models'
+import createViews from '_views/views'
+import mountView from '_fns/mountView'
 
 function update(instance, modules) {
 
@@ -29,9 +31,7 @@ function update(instance, modules) {
   }
 
   if (bundle.models) {
-    console.log('Updating models')
     forEach(bundle.models, (model, name) => {
-      console.log('Removing', name)
       let current = instance.models[name]
       if (current) {
         current.remove()
@@ -39,7 +39,6 @@ function update(instance, modules) {
       }
     })
 
-    console.log('Creating new models')
     let newModels = createModels(instance.db, bundle.models)
 
     forEach(newModels, (model, name) => {
@@ -47,73 +46,47 @@ function update(instance, modules) {
     })
   }
 
-  return
-  if (data.schema) {
+  if (bundle.data) {
 
-    o.schema = merge(o.schema, data.schema)
+    if (bundle.data.initial) {
+      console.log(bundle.data.initial)
+      Object.keys(bundle.data.initial).forEach(x => {
+        let val = bundle.data.initial[x]
+        let op = isPlainObject(val) ? 'merge' : 'add'
 
-    if (data.schema.views) {
-      data.views = o.views
-    }
-
-    if (data.schema.controllers) {
-
-      data.controllers = {}
-      Object.keys(data.schema.controllers).forEach(x => {
-        data.controllers[x] = o.controllers[x]
+      instance.db.patch([{
+          op: op,
+          path: '/' + x,
+          value: val
+        }])
       })
+    }
 
+    if (bundle.data.schema) {
+      console.error('Schema HMR not implemented yet')
     }
 
   }
 
-  if (data.controllers) {
+  try {
+  if (bundle.views) {
 
-    // Unsubscribe controllers
-    Object.keys(data.controllers).forEach(x => {
-      if (instances.controllers[x]) {
-        instances.controllers[x]()
-        delete instances.controllers[x]
-      }
+    forEach(instance.views, view => {
+      view.unsubscribe()
     })
 
-    let controllers = createControllers(db, o.schema.controllers, data.controllers)
+    let config = instance.db.get('/config/ui/mount')
 
-    Object.keys(controllers).forEach(x => {
-      instances.controllers[x] = controllers[x]
-    })
-
-  }
-
-  if (data.views) {
-
-    Object.keys(instances.views).forEach(x => {
-      instances.views[x].unsubscribe()
-    })
-
-    let root = instances.views[o.config.rootComponent]
-    root.instance.$destroy(true)
+    let root = instance.views[config.component]
     root.instance.$el.remove()
 
-    Object.keys(data.views).forEach(x => {
-      if (o.views[x]) {
-        delete instances.views[x]
-      }
-      if (o.views[x] !== null) {
-        o.views[x] = data.views[x]
-      }
-    })
-
-    instances.views = createViews(db, o.views, o.schema.views)
+    instance.views = createViews(db, bundle.views)
 
     // Update logic
-
-    mountView(o.config.rootEl, instances.views[o.config.rootComponent].component)
+    mountView(config.el, instance.views[config.component].component)
   }
-
-  if (data.models) {
-
-
+  } catch (e) {
+    console.log(e)
   }
 
 }
