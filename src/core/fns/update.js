@@ -13,7 +13,7 @@ function update(instance, modules) {
 
     console.log(bundle)
 
-  if (bundle.controllers) {
+  if (bundle.controllers && Object.keys(bundle.controllers).length > 0) {
     forEach(bundle.controllers, (controller, name) => {
       let current = instance.controllers[name]
       if (current) {
@@ -32,7 +32,7 @@ function update(instance, modules) {
 
   }
 
-  if (bundle.models) {
+  if (bundle.models && Object.keys(bundle.models).length > 0) {
     forEach(bundle.models, (model, name) => {
       let current = instance.models[name]
       if (current) {
@@ -48,7 +48,7 @@ function update(instance, modules) {
     })
   }
 
-  if (bundle.data) {
+  if (bundle.data && Object.keys(bundle.data).length > 0) {
 
     if (bundle.data.initial) {
       console.log(bundle.data.initial)
@@ -70,7 +70,7 @@ function update(instance, modules) {
 
   }
 
-  if (bundle.views) {
+  if (bundle.views && Object.keys(bundle.views).length > 0) {
 
     forEach(instance.views, view => {
       view.unsubscribe()
