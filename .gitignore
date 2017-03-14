@@ -1,4 +1,4 @@
 /node_modules/
 *.log
-public/
 build/custom.env
+dist/
