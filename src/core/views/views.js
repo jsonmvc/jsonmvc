@@ -70,7 +70,9 @@ function createViews(db, views) {
     })
 
     instance.unsubscribe = function unsubscribeView() {
-      instance.instance.$destroy()
+      if (instance.instance) {
+        instance.instance.$destroy()
+      }
       // @TODO: Unsubscribe only when the destroyAt was set on the instance db
       usedStream.unsubscribe()
     }
