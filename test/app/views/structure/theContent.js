@@ -7,7 +7,8 @@ module.exports = {
     pressedAt: '/ui/button/timestamp',
     ajaxContent: '/ajaxContent',
     ajaxRequestIds: '/ajax/ids',
-    patched: '/patched'
+    patched: '/patched',
+    lastAjax: '/ajax/lastByLabel/google/createdAt'
   },
   template: `
     <div>
@@ -16,6 +17,7 @@ module.exports = {
       {{ content }}
       <button data-path="/ui/button" data-value="5">Press me see '/ui/button'</button>
       <p>Button pressed at {{ pressedAt }}
+      <p>Last ajax was at: {{ lastAjax }}</p>
       <p><strong>Ajax returned</strong> <br />{{ ajaxContent }}...</p>
 
       <ul>

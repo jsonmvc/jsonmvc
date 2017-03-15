@@ -8,6 +8,6 @@ module.exports = {
       labels: ['google'],
       patch: true
     }))
-    .tap(x => console.log(x))
+    .tap(x => console.log(x, '13'))
   }
 }
