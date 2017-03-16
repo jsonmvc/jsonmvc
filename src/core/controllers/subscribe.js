@@ -10,10 +10,10 @@ function subscribe(db, controller) {
       db.patch(x)
     },
     complete: x => {
-      console.log(`Controller ${name} has ended`)
+      console.log(`Controller ${controller.name} has ended`)
     },
     error: x => {
-      console.error(`Controller ${name} has an error`, x)
+      console.error(`Controller ${controller.name} has an error`, x)
     }
   })
 }

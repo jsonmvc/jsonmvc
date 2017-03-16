@@ -8,11 +8,13 @@ module.exports = {
     ajaxContent: '/ajaxContent',
     ajaxRequestIds: '/ajax/ids',
     patched: '/patched',
-    lastAjax: '/ajax/lastByLabel/google/createdAt'
+    lastAjax: '/ajax/lastByLabel/google/createdAt',
+    observable: '/observable'
   },
   template: `
     <div>
       <h2>Content 12321 {{ title }}</h2>
+      <h2>Observable {{ observable }}</h2>
       <p>Patch was applied: {{ patched }}</p>
       {{ content }}
       <button data-path="/ui/button" data-value="5">Press me see '/ui/button'</button>
