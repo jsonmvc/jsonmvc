@@ -13,15 +13,15 @@ module.exports = {
         Object.keys(reqs).forEach(x => {
           let request = reqs[x]
 
-            observer.next({
-              op: 'merge',
-              path: `/ajax/data/${request.id}`,
-              value: {
-                readyState: 1,
-                attempts: parseInt(request.attempts, 10) + 1,
-                sentAt: new Date().getTime() // db.get('/time/ms')
-              }
-            })
+          observer.next({
+            op: 'merge',
+            path: `/ajax/data/${request.id}`,
+            value: {
+              readyState: 1,
+              attempts: parseInt(request.attempts, 10) + 1,
+              sentAt: new Date().getTime() // db.get('/time/ms')
+            }
+          })
 
           ajax(request).always((response, xhr) => {
             let error

@@ -13,6 +13,7 @@ module.exports = {
   },
   template: `
     <div>
+      <timeModel></timeModel>
       <h2>Content 12321 {{ title }}</h2>
       <h2>Observable {{ observable }}</h2>
       <p>Patch was applied: {{ patched }}</p>
