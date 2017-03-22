@@ -103,7 +103,8 @@ const conf = new Config()
             presets: ['es2015'],
             plugins: [
               'lodash',
-              'add-module-exports'
+              'add-module-exports',
+              'transform-pug-html'
             ]
           }
         }

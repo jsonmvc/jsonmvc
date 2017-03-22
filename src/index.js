@@ -18,7 +18,8 @@ import reloadHMR from '_fns/reloadHMR'
 const jsonmvcModules = {
   ajax: loadModule(require.context('_modules/ajax', true, /\.yml|js/)),
   time: loadModule(require.context('_modules/time', true, /\.yml|js/)),
-  ui: loadModule(require.context('_modules/ui', true, /\.yml|js/))
+  ui: loadModule(require.context('_modules/ui', true, /\.yml|js/)),
+  form: loadModule(require.context('_modules/form', true, /\.yml|js/))
 }
 
 const jsonmvc = module => {
@@ -40,6 +41,7 @@ const jsonmvc = module => {
 
   if (typeof window !== 'undefined') {
     window.db = instance.db
+    window.instance = instance
   }
 
   return {

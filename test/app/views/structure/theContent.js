@@ -14,6 +14,9 @@ module.exports = {
   template: `
     <div>
       <timeModel></timeModel>
+
+      <jsonmvcForm namespace="qux"></jsonmvcForm>
+
       <h2>Content 12321 {{ title }}</h2>
       <h2>Observable {{ observable }}</h2>
       <p>Patch was applied: {{ patched }}</p>
