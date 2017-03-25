@@ -28,7 +28,7 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc#readme",
   "dependencies": {
     "@fdaciuk/ajax": "^2.1.5",
-    "jsonmvc-db": "^0.6.0",
+    "jsonmvc-db": "^0.6.1",
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
     "most": "^1.2.2",
     "shortid": "^2.2.6",
