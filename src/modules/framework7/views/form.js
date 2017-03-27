@@ -36,7 +36,7 @@ module.exports = {
 
         // Select
         a.item-link.smart-select(href='#', v-if="field.type === 'choice'", data-open-in="picker")
-          select(:name='field.key', :data-path="store + field.key")
+          select(:name='field.key', :data-path="store + '/' + field.key")
             option(v-for="(value, key) in field.options", :value="key") {{ value.label.en }}
           .item-content
             .item-inner
