@@ -15,7 +15,12 @@ module.exports = {
     <div>
       <timeModel></timeModel>
 
-      <jsonmvcForm namespace="qux"></jsonmvcForm>
+      <firebase></firebase>
+
+      <div>
+        <h3>Form jsonmvc:</h3>
+        <jsonmvcForm namespace="qux"></jsonmvcForm>
+      </div>
 
       <h2>Content 12321 {{ title }}</h2>
       <h2>Observable {{ observable }}</h2>

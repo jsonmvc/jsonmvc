@@ -4,6 +4,20 @@ config:
       el: '#app'
       component: 'theHeader'
 
+firebase:
+  config:
+    apiKey: AIzaSyAR3AnXx0kv78FRWs5NNxSwbLIhXa1G8pU
+    authDomain: jsonmvc-38097.firebaseapp.com
+    databaseURL: https://jsonmvc-38097.firebaseio.com
+    storageBucket: jsonmvc-38097.appspot.com
+    messagingSenderId: 556444018165
+  data:
+    sample:
+      path: /sample/data
+
+sample:
+  data: {}
+
 foo: 123
 bar:
   baz: asd f1123123

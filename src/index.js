@@ -19,7 +19,8 @@ const jsonmvcModules = {
   ajax: loadModule(require.context('_modules/ajax', true, /\.yml|js/)),
   time: loadModule(require.context('_modules/time', true, /\.yml|js/)),
   ui: loadModule(require.context('_modules/ui', true, /\.yml|js/)),
-  form: loadModule(require.context('_modules/form', true, /\.yml|js/))
+  form: loadModule(require.context('_modules/form', true, /\.yml|js/)),
+  firebase: loadModule(require.context('_modules/firebase', true, /\.yml|js/))
 }
 
 const jsonmvc = module => {
