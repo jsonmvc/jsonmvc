@@ -2,6 +2,16 @@
 .babelrc
 .eslintrc
 
+spec
+script
+*.coffee
+.npmignore
+.DS_Store
+npm-debug.log
+.travis.yml
+.pairs
+.coffee
+
 npm-shrinkwrap.json
 
 README.md
@@ -11,3 +21,4 @@ src/
 test/
 build/
 dist/build_report.html
+dist/build_stats.html
