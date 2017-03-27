@@ -1,5 +1,6 @@
 import webpack from 'webpack'
 import { Config } from 'webpack-config'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 module.exports = new Config()
   .extend({
@@ -32,6 +33,14 @@ module.exports = new Config()
         compress: {
           warnings: false
         }
+      }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: process.env.BUILD_REPORT_PATH,
+        generateStatsFile: true,
+        statsFilename: process.env.BUILD_STATS_PATH,
+        statsOptions: null,
+        logLevel: 'info'
       })
     ]
   })

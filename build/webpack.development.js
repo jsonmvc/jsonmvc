@@ -40,7 +40,8 @@ const conf = new Config()
         'lodash',
         'jsonmvc-db',
         '@fdaciuk/ajax',
-        'shortid'
+        'shortid',
+        'firebase'
       ]
     },
 

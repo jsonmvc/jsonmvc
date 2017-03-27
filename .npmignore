@@ -10,3 +10,4 @@ TODO.md
 src/
 test/
 build/
+dist/build_report.html

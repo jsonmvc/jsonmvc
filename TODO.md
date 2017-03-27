@@ -5,6 +5,8 @@ TODOS:
 -- models & model update
 - Create testing environment
 
+Add vue-template-compiler as a dependency somehow in order to precompile the vue templates
+
 ----
 
 

@@ -1205,6 +1205,12 @@
       "resolved": "https://registry.npmjs.org/domutils/-/domutils-1.5.1.tgz",
       "dev": true
     },
+    "duplexer": {
+      "version": "0.1.1",
+      "from": "duplexer@>=0.1.1 <0.2.0",
+      "resolved": "https://registry.npmjs.org/duplexer/-/duplexer-0.1.1.tgz",
+      "dev": true
+    },
     "duplexer2": {
       "version": "0.0.2",
       "from": "duplexer2@0.0.2",
@@ -1229,6 +1235,12 @@
       "version": "1.1.1",
       "from": "ee-first@1.1.1",
       "resolved": "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz",
+      "dev": true
+    },
+    "ejs": {
+      "version": "2.5.6",
+      "from": "ejs@>=2.5.5 <3.0.0",
+      "resolved": "https://registry.npmjs.org/ejs/-/ejs-2.5.6.tgz",
       "dev": true
     },
     "electron-to-chromium": {
@@ -1427,6 +1439,12 @@
       "version": "2.0.0",
       "from": "filename-regex@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/filename-regex/-/filename-regex-2.0.0.tgz",
+      "dev": true
+    },
+    "filesize": {
+      "version": "3.5.6",
+      "from": "filesize@>=3.5.4 <4.0.0",
+      "resolved": "https://registry.npmjs.org/filesize/-/filesize-3.5.6.tgz",
       "dev": true
     },
     "fill-range": {
@@ -1863,6 +1881,12 @@
       "version": "1.0.0",
       "from": "gulplog@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/gulplog/-/gulplog-1.0.0.tgz",
+      "dev": true
+    },
+    "gzip-size": {
+      "version": "3.0.0",
+      "from": "gzip-size@>=3.0.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/gzip-size/-/gzip-size-3.0.0.tgz",
       "dev": true
     },
     "has": {
@@ -2773,6 +2797,12 @@
       "version": "0.0.5",
       "from": "open@0.0.5",
       "resolved": "https://registry.npmjs.org/open/-/open-0.0.5.tgz",
+      "dev": true
+    },
+    "opener": {
+      "version": "1.4.3",
+      "from": "opener@>=1.4.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/opener/-/opener-1.4.3.tgz",
       "dev": true
     },
     "optimist": {
@@ -4277,6 +4307,26 @@
               "dev": true
             }
           }
+        }
+      }
+    },
+    "webpack-bundle-analyzer": {
+      "version": "2.3.1",
+      "from": "webpack-bundle-analyzer@latest",
+      "resolved": "https://registry.npmjs.org/webpack-bundle-analyzer/-/webpack-bundle-analyzer-2.3.1.tgz",
+      "dev": true,
+      "dependencies": {
+        "acorn": {
+          "version": "4.0.11",
+          "from": "acorn@>=4.0.11 <5.0.0",
+          "resolved": "https://registry.npmjs.org/acorn/-/acorn-4.0.11.tgz",
+          "dev": true
+        },
+        "lodash": {
+          "version": "4.17.4",
+          "from": "lodash@>=4.17.4 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz",
+          "dev": true
         }
       }
     },
