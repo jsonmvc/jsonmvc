@@ -33,15 +33,13 @@ bam:
     '125':
       bar: NICE!!
 
-form:
-  data:
-    qux:
-      key: qux
-      fields:
-        name:
-          key: name
-          label:
-            en: Name
-          placeholder:
-            en: Enter your name
-          type: text
+qux:
+  data: {}
+  fields:
+    name:
+      key: name
+      label:
+        en: Name
+      placeholder:
+        en: Enter your name
+      type: text

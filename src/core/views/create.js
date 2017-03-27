@@ -56,6 +56,10 @@ function createView(db, view, siblings) {
     return acc
   }, [])
 
+  if (view.props) {
+    props.required = props.required.concat(view.props)
+  }
+
   // Map all props to all schema paths
   props.schema = Object.keys(view.args).reduce((acc, x) => {
     let path = view.args[x]
