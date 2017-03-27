@@ -7,7 +7,7 @@ module.exports = {
   fn: data => {
 
     let result = transform(data, (acc, v, k) => {
-      if (v.data.submit) {
+      if (v && v.data && v.data.submit) {
         acc[k] = {
           namespace: k,
           timestamp: v.data.submit.timestamp,
