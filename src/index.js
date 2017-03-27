@@ -20,6 +20,7 @@ const jsonmvcModules = {
   time: loadModule(require.context('_modules/time', true, /\.yml|js/)),
   ui: loadModule(require.context('_modules/ui', true, /\.yml|js/)),
   form: loadModule(require.context('_modules/form', true, /\.yml|js/)),
+  firebase: loadModule(require.context('_modules/firebase', true, /\.yml|js/)),
   framework7: loadModule(require.context('_modules/framework7', true, /\.yml|js/))
 }
 
