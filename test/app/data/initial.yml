@@ -43,3 +43,4 @@ qux:
       placeholder:
         en: Enter your name
       type: text
+      value: Bla blam default value

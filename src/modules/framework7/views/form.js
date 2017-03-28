@@ -7,43 +7,42 @@ module.exports = {
   props: ['store'],
   template: pug `
 
-.content-block
+.list-block
+  ul
+    li(v-for="field in fieldList")
 
-  .list-block
-    ul
-      li(v-for="field in fieldList")
+      // Text Input
+      .item-content(v-if="field.type === 'text'")
+        .item-inner
+          .item-title.label {{ field.label.en }}
+          .item-input
+            input(type='text', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
 
-        // Text Input
-        .item-content(v-if="field.type === 'text'")
+      // Email Input
+      .item-content(v-if="field.type === 'email'")
+        .item-inner
+          .item-title.label {{ field.label.en }}
+          .item-input
+            input(type='email', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+
+      // Number Input
+      .item-content(v-if="field.type === 'number'")
+        .item-inner
+          .item-title.label {{ field.label.en }}
+          .item-input
+            input(type='text', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+
+      // Select
+      a.item-link.smart-select(href='#', v-if="field.type === 'choice'", data-open-in="picker")
+        select(:name='field.key', :data-path="store + '/' + field.key")
+          option(v-for="(value, key) in field.options", :value="key", :selected="field.value === key") {{ value.label.en }}
+        .item-content
           .item-inner
-            .item-title.label {{ field.label.en }}
-            .item-input
-              input(type='text', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key")
+            .item-title {{ field.label.en }}
+            .item-after Choose
 
-        // Email Input
-        .item-content(v-if="field.type === 'email'")
-          .item-inner
-            .item-title.label {{ field.label.en }}
-            .item-input
-              input(type='email', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key")
-
-        // Number Input
-        .item-content(v-if="field.type === 'number'")
-          .item-inner
-            .item-title.label {{ field.label.en }}
-            .item-input
-              input(type='text', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key")
-
-        // Select
-        a.item-link.smart-select(href='#', v-if="field.type === 'choice'", data-open-in="picker")
-          select(:name='field.key', :data-path="store + '/' + field.key")
-            option(v-for="(value, key) in field.options", :value="key") {{ value.label.en }}
-          .item-content
-            .item-inner
-              .item-title {{ field.label.en }}
-              .item-after Choose
-
-  a.button(href="#", :data-path="store + '/submit'", data-value="") Submit
+  .content-block
+    a.button(href="#", :data-path="store + '/submit'", data-value="") Submit
 
   `
 }
