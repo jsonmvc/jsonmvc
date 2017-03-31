@@ -6,6 +6,7 @@ module.exports = {
     .chain(config => lib.observable(observer => {
 
       window.firebase = firebase
+
       if (!lib.firebase()) {
         firebase.initializeApp(config)
         observer.next({

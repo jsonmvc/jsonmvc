@@ -4,7 +4,7 @@ module.exports = {
   args: {
     fieldList: '<fields>'
   },
-  props: ['store'],
+  props: ['path'],
   template: pug `
 
 .list-block
@@ -16,25 +16,25 @@ module.exports = {
         .item-inner
           .item-title.label {{ field.label.en }}
           .item-input
-            input(type='text', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+            input(type='text', :data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
 
       // Email Input
       .item-content(v-if="field.type === 'email'")
         .item-inner
           .item-title.label {{ field.label.en }}
           .item-input
-            input(type='email', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+            input(type='email', :data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
 
       // Number Input
       .item-content(v-if="field.type === 'number'")
         .item-inner
           .item-title.label {{ field.label.en }}
           .item-input
-            input(type='text', :data-path="store + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+            input(type='text', :data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
 
       // Select
       a.item-link.smart-select(href='#', v-if="field.type === 'choice'", data-open-in="picker")
-        select(:name='field.key', :data-path="store + '/' + field.key")
+        select(:name='field.key', :data-path="path + '/' + field.key")
           option(v-for="(value, key) in field.options", :value="key", :selected="field.value === key") {{ value.label.en }}
         .item-content
           .item-inner
@@ -42,7 +42,7 @@ module.exports = {
             .item-after Choose
 
   .content-block
-    a.button(href="#", :data-path="store + '/submit'", data-value="") Submit
+    a.button(href="#", :data-path="path + '/submit'", data-value="") Submit
 
   `
 }

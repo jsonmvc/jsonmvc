@@ -7,7 +7,7 @@ module.exports = {
   stream: (stream, lib) => stream
     .filter(x => x === true)
     .chain(x => lib.observable(observer => {
-      let data = lib.get('/firebase/data')
+      let data = lib.get('/firebase/sync')
       let db = lib.firebase().database
 
       function errFn(e) {

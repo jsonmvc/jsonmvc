@@ -19,7 +19,7 @@ module.exports = {
 
       <div>
         <h3>Form jsonmvc:</h3>
-        <f7form fields="/qux/fields" store="/form/data/qux"></f7form>
+        <f7form fields="/qux/fields" path="/form/data/qux"></f7form>
       </div>
 
       <h2>Content 12321 {{ title }}</h2>
