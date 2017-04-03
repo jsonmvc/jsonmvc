@@ -9,19 +9,15 @@ module.exports = {
     ajaxRequestIds: '/ajax/ids',
     patched: '/patched',
     lastAjax: '/ajax/lastByLabel/google/createdAt',
-    observable: '/observable'
+    observable: '/observable',
+    quxes: '/data/qux',
+    editQux: '/qux/edit'
   },
   template: `
     <div>
       <timeModel></timeModel>
 
-      <firebase></firebase>
-
-      <div>
-        <h3>Form jsonmvc:</h3>
-        <f7form fields="/qux/fields" path="/form/data/qux"></f7form>
-      </div>
-
+      <formsTest></formsTest>
       <h2>Content 12321 {{ title }}</h2>
       <h2>Observable {{ observable }}</h2>
       <p>Patch was applied: {{ patched }}</p>

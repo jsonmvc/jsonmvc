@@ -4,7 +4,7 @@ module.exports = {
   args: {
     fieldList: '<fields>'
   },
-  props: ['path'],
+  props: ['path', 'uid'],
   template: pug `
 
 .list-block
@@ -42,7 +42,7 @@ module.exports = {
             .item-after Choose
 
   .content-block
-    a.button(href="#", :data-path="path + '/submit'", data-value="") Submit
+    a.button(href="#", :data-path="path + '/submit'", :data-value="uid") Submit
 
   `
 }

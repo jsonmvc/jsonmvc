@@ -1018,3 +1018,22 @@ DB
 Expose to the developer only the following db methods:
 - get
 - has
+
+
+Database structure:
+/data
+
+/fields
+/fields/data
+/fields/definitions
+/fields/update
+/fields/create
+
+/forms
+/forms/data
+/forms/create/qux
+/forms/update/qux/id
+
+/update/qux/123
+/create/qux/1
+/delete/qux/321

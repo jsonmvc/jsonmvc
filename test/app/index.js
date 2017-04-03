@@ -13,3 +13,10 @@ if (module.hot) {
     reloadHMR(instance, context)
   })
 }
+
+/*
+
+instance.db.on('/err', x => {
+  console.error(x)
+})
+*/

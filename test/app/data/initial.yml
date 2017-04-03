@@ -11,9 +11,11 @@ firebase:
     databaseURL: https://jsonmvc-38097.firebaseio.com
     storageBucket: jsonmvc-38097.appspot.com
     messagingSenderId: 556444018165
-  data:
-    sample:
-      path: /sample/data
+  sync:
+    qux:
+      path: /data/qux
+      on: /forms/submit/qux
+      delete: /qux/delete
 
 sample:
   data: {}
@@ -33,9 +35,11 @@ bam:
     '125':
       bar: NICE!!
 
-qux:
-  data: {}
-  fields:
+fields:
+  definitions:
+    qux:
+    - name
+  data:
     name:
       key: name
       label:
@@ -43,4 +47,6 @@ qux:
       placeholder:
         en: Enter your name
       type: text
-      value: Bla blam default value
+
+data:
+  qux: {}
