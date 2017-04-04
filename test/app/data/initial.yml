@@ -39,11 +39,11 @@ fields:
   options:
     bam:
       id1:
-        name: id1
+        name: realname1
         label:
           en: Name 1
       id2:
-        name: id2
+        name: realname2
         label:
           en: Name 2
 

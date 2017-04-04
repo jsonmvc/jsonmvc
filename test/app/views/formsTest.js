@@ -2,7 +2,7 @@
 module.exports = {
   name: 'formsTest',
   args: {
-    quxes: '/data/qux',
+    quxes: '/compiled/qux',
     editQux: '/qux/edit'
   },
   template: `

@@ -6,6 +6,12 @@ module.exports = {
   args: ['/fields/data', '/fields/templates', '/fields/options'],
   fn: (data, templates, options) => {
 
+    if (!data || !templates) {
+      return {}
+    }
+
+    data = JSON.parse(JSON.stringify(data))
+
     return transform(templates, (acc, val, key) => {
       acc[key] = transform(val, (acc2, val2, key2) => {
         acc2[key2] = data[key2]
