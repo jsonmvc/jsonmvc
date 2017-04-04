@@ -3,14 +3,13 @@ import reduce from 'lodash/reduce'
 
 module.exports = {
   path: '/fields/create',
-  args: ['/fields/data', '/fields/definitions'],
-  fn: (data, definitions) => {
+  args: ['/fields/data', '/fields/templates'],
+  fn: (data, templates) => {
 
-    return transform(definitions, (acc, val, key) => {
-      acc[key] = reduce(val, (acc2, x) => {
-        acc2[x] = data[x]
-        return acc2
-      }, {})
+    return transform(templates, (acc, val, key) => {
+      acc[key] = transform(val, (acc2, val2, key2) => {
+        acc2[key2] = data[key2]
+      })
     })
 
   }

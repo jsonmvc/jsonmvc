@@ -36,9 +36,9 @@ bam:
       bar: NICE!!
 
 fields:
-  definitions:
+  templates:
     qux:
-    - name
+      name: true
   data:
     name:
       key: name
