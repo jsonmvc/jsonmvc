@@ -36,9 +36,21 @@ bam:
       bar: NICE!!
 
 fields:
+  options:
+    bam:
+      id1:
+        name: id1
+        label:
+          en: Name 1
+      id2:
+        name: id2
+        label:
+          en: Name 2
+
   templates:
     qux:
       name: true
+      blam: true
   data:
     name:
       key: name
@@ -47,6 +59,12 @@ fields:
       placeholder:
         en: Enter your name
       type: text
+    blam:
+      key: blam
+      label:
+        en: Blam
+      dynamicOptions: bam
+      type: choice
 
 data:
   qux: {}
