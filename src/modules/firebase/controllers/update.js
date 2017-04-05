@@ -17,11 +17,6 @@ module.exports = {
 
           forEach(saveValues, (val, key) => {
 
-            observer.next({
-              op: 'remove',
-              path: '/forms/data/' + val.name + '/' + key
-            })
-
             if (isEmpty(val.uid)) {
               ref = db.ref(location).push()
               val.value.key = ref.key
@@ -39,10 +34,6 @@ module.exports = {
         return function (values) {
           forEach(values, x => {
             db.ref(location + '/' + x.value).remove()
-            observer.next({
-              op: 'remove',
-              path: path + '/' + x.value
-            })
           })
         }
       }
