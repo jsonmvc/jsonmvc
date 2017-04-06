@@ -1121,3 +1121,24 @@ module.exports = {
 }
 
 
+-----
+NPM Modules
+-----
+
+jsonmvc
+jsonmvc-db
+jsonmvc-util
+jsonmvc-modules
+OR
+jsonmvc-module-firebase
+jsonmvc-module-ui
+jsonmvc-module-time
+// etc...
+
+import { stream, patch, ajax } from 'jsonmvc-util'
+
+import { ajax, firebase } from 'jsonmvc-modules'
+OR
+import jsonmvcFirebase from 'jsonmvc-module-firebase'
+
+
