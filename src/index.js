@@ -1,5 +1,5 @@
 
-import { merge, forEach, reduce } from 'lodash'
+import { omitBy, merge, forEach, reduce } from 'lodash'
 
 import DB from 'jsonmvc-db'
 
@@ -15,22 +15,21 @@ import reloadHMR from '_fns/reloadHMR'
 /**
  * Modules
  */
-const jsonmvcModules = {
-  ajax: loadModule(require.context('_modules/ajax', true, /\.yml|js/)),
-  time: loadModule(require.context('_modules/time', true, /\.yml|js/)),
-  ui: loadModule(require.context('_modules/ui', true, /\.yml|js/)),
-  forms: loadModule(require.context('_modules/forms', true, /\.yml|js/)),
-  fields: loadModule(require.context('_modules/fields', true, /\.yml|js/)),
-  firebase: loadModule(require.context('_modules/firebase', true, /\.yml|js/)),
-  framework7: loadModule(require.context('_modules/framework7', true, /\.yml|js/))
-}
 
-const jsonmvc = (module, modulesList = []) => {
 
-  let enabledModules = modulesList.reduce((acc, x) => {
-    acc[x] = jsonmvcModules[x]
-    return acc
-  }, {})
+const jsonmvc = (module, modulesList = {}) => {
+
+  let enabledModules = {
+    ajax: modulesList.ajax && loadModule(require.context('_modules/ajax', true, /\.yml|js/)),
+    time: modulesList.time && loadModule(require.context('_modules/time', true, /\.yml|js/)),
+    ui: modulesList.ui && loadModule(require.context('_modules/ui', true, /\.yml|js/)),
+    forms: modulesList.forms && loadModule(require.context('_modules/forms', true, /\.yml|js/)),
+    fields: modulesList.fields && loadModule(require.context('_modules/fields', true, /\.yml|js/)),
+    firebase: modulesList.firebase && loadModule(require.context('_modules/firebase', true, /\.yml|js/)),
+    framework7: modulesList.framework7 && loadModule(require.context('_modules/framework7', true, /\.yml|js/))
+  }
+
+  enabledModules = omitBy(enabledModules, x => x === undefined)
 
   let modules = merge(enabledModules, {
     app: module
