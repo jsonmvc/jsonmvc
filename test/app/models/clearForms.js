@@ -1,7 +1,7 @@
 import { reduce } from 'lodash'
 
 module.exports = {
-  path: '/forms/clear',
+  path: '/forms/clear_bkp',
   args: ['/forms/submit'],
   fn: x => {
     return reduce(x, (acc, v, k) => {

@@ -25,9 +25,14 @@ const jsonmvcModules = {
   framework7: loadModule(require.context('_modules/framework7', true, /\.yml|js/))
 }
 
-const jsonmvc = module => {
+const jsonmvc = (module, modulesList = []) => {
 
-  let modules = merge(jsonmvcModules, {
+  let enabledModules = modulesList.reduce((acc, x) => {
+    acc[x] = jsonmvcModules[x]
+    return acc
+  }, {})
+
+  let modules = merge(enabledModules, {
     app: module
   })
 
