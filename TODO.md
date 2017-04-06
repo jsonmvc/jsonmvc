@@ -1037,3 +1037,87 @@ Database structure:
 /update/qux/123
 /create/qux/1
 /delete/qux/321
+
+---
+New API
+---
+
+Model:
+-----
+module.exports = {
+  path: '/foo/<id>',
+  args: {
+    bam: '/baz/bam'
+  },
+  filter: changed => {
+    if (changed.bam.length) {
+      return false
+    } else {
+      return true
+    }
+  },
+  fn: args => {
+    // args.id
+    // args.bam
+
+    function compute(val) {
+      // Do stuff with data
+      return val + 1
+    }
+
+    let result
+    if (args.id) {
+      result = compute(args.bam[args.id])
+    } else {
+      result = Object.keys(args.bam).reduce((acc, x) => {
+        acc[x] = compute(args.bam[x])
+        return acc
+      }, {})
+    }
+
+    return result
+  }
+}
+
+// Lib will be imported from jsonmvc
+// Create a babel plugin that instruments
+// lib statements to contain the file in which
+// the lib is used for debug
+import { stream, patch, observer } from 'jsonmvc-utils'
+
+Controller:
+-----------
+module.exports = {
+  args: {
+    foo: '/bam/foo'
+  },
+  filter: args => {
+    return args.foo !== undefined
+  },
+  fn: args => {
+    // Returns a patch (Object || Array)
+  },
+  // OR using a stream
+  fn: stream
+    .chain(args => observer(next => {
+      next(args.foo += 1)
+    }))
+    .delay(1000)
+    .map(x => patch('add', '/foo/bar', x))
+}
+
+View:
+----
+import { template } from 'jsonmvc'
+
+module.exports = {
+  name: 'foo'
+  args: {
+    foo: '/bam/foo'
+  },
+  fn: args => `<div>${args.foo}</div>`
+  // OR when Vue will be replaced:
+  fn: template(`<div>{{ args.foo }}</div>`)
+}
+
+
