@@ -1,6 +1,6 @@
 
 module.exports = {
-  name: 'formsTest',
+  name: 'forms-test',
   args: {
     quxes: '/compiled/qux',
     editQux: '/qux/edit'

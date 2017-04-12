@@ -1,6 +1,6 @@
 
 module.exports = {
-  name: 'theHeader',
+  name: 'the-header',
   args: {
     title: '/baloo',
     foo: '/foo',
@@ -10,8 +10,8 @@ module.exports = {
     <div>
       <p>Time: {{ time }}</p>
       <h1>Header: {{ title }}</h1>
-      <theContent id="11" :foo="foo"></theContent>
-      <theFooter></theFooter>
+      <the-content id="11" :foo="foo"></the-content>
+      <the-footer></the-footer>
       <blam></blam>
     </div>
   `

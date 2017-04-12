@@ -19,6 +19,7 @@ function reloadHMR(instance, context) {
           changes[x][y] = false
         } else if (stringify(newModule[x][y]) !== stringify(instance.module[x][y])) {
           changes[x][y] = newModule[x][y]
+          instance.module[x][y] = newModule[x][y]
         }
       })
 

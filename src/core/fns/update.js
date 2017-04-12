@@ -11,8 +11,6 @@ function update(instance, modules) {
 
   let bundle = bundleModules(modules)
 
-    console.log(bundle)
-
   if (bundle.controllers && Object.keys(bundle.controllers).length > 0) {
     forEach(bundle.controllers, (controller, name) => {
       let current = instance.controllers[name]
@@ -35,7 +33,7 @@ function update(instance, modules) {
   if (bundle.models && Object.keys(bundle.models).length > 0) {
     forEach(bundle.models, (model, name) => {
       let current = instance.models[name]
-      if (current) {
+      if (current && current.remove) {
         current.remove()
         delete instance.models[name]
       }

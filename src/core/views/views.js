@@ -18,6 +18,18 @@ function createViews(db, views) {
 
   let names = Object.keys(byNames)
 
+  // Add default mounting flag for views
+  let mountingFlags = names.reduce((acc, x) => {
+    acc[x] = true
+    return acc
+  }, {})
+
+  db.patch([{
+    op: 'add',
+    path: '/shouldMount',
+    value: mountingFlags
+  }])
+
   // Define deps
   let deps = reduce(names, (acc, name) => {
     acc[name] = names.filter(x => {

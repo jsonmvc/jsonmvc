@@ -12,11 +12,6 @@ import bundleModules from '_fns/bundleModules'
 import start from '_fns/start'
 import reloadHMR from '_fns/reloadHMR'
 
-/**
- * Modules
- */
-
-
 const jsonmvc = (module, modulesList = {}) => {
 
   let enabledModules = {

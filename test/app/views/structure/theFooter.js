@@ -1,6 +1,6 @@
 
 module.exports = {
-  name: 'theFooter',
+  name: 'the-footer',
   args: {
     title: '/foo',
     items: '/items'

@@ -16,7 +16,7 @@ const conf = new Config()
     },
     filename: __filename,
     debug: true,
-    devtool: '#source-map',
+    devtool: '#inline-eval-cheap-source-map',
     output: {
       path: process.env.DIST_PATH,
       publicPath: process.env.BASE_PATH,

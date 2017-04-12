@@ -1,6 +1,6 @@
 
 module.exports = {
-  name: 'timeModel',
+  name: 'time-model',
   args: {
     ms: '/time/ms',
     mm: '/time/mm',

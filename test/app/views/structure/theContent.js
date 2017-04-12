@@ -1,6 +1,6 @@
 
 module.exports = {
-  name: 'theContent',
+  name: 'the-content',
   args: {
     title: '/foo',
     content: '/bam/<id>/<foo>/bar',
@@ -15,9 +15,10 @@ module.exports = {
   },
   template: `
     <div>
-      <timeModel></timeModel>
+      <time-model></time-model>
+      <mounting-test></mounting-test>
 
-      <formsTest></formsTest>
+      <forms-test></forms-test>
       <h2>Content 12321 {{ title }}</h2>
       <h2>Observable {{ observable }}</h2>
       <p>Patch was applied: {{ patched }}</p>
