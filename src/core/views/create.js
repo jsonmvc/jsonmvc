@@ -14,8 +14,6 @@ const PROP_REGEX = /<([a-z]+)>/g
 
 function createView(db, view, siblings) {
 
-  view.args.shouldMount = `/shouldMount/${view.name}`
-
   let observer
   let observable = new Observable(_observer => {
     observer = _observer
@@ -149,6 +147,7 @@ function createView(db, view, siblings) {
   }
 
   if (!nodes[0].hasAttribute('v-if')) {
+    view.args.shouldMount = `/shouldMount/${view.name}`
     nodes[0].setAttribute('v-if', 'shouldMount')
     view.template = tempEl.innerHTML
   }
