@@ -22,6 +22,35 @@ function createView(db, view, siblings) {
   let stream = most.from(observable)
   let self
 
+  // Check if the nodes have a single child
+  // Add shouldMount v-if property on the element
+  // if it is not already present
+  let tempEl = document.createElement('div')
+  tempEl.innerHTML = view.template
+
+  let children = tempEl.childNodes
+  let nodes = []
+
+  for (let i = 0; i < children.length; i += 1) {
+    if (children[i] !== null && children[i].nodeType !== 3) {
+      nodes.push(children[i])
+    }
+  }
+
+  if (nodes.length > 1) {
+    throw new Error(`Error while creating a view.
+      [${view.name}] has more than one root element.
+      Only one root element is required.
+      ${view.template}
+    `)
+  }
+
+  if (!nodes[0].hasAttribute('v-if')) {
+    view.args.shouldMount = `/shouldMount/${view.name}`
+    nodes[0].setAttribute('v-if', 'shouldMount')
+    view.template = tempEl.innerHTML
+  }
+
   let props = {
 
     // Find what props are required based on the schema
@@ -123,34 +152,6 @@ function createView(db, view, siblings) {
     instance: null
   }
 
-  // Check if the nodes have a single child
-  // Add shouldMount v-if property on the element
-  // if it is not already present
-  let tempEl = document.createElement('div')
-  tempEl.innerHTML = view.template
-
-  let children = tempEl.childNodes
-  let nodes = []
-
-  for (let i = 0; i < children.length; i += 1) {
-    if (children[i] !== null && children[i].nodeType !== 3) {
-      nodes.push(children[i])
-    }
-  }
-
-  if (nodes.length > 1) {
-    throw new Error(`Error while creating a view.
-      [${view.name}] has more than one root element.
-      Only one root element is required.
-      ${view.template}
-    `)
-  }
-
-  if (!nodes[0].hasAttribute('v-if')) {
-    view.args.shouldMount = `/shouldMount/${view.name}`
-    nodes[0].setAttribute('v-if', 'shouldMount')
-    view.template = tempEl.innerHTML
-  }
 
   component.component = Vue.component(view.name, {
     template: view.template,
