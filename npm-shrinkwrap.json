@@ -2332,9 +2332,9 @@
       "dev": true
     },
     "jsonmvc-db": {
-      "version": "0.6.4",
+      "version": "0.6.5",
       "from": "jsonmvc-db@latest",
-      "resolved": "https://registry.npmjs.org/jsonmvc-db/-/jsonmvc-db-0.6.4.tgz",
+      "resolved": "https://registry.npmjs.org/jsonmvc-db/-/jsonmvc-db-0.6.5.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.17.4",
