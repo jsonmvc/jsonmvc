@@ -30,6 +30,14 @@ function createViews(db, views) {
     value: mountingFlags
   }])
 
+  db.patch([{
+    op: 'add',
+    path: '/config/views',
+    value: {
+      registered: names
+    }
+  }])
+
   // Define deps
   let deps = reduce(names, (acc, name) => {
     acc[name] = names.filter(x => {
