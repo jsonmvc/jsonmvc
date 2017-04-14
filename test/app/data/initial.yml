@@ -62,7 +62,26 @@ fields:
     qux:
       name: true
       blam: true
+      longText: true
+      startDate: true
+
   data:
+    startDate:
+      key: startDate
+      label:
+        en: Start Date
+      placeholder:
+        en: MM/DD/YY
+      type: date
+
+    longText:
+      key: longText
+      label:
+        en: Long Text
+      placeholder:
+        en: Enter a long text
+      type: textarea
+
     email:
       key: email
       label:
@@ -70,6 +89,7 @@ fields:
       placeholder:
         en: Enter your email
       type: text
+
     password:
       key: password
       label:

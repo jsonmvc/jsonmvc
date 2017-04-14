@@ -39,6 +39,20 @@ module.exports = {
           .item-input
             input(type='text', :data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
 
+      // Date Input
+      .item-content(v-if="field.type === 'date'")
+        .item-inner
+          .item-title.label {{ field.label.en }}
+          .item-input
+            input(type='date', :data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+
+      // Textarea
+      .item-content(v-if="field.type === 'textarea'")
+        .item-inner
+          .item-title.label {{ field.label.en }}
+          .item-input
+            textarea(:data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+
       // Select
       a.item-link.smart-select(href='#', v-if="field.type === 'choice'", data-open-in="picker")
         select(:name='field.key', :data-path="path + '/' + field.key")
