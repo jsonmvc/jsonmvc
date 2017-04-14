@@ -16,8 +16,8 @@ module.exports = {
   template: `
     <div>
       <time-model></time-model>
+      <login></login>
       <mounting-test></mounting-test>
-
       <forms-test></forms-test>
       <h2>Content 12321 {{ title }}</h2>
       <h2>Observable {{ observable }}</h2>

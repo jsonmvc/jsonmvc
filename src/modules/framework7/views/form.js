@@ -25,6 +25,13 @@ module.exports = {
           .item-input
             input(type='email', :data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
 
+      // Password Input
+      .item-content(v-if="field.type === 'password'")
+        .item-inner
+          .item-title.label {{ field.label.en }}
+          .item-input
+            input(type='password', :data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
+
       // Number Input
       .item-content(v-if="field.type === 'number'")
         .item-inner

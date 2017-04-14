@@ -16,6 +16,14 @@ firebase:
       path: /data/qux
       on: /forms/submit/qux
       delete: /qux/delete
+    privateInfo:
+      path: /data/privateInfo
+      auth: true
+  session: {}
+  signOut:
+    path: /signout
+  emailAuth:
+    path: /forms/submit/login/new/value
 
 sample:
   data: {}
@@ -48,10 +56,28 @@ fields:
           en: Name 2
 
   templates:
+    login:
+      email: true
+      password: true
     qux:
       name: true
       blam: true
   data:
+    email:
+      key: email
+      label:
+        en: email
+      placeholder:
+        en: Enter your email
+      type: text
+    password:
+      key: password
+      label:
+        en: password
+      placeholder:
+        en: Enter you password
+      type: password
+
     name:
       key: name
       label:
