@@ -56,6 +56,7 @@ module.exports = {
       // Select
       a.item-link.smart-select(href='#', v-if="field.type === 'choice'", data-open-in="picker")
         select(:name='field.key', :data-path="path + '/' + field.key")
+          option(value="") Not selected
           option(v-for="(value, key) in field.options", :value="key", :selected="field.value === key") {{ value.label.en }}
         .item-content
           .item-inner

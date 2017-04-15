@@ -49,6 +49,7 @@
     "del": "^2.2.2",
     "file-loader": "^0.10.1",
     "firebase": "^3.7.3",
+    "framework7": "^1.6.0",
     "gulp": "^3.9.1",
     "gulp-sync": "^0.1.4",
     "gulp-util": "https://registry.npmjs.org/gulp-util/-/gulp-util-3.0.8.tgz",

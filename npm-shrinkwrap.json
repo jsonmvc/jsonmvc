@@ -1665,6 +1665,12 @@
       "resolved": "https://registry.npmjs.org/forwarded/-/forwarded-0.1.0.tgz",
       "dev": true
     },
+    "framework7": {
+      "version": "1.6.0",
+      "from": "framework7@latest",
+      "resolved": "https://registry.npmjs.org/framework7/-/framework7-1.6.0.tgz",
+      "dev": true
+    },
     "fresh": {
       "version": "0.5.0",
       "from": "fresh@0.5.0",

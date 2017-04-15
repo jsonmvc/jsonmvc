@@ -4,6 +4,9 @@ config:
       el: '#app'
       component: 'the-header'
 
+ui:
+  mounted: true
+
 firebase:
   config:
     apiKey: AIzaSyAR3AnXx0kv78FRWs5NNxSwbLIhXa1G8pU
@@ -24,6 +27,13 @@ firebase:
     path: /signout
   emailAuth:
     path: /forms/submit/login/new/value
+
+framework7:
+  config:
+    smartSelectBackOnSelect: true
+  views:
+    formsTest:
+      dynamicNavbar: true
 
 sample:
   data: {}

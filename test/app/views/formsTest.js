@@ -6,7 +6,8 @@ module.exports = {
     editQux: '/qux/edit'
   },
   template: `
-    <div>
+    <div class="views">
+      <div class="view">
 
       <h2>Forms test using qux</h2>
       <div>
@@ -21,6 +22,8 @@ module.exports = {
           </p>
           <f7form v-if="editQux && editQux[key]" :fields="'/fields/update/qux/' + key" :uid="key" :path="'/forms/data/qux/'+ key"></f7form>
         </div>
+      </div>
+
       </div>
 
     </div>
