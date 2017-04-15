@@ -9,7 +9,19 @@ function unsyncData(key, handles) {
 }
 
 function syncData(db, observer, errFn, key, val) {
+  let preloaded = false
+
+  db.ref(key).once('value', x => {
+    preloaded = true
+    observer.next({
+      op: 'add',
+      path: val.path,
+      value: x.val()
+    })
+  })
+
   db.ref(key).on('child_added', x => {
+    if (!preloaded) return
     observer.next({
       op: 'add',
       path: `${val.path}/${x.key}`,
@@ -18,6 +30,7 @@ function syncData(db, observer, errFn, key, val) {
   }, errFn)
 
   db.ref(key).on('child_changed', x => {
+    if (!preloaded) return
     let value = x.val()
     let op
 
@@ -35,11 +48,13 @@ function syncData(db, observer, errFn, key, val) {
   }, errFn)
 
   db.ref(key).on('child_removed', x => {
+    if (!preloaded) return
     observer.next({
       op: 'remove',
       path: `${val.path}/${x.key}`
     })
   }, errFn)
+
 }
 
 module.exports = {
@@ -58,7 +73,7 @@ module.exports = {
         let handles
 
         if (val.auth === true) {
-          lib.on('/firebase/isAuth', y => {
+          lib.on('/firebase/session/isValid', y => {
             if (y === true) {
               handles = syncData(db, observer, errFn, key, val)
             } else {
@@ -70,4 +85,5 @@ module.exports = {
         }
       })
     }))
+    .tap(x => console.log(x))
 }

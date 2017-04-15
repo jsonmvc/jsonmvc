@@ -3,7 +3,8 @@ module.exports = {
   args: {
     authError: '/firebase/emailAuth/error',
     sessionError: '/firebase/session/error',
-    isValid: '/firebase/session/isValid'
+    isValid: '/firebase/session/isValid',
+    privateInfo: '/data/privateInfo'
   },
   template: pug `
 .login
@@ -15,5 +16,6 @@ module.exports = {
     p User is signed in
     button(style="background: red;", data-path="/signout") Logout
   p(v-if="sessionError") Session error: {{ sessionError.message }}
+  p The private info is: {{ privateInfo }}
 `
 }
