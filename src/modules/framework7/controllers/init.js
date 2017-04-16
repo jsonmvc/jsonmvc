@@ -3,7 +3,7 @@ import { forEach } from 'lodash'
 require('framework7')
 
 module.exports = {
-  args: '/ui/mounted',
+  args: '/app/isMounted',
   stream: (stream, lib) => stream
     .filter(x => x === true)
     .map(x => {
