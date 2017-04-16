@@ -1,6 +1,6 @@
 {
   "name": "jsonmvc",
-  "version": "0.1.70",
+  "version": "0.1.71",
   "dependencies": {
     "@fdaciuk/ajax": {
       "version": "2.1.5",
