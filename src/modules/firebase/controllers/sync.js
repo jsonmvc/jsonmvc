@@ -58,9 +58,11 @@ function syncData(db, observer, errFn, key, val) {
 }
 
 module.exports = {
-  args: '/firebase/init',
-  stream: (stream, lib) => stream
-    .filter(x => x === true)
+  args: {
+    init: '/firebase/init'
+  },
+  fn: (stream, lib) => stream
+    .filter(x => x.init === true)
     .chain(x => lib.observable(observer => {
       let data = lib.get('/firebase/sync')
       let db = lib.firebase().database
@@ -85,5 +87,4 @@ module.exports = {
         }
       })
     }))
-    .tap(x => console.log(x))
 }

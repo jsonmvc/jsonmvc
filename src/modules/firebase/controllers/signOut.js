@@ -1,11 +1,14 @@
 
+import { stream, observer } from '_utils'
+import { on } from 'jsonmvc'
+
 module.exports = {
-  args: '/firebase/signOut/path',
-  stream: (stream, lib) => stream
-    .chain(x => lib.observable(observer => {
-
-      lib.on(x, y => {
-
+  args: {
+    path: '/firebase/signOut/path'
+  },
+  fn: stream
+    .chain(x => observer(o => {
+      lib.on(x.path, y => {
         firebase.auth().signOut()
           .catch(function(error) {
             observer.next({

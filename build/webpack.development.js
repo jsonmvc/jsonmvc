@@ -59,7 +59,9 @@ const conf = new Config()
         '_views': `${process.env.CORE_PATH}/views`,
         '_fns': `${process.env.CORE_PATH}/fns`,
 
-        '_vue': 'vue/dist/vue.common.js'
+        '_vue': 'vue/dist/vue.common.js',
+
+        '_utils': `${process.env.UTILS_PATH}/index`
 
       },
       extensions: ['', '.webpack.js', '.web.js', '.ts', '.js', '.css', '.tag', '.yml', '.yaml']

@@ -1,11 +1,13 @@
 import { map, isEmpty } from 'lodash'
 
 module.exports = {
-  args: '/forms/submit/qux',
-  stream: (stream, lib) => stream
-    .filter(x => !isEmpty(x))
+  args: {
+    qux: '/forms/submit/qux'
+  },
+  fn: (stream, lib) => stream
+    .filter(x => !isEmpty(x.qux))
     .map(x => {
-      return map(x, (val, key) => ({
+      return map(x.qux, (val, key) => ({
         op: 'remove',
         path: '/qux/edit/' + key
       }))

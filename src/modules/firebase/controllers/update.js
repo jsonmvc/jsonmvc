@@ -2,9 +2,11 @@ import forEach from 'lodash/forEach'
 import isEmpty from 'lodash/isEmpty'
 
 module.exports = {
-  args: '/firebase/sync',
-  stream: (stream, lib) => stream
-    .chain(sync => lib.observable(observer => {
+  args: {
+    sync: '/firebase/sync'
+  },
+  fn: (stream, lib) => stream
+    .chain(x => lib.observable(observer => {
       let db = lib.firebase().database
 
       function saveOrUpdate(location) {
@@ -38,7 +40,7 @@ module.exports = {
         }
       }
 
-      forEach(sync, (val, key) => {
+      forEach(x.sync, (val, key) => {
 
         if (val.on) {
           lib.on(val.on, saveOrUpdate(key))

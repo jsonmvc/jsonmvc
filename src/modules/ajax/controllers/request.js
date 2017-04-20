@@ -1,13 +1,16 @@
 import ajax from '@fdaciuk/ajax'
 import * as most from 'most'
 import Observable from 'zen-observable'
+import { stream } from '_utils'
 
 module.exports = {
-  args: '/ajax/byStatus/unsent',
-  stream: stream => stream
-    .filter(x => !!x)
-    .chain(reqs => {
-
+  args: {
+    reqs: '/ajax/byStatus/unsent'
+  },
+  fn: stream
+    .filter(x => !!x.reqs)
+    .chain(x => {
+      let reqs = x.reqs
       let observable = new Observable(observer => {
 
         Object.keys(reqs).forEach(x => {

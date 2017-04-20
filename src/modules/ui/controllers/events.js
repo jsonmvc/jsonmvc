@@ -3,9 +3,12 @@ import getValue from './../fns/getValue'
 import bubbleTo from './../fns/bubbleTo'
 
 module.exports = {
-  args: '/config/ui/events',
-  stream: (stream, lib) => stream
-    .chain(events => {
+  args: {
+    events: '/config/ui/events'
+  },
+  fn: (stream, lib) => stream
+    .chain(x => {
+      let events = x.events
       let streams = Object.keys(events).map(x => {
         let e = events[x]
         let stream = most.fromEvent(x, document.body)

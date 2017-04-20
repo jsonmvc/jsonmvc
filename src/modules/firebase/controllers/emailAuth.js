@@ -1,14 +1,17 @@
 
-module.exports = {
-  args: '/firebase/emailAuth/path',
-  stream: (stream, lib) => stream
-    .chain(x => lib.observable(observer => {
-      lib.on(x, y => {
+import { stream, observer } from '_utils'
 
+module.exports = {
+  args: {
+    path: '/firebase/emailAuth/path'
+  },
+  fn: stream
+    .chain(x => observer(o => {
+      lib.on(x.path, => {
         firebase.auth()
           .signInWithEmailAndPassword(y.email, y.password)
           .catch(function(error) {
-            observer.next({
+            o.next({
               op: 'add',
               path: '/firebase/emailAuth/error',
               value: {

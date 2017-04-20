@@ -3,9 +3,11 @@ import { forEach } from 'lodash'
 require('framework7')
 
 module.exports = {
-  args: '/app/isMounted',
-  stream: (stream, lib) => stream
-    .filter(x => x === true)
+  args: {
+    isMounted: '/app/isMounted'
+  },
+  fn: (stream, lib) => stream
+    .filter(x => x.isMounted === true)
     .map(x => {
       let f7 = lib.get('/framework7')
 

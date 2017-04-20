@@ -1,11 +1,15 @@
 
 import * as most from 'most'
 import Observable from 'zen-observable'
+import { stream } from '_utils'
 
 module.exports = {
-  args: '/ajax/toPatch',
-  stream: stream => stream
-    .chain(requests => {
+  args: {
+    requests: '/ajax/toPatch'
+  },
+  fn: stream
+    .chain(args => {
+      let requests = args.requests
 
       let observable = new Observable(observer => {
 

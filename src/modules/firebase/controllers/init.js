@@ -1,15 +1,17 @@
 import firebase from 'firebase'
+import { stream, observer } from '_utils'
 
 module.exports = {
-  args: '/firebase/config',
-  stream: (stream, lib) => stream
-    .chain(config => lib.observable(observer => {
+  args: {
+    config: '/firebase/config'
+  },
+  fn: stream
+    .chain(x => observer(o => {
 
-      window.firebase = firebase
-
-      if (!lib.firebase()) {
-        firebase.initializeApp(config)
-        observer.next({
+      if (!window.firebase) {
+        window.firebase = firebase
+        firebase.initializeApp(x.config)
+        o.next({
           op: 'add',
           path: '/firebase/init',
           value: true

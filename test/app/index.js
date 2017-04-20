@@ -1,5 +1,5 @@
 
-import jsonmvc, { loadModule, reloadHMR } from './../../src/index'
+import jsonmvc, { loadModule, reloadHMR } from './../../src/jsonmvc/index'
 
 
 let context = require.context('./', true, /\.js|yml/)

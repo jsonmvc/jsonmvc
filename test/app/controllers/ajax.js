@@ -1,7 +1,9 @@
 
 module.exports = {
-  args: '/baloo',
-  stream: (stream, lib) => {
+  args: {
+    baloo: '/baloo'
+  },
+  fn: (stream, lib) => {
     return stream.map(x => lib.ajax({
       method: 'GET',
       url: 'https://jsonplaceholder.typicode.com/posts/1',

@@ -1,10 +1,12 @@
 
 module.exports = {
-  args: '/bar/baz',
-  stream: (stream, lib) => stream
-    .chain(x => lib.observable(x => {
+  args: {
+    baz: '/bar/baz'
+  },
+  fn: (stream, lib) => stream
+    .chain(x => lib.observable(observer => {
 
-      x.next({
+      observer.next({
         op: 'add',
         path: '/observable',
         value: 'works!'
