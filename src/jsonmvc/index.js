@@ -11,6 +11,7 @@ import update from '_fns/update'
 import bundleModules from '_fns/bundleModules'
 import start from '_fns/start'
 import reloadHMR from '_fns/reloadHMR'
+import utils from '_utils'
 
 const jsonmvc = (module, modulesList = {}) => {
 
@@ -72,7 +73,9 @@ if (typeof window !== 'undefined') {
 
 export {
   loadModule,
-  reloadHMR
+  reloadHMR,
+  stream: utils.stream,
+  observer: utils.observer
 }
 
 export default jsonmvc
