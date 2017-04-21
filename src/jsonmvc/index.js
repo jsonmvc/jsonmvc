@@ -71,11 +71,14 @@ if (typeof window !== 'undefined') {
   window.jsonmvc = jsonmvc
 }
 
+let stream = utils.stream
+let observer = utils.observer
+
 export {
   loadModule,
   reloadHMR,
-  stream: utils.stream,
-  observer: utils.observer
+  stream,
+  observer
 }
 
 export default jsonmvc
