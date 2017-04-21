@@ -1,5 +1,5 @@
 
-import { isObject, isFunction, isArray, reduce, cloneDeep } from 'lodash'
+import { isObject, isEmpty, isFunction, isArray, reduce, cloneDeep } from 'lodash'
 import * as most from 'most'
 import Observable from 'zen-observable'
 
@@ -21,13 +21,22 @@ const lib = db => {
 }
 
 
-function buildObservableInstance(stream, ops) {
+function buildObservable(source, lib, ops) {
+
   ops.forEach(x => {
     let op = x[0]
     let args = x[1]
-    stream = stream[op].apply(stream, args)
+    args = Array.prototype.slice.call(args)
+    if (isFunction(args[0])) {
+      let fn = args[0]
+      args[0] = function controllerWrapperFn(x) {
+        return fn(x, lib)
+      }
+    }
+    source = source[op].apply(source, args)
   })
-  return stream
+
+  return source
 }
 
 function createController(db, controller, name) {
@@ -82,16 +91,19 @@ function createController(db, controller, name) {
 
   })
 
+  let ops = []
   if (isFunction(controller.fn)) {
-    controller.result = most
-      .from(observable)
-      .map(controller.fn)
-  } else if (isObject(controller.fn) && controller.fn['__instance__']) {
-    controller.result = buildObservableInstance(most.from(observable), controller.fn['__instance__'].op)
+    ops.push(['map', controller.fn])
+  } else if (isObject(controller.fn) && controller.fn['__instance__'] && !isEmpty(controller.fn['__instance__'].op)) {
+    ops = controller.fn['__instance__'].op
   } else {
     throw new Error('Controller fn is neither a function nor an observable placeholder')
   }
 
+  let internalLib = lib(db)
+
+  controller.name = name
+  controller.result = buildObservable(most.from(observable), internalLib, ops)
   controller.off = off
 }
 

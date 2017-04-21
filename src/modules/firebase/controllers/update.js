@@ -1,12 +1,13 @@
 import forEach from 'lodash/forEach'
 import isEmpty from 'lodash/isEmpty'
+import { stream, observer } from '_utils'
 
 module.exports = {
   args: {
     sync: '/firebase/sync'
   },
-  fn: (stream, lib) => stream
-    .chain(x => lib.observable(observer => {
+  fn: stream
+    .chain((x, lib) => observer(o => {
       let db = lib.firebase().database
 
       function saveOrUpdate(location) {

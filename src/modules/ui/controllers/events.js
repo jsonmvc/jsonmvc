@@ -1,12 +1,13 @@
 import * as most from 'most'
 import getValue from './../fns/getValue'
 import bubbleTo from './../fns/bubbleTo'
+import { stream } from '_utils'
 
 module.exports = {
   args: {
     events: '/config/ui/events'
   },
-  fn: (stream, lib) => stream
+  fn: stream
     .chain(x => {
       let events = x.events
       let streams = Object.keys(events).map(x => {
@@ -50,7 +51,7 @@ module.exports = {
 // in order to avoid having two events at the same timestamp but in reality they
 // were a smaller distance than the increment chosen for the /time/ms
 
-    .map(x => ({
+    .map((x, lib) => ({
       op: 'add',
       path: x.path,
       value: {

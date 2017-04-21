@@ -6,8 +6,8 @@ module.exports = {
     path: '/firebase/emailAuth/path'
   },
   fn: stream
-    .chain(x => observer(o => {
-      lib.on(x.path, => {
+    .chain((x, lib) => observer(o => {
+      lib.on(x.path, y => {
         firebase.auth()
           .signInWithEmailAndPassword(y.email, y.password)
           .catch(function(error) {

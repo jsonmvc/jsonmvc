@@ -7,11 +7,11 @@ module.exports = {
     path: '/firebase/signOut/path'
   },
   fn: stream
-    .chain(x => observer(o => {
+    .chain((x, lib) => observer(o => {
       lib.on(x.path, y => {
         firebase.auth().signOut()
           .catch(function(error) {
-            observer.next({
+            o.next({
               op: 'add',
               path: '/firebase/session/error',
               value: {

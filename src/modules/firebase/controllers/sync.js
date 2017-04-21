@@ -1,6 +1,6 @@
 import forEach from 'lodash/forEach'
 import isPlainObject from 'lodash/isPlainObject'
-
+import { stream, observer } from '_utils'
 
 // @TODO: Add a buffer for the firebase stream for 10ms or so
 
@@ -61,9 +61,9 @@ module.exports = {
   args: {
     init: '/firebase/init'
   },
-  fn: (stream, lib) => stream
+  fn: stream
     .filter(x => x.init === true)
-    .chain(x => lib.observable(observer => {
+    .chain((x, lib) => observer(o => {
       let data = lib.get('/firebase/sync')
       let db = lib.firebase().database
 
@@ -77,13 +77,13 @@ module.exports = {
         if (val.auth === true) {
           lib.on('/firebase/session/isValid', y => {
             if (y === true) {
-              handles = syncData(db, observer, errFn, key, val)
+              handles = syncData(db, o, errFn, key, val)
             } else {
               unsyncData(key, handles)
             }
           })
         } else {
-          syncData(db, observer, errFn, key, val)
+          syncData(db, o, errFn, key, val)
         }
       })
     }))

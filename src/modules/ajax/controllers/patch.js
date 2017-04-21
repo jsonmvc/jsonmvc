@@ -1,32 +1,26 @@
 
 import * as most from 'most'
 import Observable from 'zen-observable'
-import { stream } from '_utils'
+import { stream, observer } from '_utils'
 
 module.exports = {
   args: {
     requests: '/ajax/toPatch'
   },
   fn: stream
-    .chain(args => {
+    .chain(args => observer(o => {
       let requests = args.requests
 
-      let observable = new Observable(observer => {
+      Object.keys(requests).map(x => {
+        let request = requests[x]
+        let patch = request.response
 
-        Object.keys(requests).map(x => {
-          let request = requests[x]
-          let patch = request.response
-
-          observer.next(patch)
-          observer.next({
-            op: 'add',
-            path: `/ajax/data/${request.id}/patchedAt`,
-            value: new Date().getTime()
-          })
+        o.next(patch)
+        o.next({
+          op: 'add',
+          path: `/ajax/data/${request.id}/patchedAt`,
+          value: new Date().getTime()
         })
-
       })
-
-      return most.from(observable)
-    })
+    }))
 }

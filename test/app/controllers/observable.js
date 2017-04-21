@@ -1,12 +1,14 @@
 
+import { stream, observer } from '_utils'
+
 module.exports = {
   args: {
     baz: '/bar/baz'
   },
-  fn: (stream, lib) => stream
-    .chain(x => lib.observable(observer => {
+  fn: stream
+    .chain(x => observer(o => {
 
-      observer.next({
+      o.next({
         op: 'add',
         path: '/observable',
         value: 'works!'
