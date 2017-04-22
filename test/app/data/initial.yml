@@ -19,6 +19,7 @@ firebase:
       path: /data/qux
       on: /forms/submit/qux
       delete: /qux/delete
+      namespace: testNamespace
     privateInfo:
       path: /data/privateInfo
       auth: true

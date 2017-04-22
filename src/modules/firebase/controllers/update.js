@@ -29,6 +29,15 @@ module.exports = {
               ref.update(val.value)
             }
 
+            o.next({
+              op: 'add',
+              path: '/forms/clear/' + val.name + key,
+              value: {
+                name: val.name,
+                id: key
+              }
+            })
+
           })
         }
       }
@@ -42,6 +51,10 @@ module.exports = {
       }
 
       forEach(x.sync, (val, key) => {
+
+        if (val.namespace) {
+          key = val.namespace + '/' + key
+        }
 
         if (val.on) {
           lib.on(val.on, saveOrUpdate(key))

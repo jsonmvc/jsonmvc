@@ -11,6 +11,10 @@ function unsyncData(key, handles) {
 function syncData(db, observer, errFn, key, val) {
   let preloaded = false
 
+  if (val.namespace) {
+    key = val.namespace + '/' + key
+  }
+
   db.ref(key).once('value', x => {
     preloaded = true
     observer.next({
