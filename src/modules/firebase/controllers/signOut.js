@@ -1,6 +1,5 @@
 
 import { stream, observer } from '_utils'
-import { on } from 'jsonmvc'
 
 module.exports = {
   args: {
