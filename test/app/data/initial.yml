@@ -35,6 +35,8 @@ framework7:
   views:
     formsTest:
       dynamicNavbar: true
+  calendar:
+    input: 'input[type="date"]'
 
 sample:
   data: {}

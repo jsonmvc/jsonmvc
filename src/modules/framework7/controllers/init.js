@@ -1,5 +1,5 @@
 import { forEach } from 'lodash'
-import { stream } from '_utils'
+import { stream, observer } from '_utils'
 
 require('framework7')
 
@@ -9,7 +9,7 @@ module.exports = {
   },
   fn: stream
     .filter(x => x.isMounted === true)
-    .map((x, lib) => {
+    .chain((x, lib) => observer(o => {
       let f7 = lib.get('/framework7')
 
       let app = new Framework7(f7.config)
@@ -25,12 +25,27 @@ module.exports = {
         })
       })
 
+      if (f7.calendar) {
+        db.on('/views/f7form/instances', x => {
+          forEach(x, (val, key) => {
+            if (!val.destroyedAt) {
+              app.calendar(f7.calendar)
+              o.next({
+                op: 'add',
+                path: '/views/f7form/instances/' + key + '/calendar',
+                value: true
+              })
+            }
+          })
+        })
+      }
+
       window.f7app = app
 
-    })
-    .map(x => ({
-      op: 'add',
-      path: '/views/f7',
-      value: 'initialized'
+      o.next({
+        op: 'add',
+        path: '/views/f7',
+        value: 'initialized'
+      })
     }))
 }
