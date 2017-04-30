@@ -29,12 +29,21 @@ module.exports = {
         db.on('/views/f7form/instances', x => {
           forEach(x, (val, key) => {
             if (!val.destroyedAt) {
-              app.calendar(f7.calendar)
-              o.next({
-                op: 'add',
-                path: '/views/f7form/instances/' + key + '/calendar',
-                value: true
-              })
+              let inputs = document.querySelectorAll(f7.calendar.input)
+
+              if (null !== inputs) {
+                inputs.forEach(x => {
+                  app.calendar({
+                    input: x,
+                    dateFormat: f7.calendar.dateFormat
+                  })
+                })
+                o.next({
+                  op: 'add',
+                  path: '/views/f7form/instances/' + key + '/calendar',
+                  value: true
+                })
+              }
             }
           })
         })

@@ -1,4 +1,9 @@
 
+USE https://www.gitbook.com/ for docs
+Checkout for optimizations:
+https://www.smashingmagazine.com/2016/12/front-end-performance-checklist-2017-pdf-pages/
+http://jankfree.org/
+http://www.performancebudget.io/
 
 TODOS:
 - Implement
