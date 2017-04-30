@@ -51,6 +51,10 @@ function createView(db, view, siblings) {
     view.template = tempEl.innerHTML
   }
 
+  // Add id prop to be able to uniquely identify the element
+  nodes[0].setAttribute(':view-id', 'viewid')
+  view.template = tempEl.innerHTML
+
   let props = {
 
     // Find what props are required based on the schema
@@ -74,6 +78,8 @@ function createView(db, view, siblings) {
     // updated.
     watchers: {}
   }
+
+  props.required.push('viewid')
 
   // Find all required props
   props.required = Object.keys(view.args).reduce((acc, x) => {
@@ -126,7 +132,6 @@ function createView(db, view, siblings) {
     subscribes: {}
   })
 
-
   // Watch for changes on the instance properties
   props.watchers = props.required.reduce((acc, x) => {
 
@@ -152,7 +157,6 @@ function createView(db, view, siblings) {
     instance: null
   }
 
-
   component.component = Vue.component(view.name, {
     template: view.template,
     mounted: function () {
@@ -170,17 +174,22 @@ function createView(db, view, siblings) {
       let id = shortid.generate()
       let rootPath = `/views/${view.name}/instances/${id}`
 
+
       self.__JSONMVC_ID = id
       self.__JSONMVC_PROPS = JSON.parse(JSON.stringify(props))
       self.__JSONMVC_ROOT = rootPath
-      self.__JSONMVC_DATA = {}
+      self.__JSONMVC_DATA = {
+        viewid: id
+      }
 
       component.instance = self
 
       observer.next({
         op: 'add',
         path: rootPath,
-        value: {}
+        value: {
+          viewid: id
+        }
       })
     },
     destroyed: function () {
