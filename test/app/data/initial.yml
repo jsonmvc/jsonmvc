@@ -124,6 +124,4 @@ fields:
         en: Blam
       dynamicOptions: bam
       type: choice
-
-data:
-  qux: {}
+      style: radio

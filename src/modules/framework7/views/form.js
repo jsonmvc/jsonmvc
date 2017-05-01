@@ -54,7 +54,7 @@ module.exports = {
             textarea(:data-path="path + '/' + field.key", :placeholder='field.placeholder.en', :name="field.key", :value="field.value")
 
       // Select
-      a.item-link.smart-select(href='#', v-if="field.type === 'choice'", data-open-in="picker")
+      a.item-link.smart-select(href='#', v-if="field.type === 'choice' && !field.style || field.style === 'select'", data-open-in="picker")
         select(:name='field.key', :data-path="path + '/' + field.key")
           option(value="") Not selected
           option(v-for="(value, key) in field.options", :value="key", :selected="field.value === key") {{ value.label.en }}
@@ -62,6 +62,17 @@ module.exports = {
           .item-inner
             .item-title {{ field.label.en }}
             .item-after Choose
+
+      // Radio
+      div(v-if="field.type === 'choice' && field.style === 'radio'")
+        .content-title {{ field.label.en }}
+        ul
+          li(v-for="(value, key) in field.options")
+            .item-content
+              .item-input
+                input(type="radio", :name="field.key", :value="key")
+              .item-inner
+                .item-title {{ value.label.en }}
 
   .content-block
     a.button(href="#", :data-path="path + '/submit'", :data-value="uid") Submit
