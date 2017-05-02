@@ -36,7 +36,7 @@ framework7:
     formsTest:
       dynamicNavbar: true
   calendar:
-    input: 'input[type="date"]'
+    input: 'li[data-field-type="date"] input'
 
 sample:
   data: {}
@@ -70,13 +70,16 @@ fields:
 
   templates:
     login:
-      email: true
-      password: true
+      fields:
+        email: true
+        password: true
     qux:
-      name: true
-      blam: true
-      longText: true
-      startDate: true
+      order: [blam, name, longText, startDate]
+      fields:
+        name: true
+        blam: true
+        longText: true
+        startDate: true
 
   data:
     startDate:
@@ -84,7 +87,7 @@ fields:
       label:
         en: Start Date
       placeholder:
-        en: MM/DD/YY
+        en: Enter a data
       type: date
 
     longText:
@@ -122,6 +125,8 @@ fields:
       key: blam
       label:
         en: Blam
+      placeholder:
+        en: Choose bam
       dynamicOptions: bam
       type: choice
       style: radio

@@ -25,9 +25,6 @@ if (module.hot) {
   })
 }
 
-/*
-
-instance.db.on('/err', x => {
+db.on('/err', x => {
   console.error(x)
 })
-*/

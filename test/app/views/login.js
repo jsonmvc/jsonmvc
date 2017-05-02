@@ -10,7 +10,7 @@ module.exports = {
 .login
   h1 User section
   div(v-if="isValid !== true")
-    f7form(fields="/fields/create/login", path="/forms/data/login/new")
+    f7form(lang="en", fields="/fields/create/login", path="/forms/data/login/new")
     p(v-if="authError") {{ authError.message }}
   div(v-if="isValid")
     p User is signed in
