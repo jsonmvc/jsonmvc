@@ -29,9 +29,13 @@ module.exports = {
         e: e
       }
     })
-    .filter(x => x.el !== null)
+    .filter(x => !!x.el)
     .map(x => {
-      x.e.preventDefault()
+
+      if (false == x.e instanceof CustomEvent) {
+        x.e.preventDefault()
+      }
+
       let el = x.el
       let result = {
         path: el.getAttribute('data-path'),

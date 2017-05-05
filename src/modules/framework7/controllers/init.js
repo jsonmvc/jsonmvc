@@ -33,10 +33,8 @@ module.exports = {
 
               if (null !== inputs) {
                 inputs.forEach(x => {
-                  app.calendar({
-                    input: x,
-                    dateFormat: f7.calendar.dateFormat
-                  })
+                  let config = Object.assign({}, f7.calendar, { input: x })
+                  app.calendar(config)
                 })
 
                 o.next({

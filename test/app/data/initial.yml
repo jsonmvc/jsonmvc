@@ -37,6 +37,7 @@ framework7:
       dynamicNavbar: true
   calendar:
     input: 'li[data-field-type="date"] input'
+    closeOnSelect: true
 
 sample:
   data: {}
