@@ -1,6 +1,8 @@
 
 module.exports = {
   path: '/baloo',
-  args: ['/bar/baz'],
-  fn: x => x + ' bam in 123123'
+  args: {
+    baz: '/bar/baz'
+  },
+  fn: args => args.baz + ' bam in 123123'
 }

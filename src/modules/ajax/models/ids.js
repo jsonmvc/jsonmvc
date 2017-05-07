@@ -1,10 +1,12 @@
 
 module.exports = {
-  args: ['/ajax/data'],
   path: '/ajax/ids',
-  fn: x => {
-    if (x) {
-      return Object.keys(x)
+  args: {
+    data: '/ajax/data'
+  },
+  fn: args => {
+    if (args.data) {
+      return Object.keys(args.data)
     } else {
       return []
     }

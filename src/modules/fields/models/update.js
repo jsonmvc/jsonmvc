@@ -3,15 +3,22 @@ import forEach from 'lodash/forEach'
 
 module.exports = {
   path: '/fields/update',
-  args: ['/fields/create', '/data'],
-  fn: (fields, data) => {
+  args: {
+    fields: '/fields/create',
+    data: '/data'
+  },
+  fn: args => {
 
-    return transform(fields, (acc, val, key) => {
+    return transform(args.fields, (acc, val, key) => {
       acc[key] = {}
-      forEach(data[key], (val2, key2) => {
+      forEach(args.data[key], (val2, key2) => {
         acc[key][key2] = {}
-        forEach(val, (val3, key3) => {
-          acc[key][key2][key3] = Object.assign({ value: data[key][key2][key3] }, val[key3])
+        forEach(val, val3 => {
+          let value = args.data[key][key2][val3.key]
+
+          let result =  Object.assign({}, { value }, val3)
+
+          acc[key][key2][val3.key] = result
         })
       })
     })

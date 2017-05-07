@@ -4,16 +4,20 @@ import uniq from 'lodash/uniq'
 
 module.exports = {
   path: '/fields/create',
-  args: ['/fields/data', '/fields/templates', '/fields/options'],
-  fn: (data, templates, options) => {
+  args: {
+    data: '/fields/data',
+    templates: '/fields/templates',
+    options: '/fields/options'
+  },
+  fn: args => {
 
-    if (!data || !templates) {
+    if (!args.data || !args.templates) {
       return {}
     }
 
-    data = JSON.parse(JSON.stringify(data))
+    let data = JSON.parse(JSON.stringify(args.data))
 
-    return transform(templates, (acc, val, key) => {
+    return transform(args.templates, (acc, val, key) => {
 
       let keys = Object.keys(val.fields)
 
@@ -33,8 +37,8 @@ module.exports = {
       let fields = keys.map(x => {
         let field = data[x]
 
-        if (field.dynamicOptions && options) {
-          field.options = options[field.dynamicOptions]
+        if (field.dynamicOptions && args.options) {
+          field.options = args.options[field.dynamicOptions]
           delete field.dynamicOptions
         }
 

@@ -1,6 +1,8 @@
 
 module.exports = {
   path: '/time/mm',
-  args: ['/time/ms'],
-  fn: x => x - (x % (60 * 1000))
+  args: {
+    ms: '/time/ms'
+  },
+  fn: args => args.ms - (args.ms % (60 * 1000))
 }

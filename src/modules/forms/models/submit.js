@@ -4,10 +4,12 @@ import { forEach } from 'lodash'
 
 module.exports = {
   path: '/forms/submit',
-  args: ['/forms/data'],
-  fn: data => {
+  args: {
+    data: '/forms/data'
+  },
+  fn: args => {
 
-    let result = transform(data, (acc, v, k) => {
+    let result = transform(args.data, (acc, v, k) => {
       acc[k] = {}
 
       forEach(v, (v2, k2) => {

@@ -1,10 +1,12 @@
 
 module.exports = {
   path: '/ajax/byStatus',
-  args: ['/ajax/data'],
-  fn: data => {
-    return Object.keys(data).reduce((acc, x) => {
-      let request = data[x]
+  args: {
+    data: '/ajax/data'
+  },
+  fn: args => {
+    return Object.keys(args.data).reduce((acc, x) => {
+      let request = args.data[x]
       let type
 
       if (!request.sentAt) {

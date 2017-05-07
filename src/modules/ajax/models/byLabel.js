@@ -1,10 +1,12 @@
 
 module.exports = {
   path: '/ajax/byLabel',
-  args: ['/ajax/data'],
-  fn: data => {
-    return Object.keys(data).reduce((acc, x) => {
-      let request = data[x]
+  args: {
+    data: '/ajax/data'
+  },
+  fn: args => {
+    return Object.keys(args.data).reduce((acc, x) => {
+      let request = args.data[x]
 
       request.labels.forEach(y => {
         if (!acc[y]) {
