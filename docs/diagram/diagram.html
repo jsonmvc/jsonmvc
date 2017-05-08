@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+    <script src="script.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="diagram">
+
+      <svg id="paths" xmlns="http://www.w3.org/2000/svg">
+      </svg>
+
+      <div id="event"></div>
+
+      <div id="controller" class="container top-container">
+        <div class="container-bg"></div>
+
+      </div>
+
+      <div id="state" class="container center-container">
+        <div class="container-bg"></div>
+
+        <div class="state-item" id="state-first"><i class="material-icons">star_border</i></div>
+        <div class="state-item" id="state-first-copy"><i class="material-icons">star_border</i></div>
+
+      </div>
+
+      <div id="model" class="container left-container">
+        <div class="container-bg"></div>
+
+      </div>
+
+      <div id="view" class="container right-container">
+        <div class="container-bg"></div>
+
+        <ul class="shapes">
+          <li data-shape="square"><i class="material-icons">star_border</i></li>
+          <li data-shape="favorite"><i class="material-icons">favorite_border</i></li>
+        </ul>
+
+        <ul class="colors">
+          <li data-shape="red"></li>
+          <li data-shape="blue"></li>
+        </ul>
+
+        <input class="number" name="number" placeholder="No. Items" />
+
+      </div>
+
+    </div>
+
+  </body>
+</html>
+

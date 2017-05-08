@@ -1,0 +1,184 @@
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+#diagram {
+  position: relative;
+  width: var(--wBoundry);
+  height: var(--hBoundry);
+  border: 1px solid pink;
+}
+
+.container {
+  position: absolute;
+  width: var(--wContainer);
+  height: var(--hContainer);
+}
+
+.container-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--wContainer);
+  height: var(--hContainer);
+  text-align:center;
+  line-height: var(--hContainer);
+}
+
+.container-bg::after {
+  font-size: 5em;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.right-container {
+  right: var(--outPadding);
+  bottom: var(--outPadding);
+}
+
+.top-container {
+  top: var(--outPadding);
+  left: var(--wCenter);
+}
+
+.left-container {
+   bottom: var(--outPadding);
+  left: var(--outPadding);
+}
+
+.center-container {
+  bottom: var(--outPadding);
+  left: var(--wCenter);
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  background: red;
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background: blue;
+  border-radius: 100%;
+}
+
+.triangle {
+  width: 100px;
+  height: 100px;
+  background: green;
+}
+
+#view {
+  border: 1px solid black;
+}
+
+/**
+ * State
+ */
+#state {
+  border: 1px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.state-item {
+  opacity: 0;
+  display: none;
+}
+
+.state-item i {
+  font-size: 50px;
+}
+
+
+/**
+ * Controller
+ */
+
+#controller {
+  border: 1px solid blue;
+}
+
+#controller .container-bg::after {
+  content: "C";
+}
+#model .container-bg::after {
+  content: "M";
+}
+#view .container-bg::after {
+  content: "V";
+}
+#state .container-bg::after {
+  font-size: 50px;
+  content: "JSON";
+}
+#model {
+  border: 1px solid magenta;
+}
+
+#view ul,
+#view li {
+  margin: 0;
+  padding: 0;
+}
+
+#view ul {
+  display: flex;
+  flex-direction: row;
+}
+
+#view li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  flex: 1 1 auto;
+  text-align: center;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+#view input {
+  width: 98%;
+  padding: 0;
+  margin: 0;
+  line-height: 20px;
+  font-size: 20px;
+}
+
+.colors li[data-shape="red"] {
+  background: #FF6B6B;
+}
+
+.colors li[data-shape="blue"] {
+  background: #4ECDC4;
+}
+
+#event {
+  position: absolute;
+  bottom: calc(var(--outPadding) + var(--hContainer));
+  right: calc(var(--outPadding) + (var(--wContainer) / 2) - 10px);
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: blue;
+  font-size: 0;
+  text-align: center;
+}
+
+svg {
+  background: rgba(255, 0, 0, 0.2);
+
+}
+
+svg path {
+  opacity: 0;
+  stroke-width: transparent;
+  fill: transparent;
+  stroke: black;
+}
+
+
