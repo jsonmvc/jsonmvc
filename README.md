@@ -7,8 +7,9 @@
 It lets you create robust web applications with unprecedented simplicity.
 No syntax to learn and no abstractions it gives you more with much less.
 
-Traditional frameworks make use of classes, instances, prototypes, inheritance, context or functional composition.
-**JSONMVC** is strikingly different and it takes great pride in removing everything but the essential.
+In general, frameworks require you to use classes, instances, prototype, inheritance, context or functional composition.
+
+**JSONMVC** is strikingly different. It removes all of these from your application and gives you a declarative approach instead.
 
 Status: **Official Pre-Alpha release coming soon**
 
