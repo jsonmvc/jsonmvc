@@ -3,8 +3,8 @@
 $(function () {
 
   let config = {
-    wBoundry: 900,
-    hBoundry: 500,
+    wBoundry: 600,
+    hBoundry: 400,
     duration: 1000,
     ease: 'easeInOutSine'
   }
@@ -35,6 +35,7 @@ $(function () {
       y: config.hContainer / 2 + config.outPadding
     }
   }
+
   rightTopPath.setAttribute('id', 'right-top')
   rightTopPath.setAttribute('d',
       `M ${loc.start.x} ${loc.start.y} Q ${loc.start.x} ${loc.end.y} ${loc.end.x} ${loc.end.y}`)
