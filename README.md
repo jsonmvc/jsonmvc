@@ -53,20 +53,20 @@ To achieve the absolute minimum an application should have:
 Looking at popular frameworks it became obvious that none of the fit the bill.
 They value verbosity and abstractions and documenting mental models that fit within those limitations.
 
-The problem that **JSONMVC** is solving is not "How we build applications that are \_\[insert attribute here\]" \_but how can we stop building them entirely and begin modeling them.
+## Principles
 
-> Instead of creating and sticking bricks together into components, mould your application just like clay.
+While most frameworks are busy defining ways of constructing applications, **JSONMVC **is paving a new way towards application modeling.
+
+> Instead of creating and sticking bricks together into components, mould your application just like you would do with clay.
 > Change it 10%, 50% or 90% at a time without any friction or constraints.
 
 The clay in our applications is Data. Free data from code and the possibilites are endless.
 
-\[...\]
-
-## Concepts
-
 It converges Object Oriented, Functional and Logic Programming in a single universal concept.
 
 In other words, you get the best of all worlds but without the inherent complexity or know-how
+
+\[...\]
 
 ## Demo
 
