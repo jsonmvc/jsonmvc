@@ -11,7 +11,7 @@ In general, frameworks require you to use classes, instances, prototype, inherit
 
 **JSONMVC** is strikingly different. It removes all of these from your application and gives you a declarative approach instead.
 
-Status: **Official Pre-Alpha release coming soon**
+Status: **Pre-Alpha Release Coming Soon**
 
 ```bash
 npm install jsonmvc --save-dev
