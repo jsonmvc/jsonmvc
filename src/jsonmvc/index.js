@@ -47,22 +47,23 @@ const jsonmvc = (module, modulesList = {}) => {
     window.instance = instance
   }
 
+
+  setTimeout(() => {
+    if (document.readyState === "complete") {
+      start(instance)
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        start(instance)
+      })
+    }
+  })
+
   return {
     module,
     update: module => {
       update(instance, {
         app: module
       })
-    },
-    start: () => {
-
-      if (document.readyState === "complete") {
-        start(instance)
-      } else {
-        document.addEventListener('DOMContentLoaded', function () {
-          start(instance)
-        })
-      }
     }
   }
 }

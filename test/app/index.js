@@ -14,8 +14,6 @@ let instance = jsonmvc(appModule, {
   framework7: true
 })
 
-instance.start()
-
 window.app = instance
 
 if (module.hot) {
