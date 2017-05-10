@@ -92,8 +92,9 @@ function createController(db, controller, name) {
   })
 
   let ops = []
+
   if (isFunction(controller.fn)) {
-    ops.push(['map', controller.fn])
+    ops.push(['map', [controller.fn]])
   } else if (isObject(controller.fn) && controller.fn['__instance__'] && !isEmpty(controller.fn['__instance__'].op)) {
     ops = controller.fn['__instance__'].op
   } else {
