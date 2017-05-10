@@ -67,7 +67,7 @@ module.exports = {
       div(v-if="field.type === 'choice' && field.style === 'radio'")
         .content-title {{ field.label[lang] }}
         ul
-          li(v-for="(value, key) in field.options")
+          li(v-for="(value, key) in field.options", :data-value="key")
             label.item-content.label-radio
               input(type="radio", :name="field.key", :value="key", :data-path="path + '/' + field.key", :data-value="key", :checked="field.value === key")
               .item-inner
