@@ -4,6 +4,16 @@ Checkout for optimizations:
 https://www.smashingmagazine.com/2016/12/front-end-performance-checklist-2017-pdf-pages/
 http://jankfree.org/
 http://www.performancebudget.io/
+Add on CDN https://www.jsdelivr.com/?query=jsonmvc
+
+-----
+IMPLEMENT A SVELTE LIKE BUILD PROCESS!!!
+-----
+Given the modules, precompile the controllers, models and views so that there is no
+instantiation happening on the client!
+This would literally cut 90% of the client time-to-load time.
+Also have a tree shaking to remove unused views, controllers or models!!!!
+
 
 TODOS:
 - Implement
