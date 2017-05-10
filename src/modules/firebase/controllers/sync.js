@@ -15,6 +15,10 @@ function syncData(db, observer, errFn, key, val) {
     key = val.namespace + '/' + key
   }
 
+  if (!val.path) {
+    return
+  }
+
   db.ref(key).once('value', x => {
     preloaded = true
     observer.next({
