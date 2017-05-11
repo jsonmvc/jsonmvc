@@ -33,6 +33,7 @@ module.exports = {
               op: 'add',
               path: '/forms/clear/' + val.name + key,
               value: {
+                timestamp: val.timestamp,
                 name: val.name,
                 id: key
               }
