@@ -70,7 +70,11 @@ In other words, you get the best of all worlds but without the inherent complexi
 
 ## Demo
 
-Link to demo
+[See live](bit.ly/bjs2yrs)
+
+Sourced at:
+https://github.com/dumconstantin/bucharestjs-2-year-inbox
+https://github.com/dumconstantin/bucharestjs-2-year-app
 
 ## Utils
 
