@@ -1,4 +1,4 @@
-# JSONMVC
+# JSONMVC - (Documentation in progress)
 
 [![Build Status](https://travis-ci.org/jsonmvc/jsonmvc.svg?branch=master)](https://travis-ci.org/jsonmvc/jsonmvc) [![Coverage Status](https://coveralls.io/repos/github/jsonmvc/jsonmvc/badge.svg?branch=master)](https://coveralls.io/github/jsonmvc/jsonmvc?branch=master) [![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
 
