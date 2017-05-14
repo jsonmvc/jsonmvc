@@ -5,6 +5,7 @@ https://www.smashingmagazine.com/2016/12/front-end-performance-checklist-2017-pd
 http://jankfree.org/
 http://www.performancebudget.io/
 Add on CDN https://www.jsdelivr.com/?query=jsonmvc
+Try out https://github.com/ngryman/speedracer
 
 -----
 IMPLEMENT A SVELTE LIKE BUILD PROCESS!!!
