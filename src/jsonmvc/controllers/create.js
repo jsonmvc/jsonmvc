@@ -29,8 +29,10 @@ function buildObservable(source, lib, ops) {
     args = Array.prototype.slice.call(args)
     if (isFunction(args[0])) {
       let fn = args[0]
-      args[0] = function controllerWrapperFn(x) {
-        return fn(x, lib)
+      args[0] = function controllerWrapperFn() {
+        let fnArgs = Array.prototype.slice.call(arguments)
+        fnArgs.push(lib)
+        return fn.apply(null, fnArgs)
       }
     }
     source = source[op].apply(source, args)
