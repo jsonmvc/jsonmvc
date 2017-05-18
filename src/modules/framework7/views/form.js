@@ -45,6 +45,7 @@ module.exports = {
           .item-title.label {{ field.label[lang] }}
           .item-input
             input(type='text', onfocus="(this.type='date')", onblur="(this.type='text')", :data-path="path + '/' + field.key", :placeholder='field.placeholder[lang]', :name="field.key", :value="field.value")
+            span(class="clear", :data-path="path + '/' + field.key", data-value="")
 
       // Textarea
       .item-content(v-if="field.type === 'textarea'")
