@@ -5,4 +5,4 @@ function stringify(obj) {
   4)
 }
 
-module.exports = stringify
+export default stringify

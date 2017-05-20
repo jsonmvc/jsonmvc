@@ -10,9 +10,11 @@ module.exports = new Config()
       delete config.output.pathinfo
       delete config.devServer
       delete config.entry.server
-      config.plugins.splice(1, 3)
       delete config.entry.app
+      delete config.plugins
+      delete config.entry.vendors
       config.entry[process.env.LIBRARY_NAME] = process.env.SRC_ENTRY
+
       return config
     }
   })

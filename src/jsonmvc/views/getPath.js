@@ -11,4 +11,4 @@ function getPath(schema, props, instance, prop) {
   return path
 }
 
-module.exports = getPath
+export default getPath

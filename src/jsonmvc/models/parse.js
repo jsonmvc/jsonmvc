@@ -14,4 +14,4 @@ function parse(model) {
 
 }
 
-module.exports = parse
+export default parse

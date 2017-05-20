@@ -1,5 +1,5 @@
 
-import { forEach } from 'lodash'
+import forEach from 'lodash-es/forEach'
 
 function createModels(db, models) {
 
@@ -22,4 +22,4 @@ function createModels(db, models) {
   return models
 }
 
-module.exports = createModels
+export default createModels

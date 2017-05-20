@@ -1,6 +1,6 @@
-import mountView from '_fns/mountView'
-import stringify from '_fns/stringify'
-import loadModule from '_fns/loadModule'
+import mountView from './mountView'
+import stringify from './stringify'
+import loadModule from './loadModule'
 
 function reloadHMR(instance, context) {
   try {
@@ -45,4 +45,4 @@ function reloadHMR(instance, context) {
   }
 }
 
-module.exports = reloadHMR
+export default reloadHMR

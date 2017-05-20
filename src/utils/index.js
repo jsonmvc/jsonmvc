@@ -1,5 +1,7 @@
+import stream from './stream/index'
+import observer from './observer/index'
 
-module.exports = {
-  stream: require('./stream/index.js'),
-  observer: require('./observer/index.js')
+export default {
+  stream,
+  observer
 }

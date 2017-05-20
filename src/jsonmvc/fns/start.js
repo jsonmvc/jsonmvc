@@ -1,6 +1,6 @@
-import mountView from '_fns/mountView'
-import { forEach } from 'lodash'
-import subscribe from '_controllers/subscribe'
+import mountView from './mountView'
+import forEach from 'lodash-es/forEach'
+import subscribe from './../controllers/subscribe'
 
 function start(instance) {
   let mount = instance.db.get('/config/ui/mount')
@@ -11,4 +11,4 @@ function start(instance) {
   })
 }
 
-module.exports = start
+export default start

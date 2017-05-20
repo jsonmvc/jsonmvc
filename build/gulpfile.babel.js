@@ -47,6 +47,6 @@ gulp.task('browser:dev', () => {
 })
 
 /* build */
-gulp.task('start:production', sync(['clean', 'browser:build', 'node:build']))
+gulp.task('start:production', sync(['clean', 'browser:build']))
 gulp.task('start:development', ['browser:dev'])
 gulp.task('start:test')

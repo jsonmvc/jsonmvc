@@ -4,9 +4,9 @@ import * as most from 'most'
 import Observable from 'zen-observable'
 import shortid from 'shortid'
 
-import getPath from '_views/getPath'
-import createDataListener from '_views/createDataListener'
-import updateInstanceData from '_views/updateInstanceData'
+import getPath from './getPath'
+import createDataListener from './createDataListener'
+import updateInstanceData from './updateInstanceData'
 
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
 
@@ -245,4 +245,4 @@ function createView(db, view, siblings) {
   return component
 }
 
-module.exports = createView
+export default createView

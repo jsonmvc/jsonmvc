@@ -1,6 +1,6 @@
 
-import getPath from '_views/getPath'
-import createDataListener from '_views/createDataListener'
+import getPath from './getPath'
+import createDataListener from './createDataListener'
 
 function updateInstanceData(db, schema, props, data, self, prop, val) {
 
@@ -19,4 +19,4 @@ function updateInstanceData(db, schema, props, data, self, prop, val) {
 
 }
 
-module.exports = updateInstanceData
+export default updateInstanceData

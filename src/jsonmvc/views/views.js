@@ -1,7 +1,9 @@
-import { isArray, reduce, clone } from 'lodash'
+import isArray from 'lodash-es/isArray'
+import reduce from 'lodash-es/reduce'
+import clone from 'lodash-es/clone'
 
-import createView from '_views/create'
-import viewsErrors from '_views/viewsErrors'
+import createView from './create'
+import viewsErrors from './viewsErrors'
 
 function createViews(db, views) {
 
@@ -102,4 +104,4 @@ function createViews(db, views) {
   return instances
 }
 
-module.exports = createViews
+export default createViews

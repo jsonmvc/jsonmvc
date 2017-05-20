@@ -4,4 +4,4 @@ function viewsError(views) {
 
 }
 
-module.exports = viewsError
+export default viewsError

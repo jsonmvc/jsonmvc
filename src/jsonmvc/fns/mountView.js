@@ -14,4 +14,4 @@ function mountView(el, component) {
   return view
 }
 
-module.exports = mountView
+export default mountView

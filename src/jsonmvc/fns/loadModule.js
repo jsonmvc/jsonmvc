@@ -23,4 +23,4 @@ function loadModule(context) {
   return module
 }
 
-module.exports = loadModule
+export default loadModule

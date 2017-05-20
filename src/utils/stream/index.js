@@ -1,4 +1,4 @@
-let most = require('most')
+import * as most from 'most'
 
 // TODO: Rewrite using symbols
 let symbol = '__instance__'
@@ -21,4 +21,4 @@ Object.keys(most).forEach(x => {
   Stream.prototype[x] = fn
 })
 
-module.exports = fns
+export default fns

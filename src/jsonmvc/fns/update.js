@@ -1,11 +1,12 @@
 
-import { forEach, merge, isPlainObject } from 'lodash'
-import bundleModules from '_fns/bundleModules'
-import createControllers from '_controllers/controllers'
-import subscribeController from '_controllers/subscribe'
-import createModels from '_models/models'
-import createViews from '_views/views'
-import mountView from '_fns/mountView'
+import forEach from 'lodash-es/forEach'
+import isPlainObject from 'lodash-es/isPlainObject'
+import bundleModules from './bundleModules'
+import createControllers from './../controllers/controllers'
+import subscribeController from './../controllers/subscribe'
+import createModels from './../models/models'
+import createViews from './../views/views'
+import mountView from './mountView'
 
 function update(instance, modules) {
 
@@ -87,4 +88,4 @@ function update(instance, modules) {
 
 }
 
-module.exports = update
+export default update

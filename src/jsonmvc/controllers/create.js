@@ -1,23 +1,15 @@
 
-import { isObject, isEmpty, isFunction, isArray, reduce, cloneDeep } from 'lodash'
+import isObject from 'lodash-es/isObject'
+import isEmpty from 'lodash-es/isEmpty'
+import isFunction from 'lodash-es/isFunction'
+import isArray from 'lodash-es/isArray'
+import reduce from 'lodash-es/reduce'
+import cloneDeep from 'lodash-es/cloneDeep'
 import * as most from 'most'
 import Observable from 'zen-observable'
 
-/**
- * Libs
- */
-const libContext = require.context('_libs/', true, /\.js/)
-const libs = libContext.keys().reduce((acc, x) => {
-  let name = new RegExp(/^\.\/([a-z0-9]+)/gi).exec(x)[1]
-  acc[name] = libContext(x)
-  return acc
-}, {})
-
 const lib = db => {
-  return reduce(libs, (acc, fn, k) => {
-    acc[k] = fn(db)
-    return acc
-  }, {})
+  return {}
 }
 
 
@@ -110,4 +102,4 @@ function createController(db, controller, name) {
   controller.off = off
 }
 
-module.exports = createController
+export default createController

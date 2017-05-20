@@ -1,5 +1,5 @@
 
-import { forEach, isArray } from 'lodash'
+import isArray from 'lodash-es/isArray'
 
 function subscribe(db, controller) {
   return controller.result.subscribe({
@@ -18,4 +18,4 @@ function subscribe(db, controller) {
   })
 }
 
-module.exports = subscribe
+export default subscribe

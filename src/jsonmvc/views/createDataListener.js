@@ -22,4 +22,4 @@ function createDataListener(db, path, data, prop) {
 
 }
 
-module.exports = createDataListener
+export default createDataListener

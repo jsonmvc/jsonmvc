@@ -28,6 +28,6 @@ function parse(controller) {
 
 }
 
-module.exports = parse
+export default parse
 
 

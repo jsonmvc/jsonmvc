@@ -1,5 +1,6 @@
 
-import { reduce, merge } from 'lodash'
+import reduce from 'lodash-es/reduce'
+import merge from 'lodash-es/merge'
 
 function bundleModules(modules) {
   let bundle = reduce(modules, (acc, v1, k1) => {
@@ -19,4 +20,4 @@ function bundleModules(modules) {
   return bundle
 }
 
-module.exports = bundleModules
+export default bundleModules

@@ -1,6 +1,6 @@
 
-import { forEach } from 'lodash'
-import createController from '_controllers/create'
+import forEach from 'lodash-es/forEach'
+import createController from './create'
 
 function createControllers(db, controllers) {
 
@@ -11,4 +11,4 @@ function createControllers(db, controllers) {
   return controllers
 }
 
-module.exports = createControllers
+export default createControllers
