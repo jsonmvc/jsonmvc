@@ -7,6 +7,12 @@ http://www.performancebudget.io/
 Add on CDN https://www.jsdelivr.com/?query=jsonmvc
 Try out https://github.com/ngryman/speedracer
 
+Add a similar debug message to:
+https://workboxjs.org/images/workbox-logging.png
+
+Integrate with service workers natively:
+https://workboxjs.org/#get-started
+
 -----
 IMPLEMENT A SVELTE LIKE BUILD PROCESS!!!
 -----
