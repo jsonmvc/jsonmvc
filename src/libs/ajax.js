@@ -1,8 +1,6 @@
 import * as most from 'most'
 import { clone } from 'lodash'
-import shortid from 'shortid'
-
-shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
+import yeast from 'yeast'
 
 module.exports = function ajax(db) {
   return function createRequest(request) {
@@ -10,7 +8,7 @@ module.exports = function ajax(db) {
     request = clone(request)
 
     request = {
-      id: shortid.generate(),
+      id: yeast(),
       url: request.url,
       headers: request.headers ? request.headers : {},
       labels: request.labels ? request.labels : [request.url],

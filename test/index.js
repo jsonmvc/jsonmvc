@@ -1,110 +1,62 @@
 
-require('promise-polyfill')
-
-const jsonmvc = require('./../dist/node/jsonmvc.node.js')
-
 let controllers = {
-  incFoo: (stream, lib) => {
-    return stream.delay(1000).map(x => x + 1)
-      .map(x => ({
+  button: {
+    args: {
+      config: '/config'
+    },
+    fn: (x, lib) => {
+      console.log('triggered', lib)
+      return ({
         op: 'add',
-        path: '/foo',
-        value: x
-      }))
-  },
-  ajax: (stream, lib) => {
-    return stream.map(x => lib.ajax({
-      method: 'GET',
-      url: 'https://jsonplaceholder.typicode.com/posts/1',
-      labels: ['google'],
-      patch: true
-    }))
+        path: '/value',
+        value: 1
+      })
+    }
   }
 }
-
-views = {
-  theHeader: '<div></div>'
-}
-
 
 let models = {
-  bam: barBaz => barBaz + 'bam'
-}
-
-let schema = {
-  default: {
-    foo: 123,
-    bar: {
-      baz: 'asd f'
+  bam: {
+    path: '/bam',
+    args: {
+      one: '/one'
     },
-    items: [1, 2, 3],
-    bam: {
-      '1': 'bla',
-      '2': 'bloo',
-      '3': 'bing',
-      '11': {
-        '125': {
-          'bar': 'NICE!!'
-        }
-      }
-    }
-  },
-  validation: {
-    foo: 'integer',
-    bar: {
-      baz: 'string'
-    }
-  },
-  views: {
-    theHeader: {
-      title: '/baloo',
-      foo: '/foo',
-      time: '/time/hhmmss'
-    },
-    ajax: {
-      request: '/ajax/data/<id>'
-    },
-    theContent: {
-      title: '/foo',
-      content: '/bam/<id>/<foo>/bar',
-      pressedAt: '/ui/button/timestamp',
-      ajaxContent: '/ajaxContent',
-      ajaxRequestIds: '/ajax/ids',
-      patched: '/patched'
-    },
-    theFooter: {
-      title: '/foo',
-      items: '/items'
-    },
-    blam: {
-      count: '/foo'
-    },
-    bang: {
-      title: '/bam/<id>'
-    }
-  },
-  controllers: {
-    incFoo: '/foo',
-    ajax: '/baloo'
-  },
-  models: {
-    '/baloo': {
-      fn: 'bam',
-      args: ['/bar/baz']
-    }
+    fn: x => x + ' bam'
   }
 }
 
-let config = {
-  rootEl: '#app',
-  rootComponent: 'theHeader'
+let views = {
+  foo: {
+    name: 'foo',
+    args: {
+      value: '/value'
+    },
+    template: `
+      <div>
+        <p>Text: {{ value }}</p>
+        <button data-path="/button">Press me</button>
+      </div>`
+  }
 }
 
-  let instance = jsonmvc({
-    config: config,
-    controllers: controllers,
-    models: models,
-    views: views,
-    schema: schema
-  })
+let data = {
+  initial: {
+    config: {
+      ui: {
+        mount: {
+          el: '#app',
+          component: 'foo'
+        }
+      }
+    },
+    value: 1
+  }
+}
+
+let instance = jsonmvc({
+  data: data,
+  controllers: controllers,
+  models: models,
+  views: views
+})
 

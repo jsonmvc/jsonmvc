@@ -2,13 +2,11 @@
 import Vue from '_vue'
 import * as most from 'most'
 import Observable from 'zen-observable'
-import shortid from 'shortid'
+import yeast from 'yeast'
 
 import getPath from './getPath'
 import createDataListener from './createDataListener'
 import updateInstanceData from './updateInstanceData'
-
-shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ%^')
 
 const PROP_REGEX = /<([a-z]+)>/g
 
@@ -171,7 +169,7 @@ function createView(db, view, siblings) {
     },
     beforeCreate: function () {
       let self = this
-      let id = shortid.generate()
+      let id = yeast()
       let rootPath = `/views/${view.name}/instances/${id}`
 
 

@@ -1,29 +1,53 @@
 
-import resolve from 'rollup-plugin-node-resolve';
-import alias from 'rollup-plugin-alias';
-import commonjs from 'rollup-plugin-commonjs';
-import builtins from 'rollup-plugin-node-builtins';
-import replace from 'rollup-plugin-replace';
+const resolve = require('rollup-plugin-node-resolve')
+const alias = require('rollup-plugin-alias')
+const commonjs = require('rollup-plugin-commonjs')
+const builtins = require('rollup-plugin-node-builtins')
+const replace = require('rollup-plugin-replace')
+const babel = require('rollup-plugin-babel')
+const globals = require('rollup-plugin-node-globals')
 
-export default {
+module.exports = {
   entry: __dirname + '/../src/jsonmvc/index.js',
-  format: 'iife',
+  format: 'umd',
   moduleName: 'jsonmvc',
+  sourceMap: true,
   plugins: [
+    // uglify(),
     alias({
-      _vue: 'node_modules/vue/dist/vue.js',
-      '@most/prelude': 'node_modules/@most/prelude/src/index.js'
+      _vue: 'node_modules/vue/dist/vue.esm.js',
+      'symbol-observable': 'node_modules/symbol-observable/es/index.js'
+    }),
+    babel({
+      babelrc: false,
+      exclude: 'node_modules/**',
+      presets: [
+        [
+          'es2015',
+          {
+            modules: false
+          }
+        ]
+      ],
+      plugins: [
+        'lodash',
+        'external-helpers'
+      ]
     }),
     commonjs({
+      include: 'node_modules/**',
       namedExports: {
-        'zen-observable': ['default' ] }
+        'zen-observable': ['default']
+      }
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
       'process.env.NODE_UNIQUE_ID': JSON.stringify('0')
     }),
     builtins(),
+    globals(),
     resolve()
   ],
+//  external: ['lodash', 'lodash-es', 'setimmediate'],
   dest: __dirname + '/../dist/build.js'
 }

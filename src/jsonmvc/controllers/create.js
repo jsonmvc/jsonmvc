@@ -5,13 +5,12 @@ import isFunction from 'lodash-es/isFunction'
 import isArray from 'lodash-es/isArray'
 import reduce from 'lodash-es/reduce'
 import cloneDeep from 'lodash-es/cloneDeep'
-import * as most from 'most'
 import Observable from 'zen-observable'
+import * as most from 'most'
 
 const lib = db => {
   return {}
 }
-
 
 function buildObservable(source, lib, ops) {
 

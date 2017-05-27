@@ -11,6 +11,8 @@ import WebpackDevServer from 'webpack-dev-server'
 import webpackConfig from './webpack.config.js'
 import webpackNodeConfig from './webpack.node.js'
 
+const rollup = require('rollup')
+const rollupConfig = require('./rollup.config.js')
 const sync = gulpSync(gulp).sync
 
 console.log('Started in ', process.env.NODE_ENV, ' mode')
@@ -46,7 +48,13 @@ gulp.task('browser:dev', () => {
   server.listen(port, host, fn)
 })
 
+gulp.task('build', () => {
+  return rollup.rollup(rollupConfig)
+    .then(bundle => {
+       bundle.write(rollupConfig)
+    })
+})
+
 /* build */
 gulp.task('start:production', sync(['clean', 'browser:build']))
 gulp.task('start:development', ['browser:dev'])
-gulp.task('start:test')

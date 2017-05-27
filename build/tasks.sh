@@ -235,6 +235,20 @@ app_build() {
   docker build -t $APP_IMAGE_NAME .
 }
 
+# Execute tasks
+# @type build
+# @environment container
+app_exec() {
+  docker run \
+    -v $PWD:/app \
+    -h $APP_CONTAINER_NAME \
+    --env-file ./build/default.env \
+    --env-file ./build/custom.env \
+    -t \
+    --rm \
+    $APP_IMAGE_NAME bash -c "${GULP_SCRIPT} ${1} ${2} ${3} ${4} ${5}"
+}
+
 postinstall() {
   app_build
 }
