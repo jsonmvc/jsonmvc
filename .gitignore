@@ -59,3 +59,5 @@ typings/
 
 build/custom.env
 dist
+src/modules/**/data/*.js
+src/modules/**/index.js

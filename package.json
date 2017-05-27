@@ -7,7 +7,8 @@
     "start": "./build/tasks.sh app_start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./build/tasks.sh app_exec build",
-    "build-docker": "./build/tasks.sh app_build"
+    "build-docker": "./build/tasks.sh app_build",
+    "build:modules": "node build/modules.js"
   },
   "repository": {
     "type": "git",
@@ -77,6 +78,7 @@
     "webpack-config": "^7.0.0",
     "webpack-dev-server": "^2.4.5",
     "yaml-loader": "^0.4.0",
+    "yamljs": "^0.2.10",
     "yeast": "^0.1.2"
   }
 }

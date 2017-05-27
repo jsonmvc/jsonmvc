@@ -3,6 +3,7 @@ import omitBy from 'lodash-es/omitBy'
 import merge from 'lodash-es/merge'
 import forEach from 'lodash-es/forEach'
 import reduce from 'lodash-es/reduce'
+import yeast from 'yeast'
 
 import DB from 'jsonmvc-db'
 
@@ -12,9 +13,9 @@ import createModels from './models/models'
 import update from './fns/update'
 import bundleModules from './fns/bundleModules'
 import start from './fns/start'
-import yeast from 'yeast'
+import modules from './../modules/index'
 
-const jsonmvc = (module, modulesList = {}) => {
+const jsonmvc = module => {
 
   module.controllers = module.controllers.reduce((acc, x) => {
     acc[yeast()] = x
@@ -35,9 +36,9 @@ const jsonmvc = (module, modulesList = {}) => {
     initial: module.data
   }
 
-  let modules = {
+  let modules = merge(modules, {
     app: module
-  }
+  })
 
   let bundle = bundleModules(modules)
 
