@@ -13,7 +13,11 @@ import update from './fns/update'
 import bundleModules from './fns/bundleModules'
 import start from './fns/start'
 
-const jsonmvc = module => {
+const jsonmvc = (module, modulesList = {}) => {
+
+  let modules ={
+    app: module
+  }
 
   let bundle = bundleModules(modules)
 
