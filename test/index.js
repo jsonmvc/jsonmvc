@@ -1,56 +1,46 @@
 
-let controllers = {
-  button: {
-    args: {
-      config: '/config'
-    },
-    fn: (x, lib) => {
-      console.log('triggered', lib)
-      return ({
-        op: 'add',
-        path: '/value',
-        value: 1
-      })
-    }
-  }
-}
+let controllers = [{
+  args: {
+    config: '/config'
+  },
+  fn: (x, lib) => ({
+    op: 'add',
+    path: '/value',
+    value: 2
+  })
+}]
 
-let models = {
-  bam: {
-    path: '/bam',
-    args: {
-      one: '/one'
-    },
-    fn: x => x + ' bam'
-  }
-}
+let models = [{
+  path: '/bam',
+  args: {
+    one: '/value'
+  },
+  fn: x => x.one + ' bam'
+}]
 
-let views = {
-  foo: {
-    name: 'foo',
-    args: {
-      value: '/value'
-    },
-    template: `
-      <div>
-        <p>Text: {{ value }}</p>
-        <button data-path="/button">Press me</button>
-      </div>`
-  }
-}
+let views = [{
+  name: 'foo',
+  args: {
+    value: '/value'
+  },
+  template: `
+    <div>
+      <p>Text: {{ value }}</p>
+      <button data-path="/button">Press me</button>
+    </div>
+  `
+}]
 
 let data = {
-  initial: {
-    config: {
-      ui: {
-        mount: {
-          el: '#app',
-          component: 'foo'
-        }
+  config: {
+    ui: {
+      mount: {
+        el: '#app',
+        component: 'foo'
       }
-    },
-    value: 1
-  }
+    }
+  },
+  value: 1
 }
 
 let instance = jsonmvc({

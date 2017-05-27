@@ -12,10 +12,30 @@ import createModels from './models/models'
 import update from './fns/update'
 import bundleModules from './fns/bundleModules'
 import start from './fns/start'
+import yeast from 'yeast'
 
 const jsonmvc = (module, modulesList = {}) => {
 
-  let modules ={
+  module.controllers = module.controllers.reduce((acc, x) => {
+    acc[yeast()] = x
+    return acc
+  }, {})
+
+  module.models = module.models.reduce((acc, x) => {
+    acc[yeast()] = x
+    return acc
+  }, {})
+
+  module.views = module.views.reduce((acc, x) => {
+    acc[yeast()] = x
+    return acc
+  }, {})
+
+  module.data = {
+    initial: module.data
+  }
+
+  let modules = {
     app: module
   }
 
