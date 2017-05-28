@@ -1,8 +1,8 @@
 
-import { transform } from 'lodash'
-import { forEach } from 'lodash'
+import transform from 'lodash-es/transform'
+import forEach from 'lodash-es/forEach'
 
-module.exports = {
+const model = {
   path: '/forms/submit',
   args: {
     data: '/forms/data'
@@ -47,3 +47,5 @@ module.exports = {
   }
 
 }
+
+export default model

@@ -1,7 +1,7 @@
-import transform from 'lodash/transform'
-import forEach from 'lodash/forEach'
+import transform from 'lodash-es/transform'
+import forEach from 'lodash-es/forEach'
 
-module.exports = {
+const model = {
   path: '/fields/update',
   args: {
     fields: '/fields/create',
@@ -25,3 +25,5 @@ module.exports = {
 
   }
 }
+
+export default model

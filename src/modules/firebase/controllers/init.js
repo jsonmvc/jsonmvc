@@ -1,11 +1,11 @@
-import firebase from 'firebase'
-import { stream, observer } from '_utils'
+import { stream, observer } from './../../../utils/index'
 
-module.exports = {
+const controller = {
   args: {
     config: '/firebase/config'
   },
   fn: stream
+    .filter(x => !!x.config)
     .chain(x => observer(o => {
 
       if (!window.firebase) {
@@ -20,3 +20,5 @@ module.exports = {
 
     }))
 }
+
+export default controller

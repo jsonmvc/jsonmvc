@@ -1,11 +1,11 @@
+import { stream, observer } from './../../../utils/index'
 
-import { stream, observer } from '_utils'
-
-module.exports = {
+const controller = {
   args: {
     path: '/firebase/signOut/path'
   },
   fn: stream
+    .filter(x => !!x.path)
     .chain((x, lib) => observer(o => {
       lib.on(x.path, y => {
         firebase.auth().signOut()
@@ -23,3 +23,4 @@ module.exports = {
     }))
 }
 
+export default controller

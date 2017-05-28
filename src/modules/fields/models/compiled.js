@@ -1,8 +1,8 @@
 
-import transform from 'lodash/transform'
-import reduce from 'lodash/reduce'
+import transform from 'lodash-es/transform'
+import reduce from 'lodash-es/reduce'
 
-module.exports = {
+const model = {
   path: '/compiled',
   args: {
     data: '/data',
@@ -31,3 +31,5 @@ module.exports = {
 
   }
 }
+
+export default model

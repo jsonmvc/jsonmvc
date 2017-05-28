@@ -1,14 +1,15 @@
-import forEach from 'lodash/forEach'
-import isEmpty from 'lodash/isEmpty'
-import { stream, observer } from '_utils'
+import forEach from 'lodash-es/forEach'
+import isEmpty from 'lodash-es/isEmpty'
+import { stream, observer } from './../../../utils/index'
 
-module.exports = {
+const controller = {
   args: {
     sync: '/firebase/sync'
   },
   fn: stream
+    .filter(x => !!x.sync)
     .chain((x, lib) => observer(o => {
-      let db = lib.firebase().database
+      let db = firebase().database
 
       function saveOrUpdate(location) {
         return function (saveValues) {
@@ -70,3 +71,4 @@ module.exports = {
     }))
 }
 
+export default controller

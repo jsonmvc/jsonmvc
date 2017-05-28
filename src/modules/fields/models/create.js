@@ -1,8 +1,8 @@
-import transform from 'lodash/transform'
-import reduce from 'lodash/reduce'
-import uniq from 'lodash/uniq'
+import transform from 'lodash-es/transform'
+import reduce from 'lodash-es/reduce'
+import uniq from 'lodash-es/uniq'
 
-module.exports = {
+const model = {
   path: '/fields/create',
   args: {
     data: '/fields/data',
@@ -50,3 +50,5 @@ module.exports = {
 
   }
 }
+
+export default model

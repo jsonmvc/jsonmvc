@@ -1,7 +1,8 @@
-import { map, isEmpty } from 'lodash'
-import { stream } from '_utils'
+import map from 'lodash-es/map'
+import isEmpty from 'lodash-es/isEmpty'
+import { stream } from './../../../utils/index'
 
-module.exports = {
+const controller = {
   args: {
     clear: '/forms/clear'
   },
@@ -12,3 +13,5 @@ module.exports = {
       path: '/forms/data/' + y.name + '/' + y.id
     })))
 }
+
+export default controller

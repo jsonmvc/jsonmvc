@@ -1,12 +1,12 @@
 
 let controllers = [{
   args: {
-    config: '/config'
+    button: '/button'
   },
   fn: (x, lib) => ({
     op: 'add',
     path: '/value',
-    value: 2
+    value: lib.get('/value') + 1
   })
 }]
 

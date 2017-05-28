@@ -1,9 +1,7 @@
-import { forEach } from 'lodash'
-import { stream, observer } from '_utils'
+import forEach from 'lodash-es/forEach'
+import { stream, observer } from './../../../utils/index'
 
-require('framework7')
-
-module.exports = {
+const controller = {
   args: {
     isMounted: '/app/isMounted'
   },
@@ -58,3 +56,5 @@ module.exports = {
       })
     }))
 }
+
+export default controller

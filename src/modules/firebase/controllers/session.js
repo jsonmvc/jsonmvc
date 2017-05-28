@@ -1,11 +1,11 @@
+import { stream, observer } from './../../../utils/index'
 
-import { stream, observer } from '_utils'
-
-module.exports = {
+const controller = {
   args: {
     config: '/firebase/config'
   },
   fn: stream
+    .filter(x => !!x.config)
     .chain(x => observer(o => {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -24,3 +24,5 @@ module.exports = {
       })
     }))
 }
+
+export default controller

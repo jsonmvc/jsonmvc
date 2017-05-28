@@ -1,6 +1,6 @@
-import forEach from 'lodash/forEach'
-import isPlainObject from 'lodash/isPlainObject'
-import { stream, observer } from '_utils'
+import forEach from 'lodash-es/forEach'
+import isPlainObject from 'lodash-es/isPlainObject'
+import { stream, observer } from './../../../utils/index'
 
 // @TODO: Add a buffer for the firebase stream for 10ms or so
 
@@ -65,15 +65,16 @@ function syncData(db, observer, errFn, key, val) {
 
 }
 
-module.exports = {
+const controller = {
   args: {
     init: '/firebase/init'
   },
   fn: stream
+    .filter(x => !!x.init)
     .filter(x => x.init === true)
     .chain((x, lib) => observer(o => {
       let data = lib.get('/firebase/sync')
-      let db = lib.firebase().database
+      let db = firebase().database
 
       function errFn(e) {
         throw e
@@ -96,3 +97,5 @@ module.exports = {
       })
     }))
 }
+
+export default controller
