@@ -1,6 +1,5 @@
-import firebase from 'firebase'
 
-module.exports = function firebaseFn(db) {
+function firebaseFn(db) {
   return function getInstance() {
     let instance
 
@@ -17,3 +16,5 @@ module.exports = function firebaseFn(db) {
     return  instance
   }
 }
+
+export default firebaseFn

@@ -1,6 +1,6 @@
 import padZero from './../fns/padZero'
 
-module.exports = {
+const model = {
   path: '/time/hhmmss',
   args: {
     ms: '/time/ms'
@@ -14,3 +14,5 @@ module.exports = {
     return `${hh}:${mm}:${ss}`
   }
 }
+
+export default model

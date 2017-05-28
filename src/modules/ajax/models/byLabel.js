@@ -1,5 +1,5 @@
 
-module.exports = {
+const model = {
   path: '/ajax/byLabel',
   args: {
     data: '/ajax/data'
@@ -21,3 +21,5 @@ module.exports = {
     }, {})
   }
 }
+
+export default model

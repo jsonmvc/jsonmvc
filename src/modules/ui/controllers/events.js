@@ -1,9 +1,9 @@
 import * as most from 'most'
 import getValue from './../fns/getValue'
 import bubbleTo from './../fns/bubbleTo'
-import { stream } from '_utils'
+import { stream } from './../../../utils/index'
 
-module.exports = {
+const controller = {
   args: {
     events: '/config/ui/events'
   },
@@ -64,3 +64,5 @@ module.exports = {
       }
     }))
 }
+
+export default controller

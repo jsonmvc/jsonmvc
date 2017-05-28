@@ -1,9 +1,7 @@
 
-import * as most from 'most'
-import Observable from 'zen-observable'
-import { stream, observer } from '_utils'
+import { stream, observer } from './../../../utils/index'
 
-module.exports = {
+const controller = {
   args: {
     requests: '/ajax/toPatch'
   },
@@ -24,3 +22,5 @@ module.exports = {
       })
     }))
 }
+
+export default controller

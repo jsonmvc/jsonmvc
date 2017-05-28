@@ -8,8 +8,16 @@ import cloneDeep from 'lodash-es/cloneDeep'
 import Observable from 'zen-observable'
 import * as most from 'most'
 
+import libAjax from './../../libs/ajax'
+import libGet from './../../libs/get'
+import libOn from './../../libs/on'
+
 const lib = db => {
-  return {}
+  return {
+    ajax: libAjax(db),
+    get: libGet(db),
+    on: libOn(db)
+  }
 }
 
 function buildObservable(source, lib, ops) {

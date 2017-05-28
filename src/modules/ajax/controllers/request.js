@@ -1,9 +1,7 @@
 import ajax from '@fdaciuk/ajax'
-import * as most from 'most'
-import Observable from 'zen-observable'
-import { stream, observer } from '_utils'
+import { stream, observer } from './../../../utils/index'
 
-module.exports = {
+const controller = {
   args: {
     reqs: '/ajax/byStatus/unsent'
   },
@@ -68,3 +66,5 @@ module.exports = {
     }))
 
 }
+
+export default controller

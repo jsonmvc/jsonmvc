@@ -47,7 +47,8 @@ modulesList.forEach(moduleName => {
       // exclude
       if (
         x === 'data'
-        && ext === 'js'
+        && (ext === 'js'
+        || ext === 'json')
         ) {
         return
       }
@@ -56,9 +57,8 @@ modulesList.forEach(moduleName => {
         let data = fs.readFileSync(path + '/' + z, 'utf-8')
         data = yamljs.parse(data)
         data = JSON.stringify(data)
-        data = 'export default ' + data
-        fs.writeFileSync(path + '/' + name + '.js', data, 'utf-8')
-        z = name + '.js'
+        fs.writeFileSync(path + '/' + name + '.json', data, 'utf-8')
+        z = name + '.json'
       }
 
       header += `import ${x}_${name} from './${x}/${z}'\n`

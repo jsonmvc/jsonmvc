@@ -13,7 +13,7 @@ import createModels from './models/models'
 import update from './fns/update'
 import bundleModules from './fns/bundleModules'
 import start from './fns/start'
-import modules from './../modules/index'
+import modulesList from './../modules/index'
 
 const jsonmvc = module => {
 
@@ -36,9 +36,11 @@ const jsonmvc = module => {
     initial: module.data
   }
 
-  let modules = merge(modules, {
+  let modules = merge(modulesList, {
     app: module
   })
+
+  console.log(modules)
 
   let bundle = bundleModules(modules)
 

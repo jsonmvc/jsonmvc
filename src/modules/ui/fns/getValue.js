@@ -1,5 +1,5 @@
 
-module.exports = function getValue(el) {
+function getValue(el) {
   let val = el.value
 
   // Handle return case
@@ -12,3 +12,5 @@ module.exports = function getValue(el) {
 
   return val
 }
+
+export default getValue

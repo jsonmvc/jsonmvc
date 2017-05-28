@@ -1,5 +1,5 @@
 
-module.exports = {
+const model = {
   path: '/ajax/ids',
   args: {
     data: '/ajax/data'
@@ -12,3 +12,5 @@ module.exports = {
     }
   }
 }
+
+export default model

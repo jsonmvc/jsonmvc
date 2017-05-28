@@ -1,6 +1,6 @@
 import isNewer from './../fns/isNewer'
 
-module.exports = {
+const model = {
   path: '/ajax/lastByLabel',
   args: {
     data: '/ajax/byLabel'
@@ -20,3 +20,5 @@ module.exports = {
     }, {})
   }
 }
+
+export default model

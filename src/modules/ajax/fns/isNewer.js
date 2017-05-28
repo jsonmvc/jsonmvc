@@ -20,4 +20,4 @@ function isNewer(o1, o2) {
 
 }
 
-module.exports = isNewer
+export default isNewer

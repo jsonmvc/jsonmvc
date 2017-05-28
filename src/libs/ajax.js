@@ -1,8 +1,7 @@
-import * as most from 'most'
-import { clone } from 'lodash'
+import clone from 'lodash-es/cloneDeep'
 import yeast from 'yeast'
 
-module.exports = function ajax(db) {
+function ajax(db) {
   return function createRequest(request) {
 
     request = clone(request)
@@ -48,3 +47,5 @@ module.exports = function ajax(db) {
     }
   }
 }
+
+export default ajax

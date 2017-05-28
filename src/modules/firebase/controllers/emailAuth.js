@@ -1,5 +1,5 @@
 
-import { stream, observer } from '_utils'
+import { stream, observer } from './../../../utils/index'
 
 module.exports = {
   args: {

@@ -6,6 +6,8 @@ const builtins = require('rollup-plugin-node-builtins')
 const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
 const globals = require('rollup-plugin-node-globals')
+const rollupGrapher = require('rollup-plugin-grapher')
+const json = require('rollup-plugin-json')
 
 module.exports = {
   entry: __dirname + '/../src/jsonmvc/index.js',
@@ -14,6 +16,10 @@ module.exports = {
   sourceMap: true,
   plugins: [
     // uglify(),
+    //rollupGrapher({ 
+    //  dest: __dirname + '/../dist/build-graph.html'
+    //}),
+    json(),
     alias({
       _vue: 'node_modules/vue/dist/vue.esm.js',
       'symbol-observable': 'node_modules/symbol-observable/es/index.js'

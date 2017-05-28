@@ -1,5 +1,5 @@
 
-module.exports = {
+const model = {
   path: '/ajax/byStatus',
   args: {
     data: '/ajax/data'
@@ -33,3 +33,5 @@ module.exports = {
     })
   }
 }
+
+export default model

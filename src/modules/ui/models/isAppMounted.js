@@ -1,7 +1,7 @@
 
 import { isEmpty } from 'lodash'
 
-module.exports = {
+const model = {
   path: '/app/isMounted',
   args: {
     name: '/config/ui/mount/component',
@@ -15,3 +15,5 @@ module.exports = {
     }
   }
 }
+
+export default model

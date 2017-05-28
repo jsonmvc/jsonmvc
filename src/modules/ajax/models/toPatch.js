@@ -1,5 +1,5 @@
 
-module.exports = {
+const model = {
   path: '/ajax/toPatch',
   args: {
     data: '/ajax/byStatus/succesful'
@@ -16,3 +16,5 @@ module.exports = {
     }, {})
   }
 }
+
+export default model

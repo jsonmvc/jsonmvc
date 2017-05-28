@@ -1,7 +1,7 @@
 import * as most from 'most'
-import { stream } from '_utils'
+import { stream } from './../../../utils/index'
 
-module.exports = {
+const controller = {
   args: {
     interval: '/config/time/interval'
   },
@@ -14,3 +14,5 @@ module.exports = {
       value: x
     }))
 }
+
+export default controller
