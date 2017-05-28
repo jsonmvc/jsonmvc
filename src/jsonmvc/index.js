@@ -40,8 +40,6 @@ const jsonmvc = module => {
     app: module
   })
 
-  console.log(modules)
-
   let bundle = bundleModules(modules)
 
   let db = DB(bundle.data.initial)

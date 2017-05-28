@@ -3,9 +3,11 @@ import { stream, observer } from './../../../utils/index'
 
 const controller = {
   args: {
+    config: '/framework7/config',
     isMounted: '/app/isMounted'
   },
   fn: stream
+    .filter(x => !!x.config)
     .filter(x => x.isMounted === true)
     .chain((x, lib) => observer(o => {
       let f7 = lib.get('/framework7')

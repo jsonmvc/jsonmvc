@@ -1,4 +1,2 @@
 
-framework7:
-  config: {}
-  views: {}
+framework7: {}

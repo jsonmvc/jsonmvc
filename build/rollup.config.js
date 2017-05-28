@@ -8,6 +8,7 @@ const babel = require('rollup-plugin-babel')
 const globals = require('rollup-plugin-node-globals')
 const rollupGrapher = require('rollup-plugin-grapher')
 const json = require('rollup-plugin-json')
+const uglify = require('rollup-plugin-uglify')
 
 module.exports = {
   entry: __dirname + '/../src/jsonmvc/index.js',
@@ -15,7 +16,7 @@ module.exports = {
   moduleName: 'jsonmvc',
   sourceMap: true,
   plugins: [
-    // uglify(),
+    uglify(),
     //rollupGrapher({ 
     //  dest: __dirname + '/../dist/build-graph.html'
     //}),
