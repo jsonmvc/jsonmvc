@@ -35,8 +35,8 @@ let data = {
   config: {
     ui: {
       mount: {
-        el: '#app',
-        component: 'foo'
+        root: '#app',
+        view: 'foo'
       }
     }
   },
