@@ -2,7 +2,7 @@
   "name": "jsonmvc",
   "version": "0.1.93",
   "description": "The JSON Architecture MVC implementation",
-  "main": "dist/node/jsonmvc.node.js",
+  "main": "dist/jsonmvc.js",
   "scripts": {
     "start": "./build/tasks.sh app_start",
     "test": "echo \"Error: no test specified\" && exit 1",
