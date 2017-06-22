@@ -22,3 +22,4 @@ test/
 build/
 dist/build_report.html
 dist/build_stats.html
+docs/

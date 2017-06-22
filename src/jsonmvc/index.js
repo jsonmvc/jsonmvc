@@ -14,6 +14,7 @@ import update from './fns/update'
 import bundleModules from './fns/bundleModules'
 import start from './fns/start'
 import modulesList from './../modules/index'
+import utils from './../utils/index'
 
 const jsonmvc = module => {
 
@@ -76,5 +77,8 @@ const jsonmvc = module => {
     }
   }
 }
+
+jsonmvc.stream = utils.stream
+jsonmvc.observer = utils.observer
 
 export default jsonmvc

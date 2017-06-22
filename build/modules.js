@@ -81,3 +81,5 @@ moduleIndexExported += 'export default exported'
 let moduleIndex = moduleIndexHeader + '\n' + moduleIndexExported
 
 fs.writeFileSync(modulesPath + '/index.js', moduleIndex, 'utf-8')
+
+console.log('Finished building modules')

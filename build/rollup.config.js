@@ -56,5 +56,5 @@ module.exports = {
     resolve()
   ],
 //  external: ['lodash', 'lodash-es', 'setimmediate'],
-  dest: __dirname + '/../dist/build.js'
+  dest: __dirname + '/../dist/jsonmvc.js'
 }
