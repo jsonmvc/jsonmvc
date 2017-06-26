@@ -2,11 +2,12 @@
 import Vue from '_vue'
 import * as most from 'most'
 import Observable from 'zen-observable'
-import yeast from 'yeast'
 
 import getPath from './getPath'
 import createDataListener from './createDataListener'
 import updateInstanceData from './updateInstanceData'
+import guid from './../fns/guid'
+
 
 const PROP_REGEX = /<([a-z]+)>/g
 
@@ -169,7 +170,7 @@ function createView(db, view, siblings) {
     },
     beforeCreate: function () {
       let self = this
-      let id = yeast()
+      let id = guid()
       let rootPath = `/views/${view.name}/instances/${id}`
 
 

@@ -14,7 +14,7 @@ module.exports = {
   entry: __dirname + '/../src/jsonmvc/index.js',
   format: 'umd',
   moduleName: 'jsonmvc',
-  sourceMap: 'inline',
+  sourceMap: true,
   plugins: [
     uglify(),
     //rollupGrapher({ 

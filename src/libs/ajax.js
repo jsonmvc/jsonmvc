@@ -1,5 +1,5 @@
 import clone from 'lodash-es/cloneDeep'
-import yeast from 'yeast'
+import guid from './../jsonmvc/fns/guid'
 
 function ajax(db) {
   return function createRequest(request) {
@@ -7,7 +7,7 @@ function ajax(db) {
     request = clone(request)
 
     request = {
-      id: yeast(),
+      id: guid(),
       url: request.url,
       headers: request.headers ? request.headers : {},
       labels: request.labels ? request.labels : [request.url],
