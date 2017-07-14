@@ -1,4 +1,6 @@
 
+Change model path to folder structure in order
+to ensure predictability.
 
 Explain better how array access works with json pointers
 
