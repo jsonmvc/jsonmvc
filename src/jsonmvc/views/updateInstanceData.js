@@ -5,18 +5,22 @@ import createDataListener from './createDataListener'
 function updateInstanceData(db, schema, props, data, self, prop, val) {
 
   // Unsubscribe all listeners for this prop
-  props.schema.subscribes[prop].forEach(y => y())
+  if (props.schema.subscribes[prop]) {
+    props.schema.subscribes[prop].forEach(y => y())
+  }
+
   props.schema.subscribes[prop] = []
 
   // For all the paths that are impacted by this prop
-  props.schema.tokens[prop].props.forEach(x => {
-    let path = getPath(schema, props, self, x)
+  if (props.schema.tokens[prop] && props.schema.tokens[prop].props) {
+    props.schema.tokens[prop].props.forEach(x => {
+      let path = getPath(schema, props, self, x)
 
-    let listener = createDataListener(db, path, data, x)
+      let listener = createDataListener(db, path, data, x)
 
-    props.schema.subscribes[prop].push(listener)
-  })
-
+      props.schema.subscribes[prop].push(listener)
+    })
+  }
 }
 
 export default updateInstanceData
