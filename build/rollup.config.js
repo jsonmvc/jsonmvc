@@ -16,7 +16,7 @@ module.exports = {
   moduleName: 'jsonmvc',
   sourceMap: true,
   plugins: [
-    uglify(),
+    // uglify(),
     //rollupGrapher({ 
     //  dest: __dirname + '/../dist/build-graph.html'
     //}),
