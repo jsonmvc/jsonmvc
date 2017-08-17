@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./../../node_modules/.bin/jest",
     "prepublish": "echo \"Prepublishing....\"",
     "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-helper-guid"
   },
@@ -25,5 +25,21 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-guid#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-guid#readme",
+  "jest": {
+    "transform": {
+      ".*": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!lodash-es)"
+    ],
+    "testRegex": "test/.*\\.js$",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  }
 }

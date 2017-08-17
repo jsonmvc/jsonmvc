@@ -47,6 +47,7 @@
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
+    "babel-jest": "^20.0.3",
     "babel-plugin-add-module-exports": "https://registry.npmjs.org/babel-plugin-add-module-exports/-/babel-plugin-add-module-exports-0.2.1.tgz",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-lodash": "^3.2.11",
@@ -57,6 +58,7 @@
     "firebase": "^4.2.0",
     "framework7": "^1.6.4",
     "gulp": "^3.9.1",
+    "jest": "^20.0.4",
     "lerna": "^2.0.0",
     "lodash-es": "^4.17.4",
     "rollup": "^0.47.6",

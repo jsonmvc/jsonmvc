@@ -17,6 +17,8 @@ gulp.task('build', () => {
     package: argv.package
   })
 
+  del.sync([ __dirname + '/packages/' + argv.package + '/dist' ])
+
   return rollup.rollup(config)
     .then(bundle => {
        bundle.write(config)
