@@ -1,6 +1,6 @@
 # JSONMVC - (Documentation in progress)
 
-[![Build Status](https://travis-ci.org/jsonmvc/jsonmvc.svg?branch=master)](https://travis-ci.org/jsonmvc/jsonmvc) [![Coverage Status](https://coveralls.io/repos/github/jsonmvc/jsonmvc/badge.svg?branch=master)](https://coveralls.io/github/jsonmvc/jsonmvc?branch=master) [![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
+[![Backers on Open Collective](https://opencollective.com/jsonmvc/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/jsonmvc/sponsors/badge.svg)](#sponsors) [![Build Status](https://travis-ci.org/jsonmvc/jsonmvc.svg?branch=master)](https://travis-ci.org/jsonmvc/jsonmvc) [![Coverage Status](https://coveralls.io/repos/github/jsonmvc/jsonmvc/badge.svg?branch=master)](https://coveralls.io/github/jsonmvc/jsonmvc?branch=master) [![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
 
 **JSONMVC** is a JavaScript framework for effortless web application modeling.
 
@@ -102,5 +102,35 @@ Quick links:
 * FAQ
 * Resources
 * Cookbooks
+
+
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+<a href="graphs/contributors"><img src="https://opencollective.com/jsonmvc/contributors.svg?width=890" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/jsonmvc#backer)]
+
+<a href="https://opencollective.com/jsonmvc#backers" target="_blank"><img src="https://opencollective.com/jsonmvc/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/jsonmvc#sponsor)]
+
+<a href="https://opencollective.com/jsonmvc/sponsor/0/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/1/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/2/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/3/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/4/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/5/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/6/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/7/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/8/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/jsonmvc/sponsor/9/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/9/avatar.svg"></a>
 
 
