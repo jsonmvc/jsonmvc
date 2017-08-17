@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/lerna run build",
     "build-docker": "./build/tasks.sh app_build",
-    "postinstall": "opencollective postinstall"
+    "postinstall": "opencollective postinstall",
+    "clean": "./node_modules/.bin/lerna run clean"
   },
   "engines": {
     "node": ">= 4.x <= 8.x",

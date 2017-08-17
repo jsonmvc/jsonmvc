@@ -11,18 +11,19 @@ const rollupConfig = require('./rollup.config.js')
 const base = path.join(__dirname, '..', 'packages')
 const scripts = "./../packages"
 
+gulp.task('clean', () => {
+  del.sync([ __dirname + '/packages/' + argv.package + '/dist' ])
+  del.sync([ __dirname + '/packages/' + argv.package + '/coverage' ])
+})
+
 gulp.task('build', () => {
 
   let config = rollupConfig({
     package: argv.package
   })
 
-  del.sync([ __dirname + '/packages/' + argv.package + '/dist' ])
-
   return rollup.rollup(config)
     .then(bundle => {
        bundle.write(config)
     })
 })
-
-gulp.task('clean', () => del([`${process.env.DIST_PATH}/*`]))

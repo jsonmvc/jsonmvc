@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "echo \"Prepublishing....\"",
-    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-framework7"
+    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-framework7",
+    "clean": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js clean --package jsonmvc-module-framework7"
   },
   "repository": {
     "type": "git",

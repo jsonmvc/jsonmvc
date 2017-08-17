@@ -6,7 +6,8 @@
   "scripts": {
     "test": "./../../node_modules/.bin/jest",
     "prepublish": "echo \"Prepublishing....\"",
-    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-helper-guid"
+    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-helper-guid",
+    "clean": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js clean --package jsonmvc-helper-guid"
   },
   "repository": {
     "type": "git",
