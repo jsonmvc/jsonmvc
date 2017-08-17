@@ -1,7 +1,7 @@
 {
-  "name": "jsonmvc-helper-stream",
-  "version": "1.0.0",
-  "description": "Write lazy streams. Works as a template for mostjs.",
+  "name": "jsonmvc-module-firebase",
+  "version": "0.1.97",
+  "description": "A JSONMVC module for firebase integration",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,8 +13,10 @@
   },
   "keywords": [
     "jsonmvc",
-    "stream",
-    "mostjs",
+    "module",
+    "firebase",
+    "database",
+    "data",
     "development"
   ],
   "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
@@ -22,5 +24,5 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-stream#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-fields#readme"
 }

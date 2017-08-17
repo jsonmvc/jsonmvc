@@ -1,11 +1,10 @@
 {
-  "name": "jsonmvc-helper-stream",
-  "version": "1.0.0",
-  "description": "Write lazy streams. Works as a template for mostjs.",
+  "name": "jsonmvc-module-ajax",
+  "version": "0.1.97",
+  "description": "JSONMVC AJAX Module",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -13,7 +12,8 @@
   },
   "keywords": [
     "jsonmvc",
-    "stream",
+    "ajax",
+    "request",
     "mostjs",
     "development"
   ],
@@ -22,5 +22,5 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-stream#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-ajax#readme"
 }
