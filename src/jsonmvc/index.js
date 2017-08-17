@@ -78,7 +78,10 @@ const jsonmvc = module => {
   }
 }
 
-jsonmvc.stream = utils.stream
-jsonmvc.observer = utils.observer
+let stream = utils.stream
+export { stream }
+
+let observer = utils.observer
+export { observer }
 
 export default jsonmvc

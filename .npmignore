@@ -11,11 +11,15 @@ npm-debug.log
 .travis.yml
 .pairs
 .coffee
+.github
 
 npm-shrinkwrap.json
+package-lock.json
 
 README.md
 TODO.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
 
 src/
 test/
