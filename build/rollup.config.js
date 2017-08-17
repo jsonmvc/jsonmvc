@@ -3,6 +3,7 @@ const resolve = require('rollup-plugin-node-resolve')
 const alias = require('rollup-plugin-alias')
 const commonjs = require('rollup-plugin-commonjs')
 const builtins = require('rollup-plugin-node-builtins')
+const nodeResolve = require('rollup-plugin-node-resolve')
 const replace = require('rollup-plugin-replace')
 const babel = require('rollup-plugin-babel')
 const globals = require('rollup-plugin-node-globals')
@@ -20,10 +21,14 @@ module.exports = {
     //rollupGrapher({ 
     //  dest: __dirname + '/../dist/build-graph.html'
     //}),
+    nodeResolve({
+      jsnext: true,
+      main: true
+    }),
     json(),
     alias({
-      _vue: 'node_modules/vue/dist/vue.esm.js',
-      'symbol-observable': 'node_modules/symbol-observable/es/index.js'
+      _vue: __dirname + '/../node_modules/vue/dist/vue.esm.js',
+      'symbol-observable': __dirname + '/../node_modules/symbol-observable/es/index.js'
     }),
     babel({
       babelrc: false,
