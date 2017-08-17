@@ -2,9 +2,12 @@
   "name": "jsonmvc",
   "private": true,
   "description": "The JSONMVC framework",
+  "scripts-info": {
+    "build": "Build an ES6 module"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
+    "build": "./node_modules/.bin/lerna run build",
     "build-docker": "./build/tasks.sh app_build",
     "postinstall": "opencollective postinstall"
   },

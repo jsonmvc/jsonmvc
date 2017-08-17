@@ -1,12 +1,12 @@
 {
-  "name": "jsonmvc-module-time",
-  "description": "A JSONMVC module for app time management",
+  "name": "jsonmvc-helper-ajax",
+  "description": "Create an ajax request patch.",
   "version": "0.2.0",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublish": "echo \"Prepublishing....\"",
-    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-time"
+    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-helper-ajax"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "keywords": [
     "jsonmvc",
     "module",
-    "time",
+    "ajax",
     "development"
   ],
   "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
@@ -23,10 +23,5 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-time#readme",
-  "dependencies": {
-    "jsonmvc-helper-observer": "0.2.0",
-    "jsonmvc-helper-stream": "0.2.0",
-    "most": "^1.6.1"
-  }
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-ajax#readme"
 }

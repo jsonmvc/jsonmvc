@@ -1,6 +1,7 @@
 import forEach from 'lodash-es/forEach'
 import isPlainObject from 'lodash-es/isPlainObject'
-import { stream, observer } from './../../../utils/index'
+import stream from 'jsonmvc-helper-stream'
+import observer from 'jsonmvc-helper-observer'
 
 // @TODO: Add a buffer for the firebase stream for 10ms or so
 

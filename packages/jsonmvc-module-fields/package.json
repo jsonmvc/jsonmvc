@@ -1,11 +1,12 @@
 {
   "name": "jsonmvc-module-fields",
-  "version": "0.1.97",
   "description": "A JSONMVC module for dealing with form fields",
+  "version": "0.2.0",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\""
+    "prepublish": "echo \"Prepublishing....\"",
+    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-fields"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-fields#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-fields#readme",
+  "dependencies": {
+    "lodash-es": "^4.17.4"
+  }
 }

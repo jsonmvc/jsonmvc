@@ -1,11 +1,11 @@
 {
   "name": "jsonmvc-module-framework7",
-  "version": "0.1.97",
   "description": "A JSONMVC module for Framework7 integration",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\""
+    "prepublish": "echo \"Prepublishing....\"",
+    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-framework7"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,11 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-framework7#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-framework7#readme",
+  "dependencies": {
+    "framework7": "^1.6.4",
+    "jsonmvc-helper-observer": "0.2.0",
+    "jsonmvc-helper-stream": "0.2.0",
+    "lodash-es": "^4.17.4"
+  }
 }

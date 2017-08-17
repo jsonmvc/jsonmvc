@@ -1,11 +1,12 @@
 {
   "name": "jsonmvc",
-  "version": "0.1.97",
   "description": "The JSONMVC Framework",
+  "version": "0.2.0",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\""
+    "prepublish": "echo \"Prepublishing....\"",
+    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,13 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc#readme",
+  "dependencies": {
+    "jsonmvc-db": "^0.6.11",
+    "lodash-es": "^4.17.4",
+    "most": "^1.6.1",
+    "vue": "^2.4.2",
+    "zen-observable": "^0.5.2",
+    "jsonmvc-helper-guid": "0.2.0"
+  }
 }

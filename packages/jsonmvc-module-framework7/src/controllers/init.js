@@ -1,5 +1,8 @@
 import forEach from 'lodash-es/forEach'
-import { stream, observer } from './../../../utils/index'
+import stream from 'jsonmvc-helper-stream'
+import observer from 'jsonmvc-helper-observer'
+
+// @TODO: Include Framework7
 
 const controller = {
   args: {

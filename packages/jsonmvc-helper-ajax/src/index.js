@@ -1,5 +1,5 @@
 import clone from 'lodash-es/cloneDeep'
-import guid from './../jsonmvc/fns/guid'
+import guid from 'jsonmvc-helper-guid'
 
 function ajax(db) {
   return function createRequest(request) {

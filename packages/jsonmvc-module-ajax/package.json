@@ -1,10 +1,12 @@
 {
   "name": "jsonmvc-module-ajax",
-  "version": "0.1.97",
   "description": "JSONMVC AJAX Module",
+  "version": "0.2.0",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "echo \"Prepublishing....\"",
+    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-ajax"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,10 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-ajax#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-ajax#readme",
+  "dependencies": {
+    "@fdaciuk/ajax": "^2.3.0",
+    "jsonmvc-helper-observer": "0.2.0",
+    "jsonmvc-helper-stream": "0.2.0"
+  }
 }

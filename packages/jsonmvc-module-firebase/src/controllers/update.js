@@ -1,6 +1,7 @@
 import forEach from 'lodash-es/forEach'
 import isEmpty from 'lodash-es/isEmpty'
-import { stream, observer } from './../../../utils/index'
+import stream from 'jsonmvc-helper-stream'
+import observer from 'jsonmvc-helper-observer'
 
 const controller = {
   args: {

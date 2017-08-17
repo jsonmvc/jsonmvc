@@ -1,6 +1,6 @@
 import map from 'lodash-es/map'
 import isEmpty from 'lodash-es/isEmpty'
-import { stream } from './../../../utils/index'
+import stream from 'jsonmvc-helper-stream'
 
 const controller = {
   args: {

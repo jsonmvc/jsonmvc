@@ -5,16 +5,14 @@ import forEach from 'lodash-es/forEach'
 import reduce from 'lodash-es/reduce'
 
 import DB from 'jsonmvc-db'
+import guid from 'jsonmvc-helper-guid'
 
 import createControllers from './controllers/controllers'
 import createViews from './views/views'
 import createModels from './models/models'
 import update from './fns/update'
-import guid from './fns/guid'
 import bundleModules from './fns/bundleModules'
 import start from './fns/start'
-import modulesList from './../modules/index'
-import utils from './../utils/index'
 
 const jsonmvc = module => {
 
@@ -37,9 +35,9 @@ const jsonmvc = module => {
     initial: module.data
   }
 
-  let modules = merge(modulesList, {
+  let modules = {
     app: module
-  })
+  }
 
   let bundle = bundleModules(modules)
 
@@ -77,11 +75,5 @@ const jsonmvc = module => {
     }
   }
 }
-
-let stream = utils.stream
-export { stream }
-
-let observer = utils.observer
-export { observer }
 
 export default jsonmvc

@@ -6,8 +6,7 @@ import Observable from 'zen-observable'
 import getPath from './getPath'
 import createDataListener from './createDataListener'
 import updateInstanceData from './updateInstanceData'
-import guid from './../fns/guid'
-
+import guid from 'jsonmvc-helper-guid'
 
 const PROP_REGEX = /<([a-z]+)>/g
 

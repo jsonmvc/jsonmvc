@@ -1,5 +1,6 @@
 
-import { stream, observer } from './../../../utils/index'
+import stream from 'jsonmvc-helper-stream'
+import observer from 'jsonmvc-helper-observer'
 
 const controller = {
   args: {

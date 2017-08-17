@@ -1,7 +1,7 @@
 import * as most from 'most'
 import getValue from './../fns/getValue'
 import bubbleTo from './../fns/bubbleTo'
-import { stream } from './../../../utils/index'
+import stream from 'jsonmvc-helper-stream'
 
 const controller = {
   args: {

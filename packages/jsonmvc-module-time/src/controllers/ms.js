@@ -1,5 +1,5 @@
 import * as most from 'most'
-import { stream } from './../../../utils/index'
+import stream from 'jsonmvc-helper-stream'
 
 const controller = {
   args: {

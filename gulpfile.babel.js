@@ -3,6 +3,8 @@ import del from 'del'
 import { lstatSync, readdirSync } from 'fs'
 import path from 'path'
 
+const argv = require('yargs').argv
+
 const rollup = require('rollup')
 const rollupConfig = require('./rollup.config.js')
 
@@ -11,9 +13,13 @@ const scripts = "./../packages"
 
 gulp.task('build', () => {
 
-  return rollup.rollup(rollupConfig)
+  let config = rollupConfig({
+    package: argv.package
+  })
+
+  return rollup.rollup(config)
     .then(bundle => {
-       bundle.write(rollupConfig)
+       bundle.write(config)
     })
 })
 
