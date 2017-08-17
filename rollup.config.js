@@ -12,7 +12,7 @@ const json = require('rollup-plugin-json')
 const uglify = require('rollup-plugin-uglify')
 
 module.exports = {
-  entry: __dirname + '/../src/jsonmvc/index.js',
+  entry: __dirname + '/src/jsonmvc/index.js',
   format: 'umd',
   moduleName: 'jsonmvc',
   sourceMap: true,
@@ -27,8 +27,8 @@ module.exports = {
     }),
     json(),
     alias({
-      _vue: __dirname + '/../node_modules/vue/dist/vue.esm.js',
-      'symbol-observable': __dirname + '/../node_modules/symbol-observable/es/index.js'
+      _vue: __dirname + '/node_modules/vue/dist/vue.esm.js',
+      'symbol-observable': __dirname + '/node_modules/symbol-observable/es/index.js'
     }),
     babel({
       babelrc: false,
@@ -61,5 +61,5 @@ module.exports = {
     resolve()
   ],
 //  external: ['lodash', 'lodash-es', 'setimmediate'],
-  dest: __dirname + '/../dist/jsonmvc.js'
+  dest: __dirname + '/dist/jsonmvc.js'
 }

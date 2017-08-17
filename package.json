@@ -4,7 +4,7 @@
   "description": "The JSONMVC framework",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/gulp --gulpfile build/gulpfile.babel.js build",
+    "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
     "build-docker": "./build/tasks.sh app_build",
     "postinstall": "opencollective postinstall"
   },
