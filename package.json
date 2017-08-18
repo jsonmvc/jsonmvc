@@ -6,11 +6,10 @@
     "build": "Build an ES6 module"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/.bin/lerna run build",
-    "build-docker": "./build/tasks.sh app_build",
-    "postinstall": "opencollective postinstall",
-    "clean": "./node_modules/.bin/lerna run clean"
+    "test": "./node_modules/.bin/jest",
+    "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
+    "clean": "./node_modules/.bin/lerna run clean",
+    "postinstall": "opencollective postinstall"
   },
   "engines": {
     "node": ">= 4.x <= 8.x",
@@ -58,6 +57,7 @@
     "del": "^3.0.0",
     "firebase": "^4.2.0",
     "framework7": "^1.6.4",
+    "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "jest": "^20.0.4",
     "lerna": "^2.0.0",
@@ -79,6 +79,22 @@
     "type": "opencollective",
     "url": "https://opencollective.com/jsonmvc",
     "logo": "https://opencollective.com/opencollective/logo.txt"
+  },
+  "jest": {
+    "transform": {
+      ".*": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!lodash-es)"
+    ],
+    "testRegex": "packages/*/test/.*\\.js$",
+    "testEnvironment": "node",
+    "collectCoverage": true,
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   },
   "workspaces": [
     "packages/*"
