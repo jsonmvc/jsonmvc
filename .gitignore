@@ -59,6 +59,4 @@ typings/
 
 build/custom.env
 dist
-src/modules/**/data/*.js
-src/modules/**/data/*.json
-src/modules/**/index.js
+packages/**/src/index.js

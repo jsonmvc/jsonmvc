@@ -1,22 +1,33 @@
-import controllers_ms from './controllers/ms.js'
-import data_initial from './data/initial.json'
-import data_schema from './data/schema.json'
-import models_hh from './models/hh.js'
-import models_hhmmss from './models/hhmmss.js'
-import models_mm from './models/mm.js'
 
+import controllers_ms from './controllers/ms.js'
+import models_time_hh from './models/time/hh.js'
+import models_time_hhmmss from './models/time/hhmmss.js'
+import models_time_mm from './models/time/mm.js'
+
+
+controllers_ms.meta = {
+  file: "controllers/ms.js"
+}
+models_time_hh.meta = {
+  file: "models/time/hh.js"
+}
+models_time_hhmmss.meta = {
+  file: "models/time/hhmmss.js"
+}
+models_time_mm.meta = {
+  file: "models/time/mm.js"
+}
 let exported = {
-  views: {},
-  models: {},
-  controllers: {},
+  views: [],
+  models: [],
+  controllers: [],
   data: {}
 }
 
-exported['controllers']['ms'] = controllers_ms
-exported['data']['initial'] = data_initial
-exported['data']['schema'] = data_schema
-exported['models']['hh'] = models_hh
-exported['models']['hhmmss'] = models_hhmmss
-exported['models']['mm'] = models_mm
+exported.data = {"config":{"time":{"interval":500}}}
+exported.controllers.push(controllers_ms)
+exported.models.push(models_time_hh)
+exported.models.push(models_time_hhmmss)
+exported.models.push(models_time_mm)
 
 export default exported

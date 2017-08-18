@@ -16,10 +16,10 @@ it('should create a basic app', () => {
     args: {
       foo: '/bar'
     },
-    fn: args => ({
+    fn: (args, lib) => ({
       op: 'add',
       path: '/baz',
-      value: args.foo + 'baz'
+      value: args.foo + 'baz' + lib.get('/faz')
     })
   })
 
@@ -54,7 +54,8 @@ it('should create a basic app', () => {
         }
       }
     },
-    baz: 123
+    baz: 123,
+    faz: 321
   }
 
   let root = document.createElement('div')
@@ -75,6 +76,6 @@ it('should create a basic app', () => {
   }])
 
   jest.runAllTimers()
-  expect(instance.db.get('/baz')).toBe('barbaz')
+  expect(instance.db.get('/baz')).toBe('barbaz321')
 
 })

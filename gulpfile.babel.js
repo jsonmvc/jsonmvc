@@ -4,6 +4,8 @@ import del from 'del'
 import { lstatSync, readdirSync } from 'fs'
 import path from 'path'
 import now from 'performance-now'
+import fs from 'fs'
+import { parse as yamlParse } from 'yamljs'
 
 const argv = require('yargs').argv
 
@@ -15,17 +17,77 @@ const scripts = "./../packages"
 
 
 const forEachPackage = cb => {
-  glob(__dirname + '/packages/*', (err, folders) => {
-    let len = folders.length
-    folders.forEach(x => {
-      let folder = path.parse(x).name
-      cb(folder, len)
-    })
+  let folders = glob.sync(__dirname + '/packages/*')
+  folders.forEach(x => {
+    let folder = path.parse(x).name
+    cb(folder, folders.length)
   })
 }
 
-gulp.task('clean', () => {
+const buildModule = x => {
+  let root = `${__dirname}/packages/${x}/src`
+  let header = ''
+  let files = glob.sync(root + '/+(controllers|models|views)/**/@(*.js)')
+  let imports = ''
+  let exports = ''
+  let metas = ''
+
+  let data = fs.readFileSync(root + '/data/initial.yml', 'utf-8')
+  if (data) {
+    data = yamlParse(data)
+    exports += `exported.data = ${JSON.stringify(data)}\n`
+  }
+
+  files.forEach(y => {
+    let filePath = y.replace(root + '/', '')
+    let list = filePath.split('/')
+    let cat = list.shift()
+    let file = list.pop()
+    file = file.split('.')
+    let fileName = file[0]
+    let fileExt = file[1]
+
+    let moduleList = []
+    moduleList.push(cat)
+    moduleList = moduleList.concat(list)
+    moduleList.push(fileName)
+
+    let moduleName = moduleList.join('_')
+    let name = list[list.length - 1]
+    imports += `import ${moduleName} from './${filePath}'\n`
+    metas += `
+${moduleName}.meta = {
+  file: "${filePath}"
+}`
+    exports += `exported.${cat}.push(${moduleName})\n`
+  })
+
+  let exported = `
+${imports}
+${metas}
+let exported = {
+  views: [],
+  models: [],
+  controllers: [],
+  data: {}
+}
+
+${exports}
+export default exported
+`
+  fs.writeFileSync(root + '/index.js', exported, 'utf-8')
+}
+
+gulp.task('build:modules', () => {
   forEachPackage((x, count) => {
+    if (x.match(/^jsonmvc\-module\-[a-z0-9]+$/)) {
+      buildModule(x)
+    }
+  })
+})
+
+gulp.task('clean', () => {
+  forEachPackage(x => {
     del.sync([ __dirname + '/packages/' + x + '/dist' ])
     del.sync([ __dirname + '/packages/' + x + '/coverage' ])
   })

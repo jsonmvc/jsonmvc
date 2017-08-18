@@ -8,6 +8,7 @@
     "test": "./node_modules/.bin/jest",
     "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
     "clean": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js clean",
+    "build:modules": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build:modules",
     "postinstall": "opencollective postinstall"
   },
   "engines": {
@@ -72,7 +73,8 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-uglify": "^2.0.1",
-    "rollup-plugin-vue": "^2.4.1"
+    "rollup-plugin-vue": "^2.4.1",
+    "yamljs": "^0.3.0"
   },
   "collective": {
     "type": "opencollective",
