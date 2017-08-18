@@ -1,1 +1,0 @@
-export default {"ui":"object"}

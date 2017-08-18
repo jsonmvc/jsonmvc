@@ -1,1 +1,0 @@
-export default {"config":{"ui":{"events":{"click":true,"submit":true,"change":true,"keyup":{"debounce":250}}}},"ui":{"mounted":false}}

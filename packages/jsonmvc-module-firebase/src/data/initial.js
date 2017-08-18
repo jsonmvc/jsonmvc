@@ -1,1 +1,0 @@
-export default {"firebase":{"config":{},"sync":{},"init":false,"signOut":{},"emailAuth":{},"session":{}}}

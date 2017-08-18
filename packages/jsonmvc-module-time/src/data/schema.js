@@ -1,1 +1,0 @@
-export default {"time":{"ms":"$timestamp","mm":"$timestamp","hh":"$timestamp","dd":"$timestamp"}}

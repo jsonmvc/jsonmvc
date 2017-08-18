@@ -1,1 +1,0 @@
-export default {"config":{"time":{"interval":500}}}
