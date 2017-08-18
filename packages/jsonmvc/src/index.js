@@ -55,18 +55,22 @@ const jsonmvc = module => {
     window.instance = instance
   }
 
-
-  setTimeout(() => {
-    if (document.readyState === "complete") {
-      start(instance)
-    } else {
-      document.addEventListener('DOMContentLoaded', function () {
+  if (Object.keys(instance.views).length > 0) {
+    setTimeout(() => {
+      if (document.readyState === "complete") {
         start(instance)
-      })
-    }
-  })
+      } else {
+        document.addEventListener('DOMContentLoaded', function () {
+          start(instance)
+        })
+      }
+    })
+  } else {
+    start(instance)
+  }
 
   return {
+    db,
     module,
     update: module => {
       update(instance, {

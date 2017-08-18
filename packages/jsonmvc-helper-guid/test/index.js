@@ -1,8 +1,8 @@
 
-import guid from './../src/index'
+import lib from './../src/index'
 
 it('should return a random 6 chars string', () => {
-  let val = guid()
+  let val = lib()
   expect(val).toMatch(/^[0-9a-z]{6}$/)
-  expect(val).not.toBe(guid())
+  expect(val).not.toBe(lib())
 })

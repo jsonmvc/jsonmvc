@@ -1,5 +1,5 @@
 
-import Vue from '_vue'
+import Vue from 'vue'
 import * as most from 'most'
 import Observable from 'zen-observable'
 

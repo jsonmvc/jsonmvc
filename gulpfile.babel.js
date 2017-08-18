@@ -25,8 +25,10 @@ const forEachPackage = cb => {
 }
 
 gulp.task('clean', () => {
-  del.sync([ __dirname + '/packages/' + argv.package + '/dist' ])
-  del.sync([ __dirname + '/packages/' + argv.package + '/coverage' ])
+  forEachPackage((x, count) => {
+    del.sync([ __dirname + '/packages/' + x + '/dist' ])
+    del.sync([ __dirname + '/packages/' + x + '/coverage' ])
+  })
 })
 
 gulp.task('build', done => {

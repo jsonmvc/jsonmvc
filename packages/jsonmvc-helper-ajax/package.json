@@ -5,9 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\"",
-    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-helper-ajax",
-    "clean": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js clean --package jsonmvc-helper-ajax"
+    "prepublish": "echo \"Prepublishing....\""
   },
   "repository": {
     "type": "git",
@@ -24,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-ajax#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-ajax#readme",
+  "dependencies": {
+    "jsonmvc-helper-guid": "0.2.0"
+  }
 }

@@ -1,5 +1,4 @@
 {
-  "name": "jsonmvc",
   "private": true,
   "description": "The JSONMVC framework",
   "scripts-info": {
@@ -8,7 +7,7 @@
   "scripts": {
     "test": "./node_modules/.bin/jest",
     "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
-    "clean": "./node_modules/.bin/lerna run clean",
+    "clean": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js clean",
     "postinstall": "opencollective postinstall"
   },
   "engines": {
@@ -81,16 +80,20 @@
     "logo": "https://opencollective.com/opencollective/logo.txt"
   },
   "jest": {
+    "rootDir": "packages",
     "transform": {
       ".*": "babel-jest"
     },
     "transformIgnorePatterns": [
       "<rootDir>/node_modules/(?!lodash-es)"
     ],
-    "testRegex": "packages/*/test/.*\\.js$",
-    "testEnvironment": "node",
+    "testRegex": "test/.*\\.js$",
+    "testEnvironment": "jsdom",
     "collectCoverage": true,
     "verbose": true,
+    "moduleNameMapper": {
+      "vue": "vue/dist/vue.esm.js"
+    },
     "moduleDirectories": [
       "node_modules",
       "src"
