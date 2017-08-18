@@ -1,12 +1,8 @@
 {
   "name": "jsonmvc-helper-ajax",
   "description": "Create an ajax request patch.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\""
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
@@ -24,6 +20,6 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-ajax#readme",
   "dependencies": {
-    "jsonmvc-helper-guid": "0.2.0"
+    "jsonmvc-helper-guid": "^0.2.1"
   }
 }

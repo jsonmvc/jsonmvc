@@ -1,12 +1,8 @@
 {
   "name": "jsonmvc-helper-observer",
   "description": "A simple observer wrapper based on zen-observable and most",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\""
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

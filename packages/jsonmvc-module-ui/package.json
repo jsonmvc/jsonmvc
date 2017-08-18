@@ -1,14 +1,8 @@
 {
   "name": "jsonmvc-module-ui",
   "description": "A JSONMVC module for app ui management",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\"",
-    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-ui",
-    "clean": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js clean --package jsonmvc-module-ui"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
@@ -28,7 +22,7 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-ui#readme",
   "dependencies": {
-    "jsonmvc-helper-stream": "0.2.0",
+    "jsonmvc-helper-stream": "^0.2.1",
     "lodash-es": "^4.17.4",
     "most": "^1.6.1"
   }

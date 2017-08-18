@@ -1,14 +1,8 @@
 {
   "name": "jsonmvc-module-firebase",
   "description": "A JSONMVC module for firebase integration",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "echo \"Prepublishing....\"",
-    "build": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js build --package jsonmvc-module-firebase",
-    "clean": "./../../node_modules/.bin/gulp --gulpfile ./../../gulpfile.babel.js clean --package jsonmvc-module-firebase"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
@@ -29,8 +23,8 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-fields#readme",
   "dependencies": {
     "firebase": "^4.3.0",
-    "jsonmvc-helper-observer": "0.2.0",
-    "jsonmvc-helper-stream": "0.2.0",
+    "jsonmvc-helper-observer": "^0.2.1",
+    "jsonmvc-helper-stream": "^0.2.1",
     "lodash-es": "^4.17.4"
   }
 }
