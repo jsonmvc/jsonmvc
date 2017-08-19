@@ -30,7 +30,7 @@ const buildModule = x => {
   let files = glob.sync(root + '/+(controllers|models|views)/**/@(*.js)')
   let imports = ''
   let exports = ''
-  let metas = ''
+  let extra = ''
 
   let data = fs.readFileSync(root + '/data/initial.yml', 'utf-8')
   if (data) {
@@ -53,18 +53,29 @@ const buildModule = x => {
     moduleList.push(fileName)
 
     let moduleName = moduleList.join('_')
-    let name = list[list.length - 1]
     imports += `import ${moduleName} from './${filePath}'\n`
-    metas += `
+    extra += `
 ${moduleName}.meta = {
-  file: "${filePath}"
+  file: "${x + '/' + filePath}"
 }`
+
+    list.push(fileName)
+    if (cat === 'views') {
+      extra += `
+${moduleName}.name = '${list.join('-')}'
+`
+    } else if (cat === 'models') {
+    extra += `
+${moduleName}.path = '/${list.join('/')}'
+`
+    }
+
     exports += `exported.${cat}.push(${moduleName})\n`
   })
 
   let exported = `
 ${imports}
-${metas}
+${extra}
 let exported = {
   views: [],
   models: [],
