@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-utils-webpack",
   "description": "JSONMVC utils for Webpack bundling and HMR",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "main": "src/index.js",
   "repository": {
     "type": "git",

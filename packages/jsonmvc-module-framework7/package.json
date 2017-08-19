@@ -26,5 +26,5 @@
     "jsonmvc-helper-stream": "^0.2.1",
     "lodash-es": "^4.17.4"
   },
-  "version": "0.2.1"
+  "version": "0.2.2"
 }

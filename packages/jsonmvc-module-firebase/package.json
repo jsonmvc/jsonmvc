@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-module-firebase",
   "description": "A JSONMVC module for firebase integration",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "src/index.js",
   "repository": {
     "type": "git",

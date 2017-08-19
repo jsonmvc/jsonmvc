@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-module-forms",
   "description": "A JSONMVC module for forms",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "src/index.js",
   "repository": {
     "type": "git",
