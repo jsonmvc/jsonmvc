@@ -1,6 +1,14 @@
 
-import lib from './../src/index'
+import firebase from 'jsonmvc-module-firebase'
+import ui from 'jsonmvc-module-ui'
+import framework7 from 'jsonmvc-module-framework7'
+import time from 'jsonmvc-module-time'
+import forms from 'jsonmvc-module-forms'
+import fields from 'jsonmvc-module-fields'
+import ajax from 'jsonmvc-module-ajax'
+import Promise from 'promise'
 
+import lib from './../src/index'
 jest.useFakeTimers()
 
 it('should create a basic app', () => {
@@ -78,4 +86,42 @@ it('should create a basic app', () => {
   jest.runAllTimers()
   expect(instance.db.get('/baz')).toBe('barbaz321')
 
+})
+
+
+it('should work with all modules', () => {
+  let modules = [
+    firebase,
+    ui,
+    time,
+    fields,
+    forms,
+    ajax,
+    framework7
+  ]
+
+  modules.push({
+    models: [{
+      path: '/module/test',
+      args: {
+        bam: '/bam'
+      },
+      fn: args => args.bam + 'baz'
+    }],
+    data: {
+      bam: 123
+    }
+  })
+
+  let instance = lib(modules)
+
+  jest.runAllTimers()
+
+  return new Promise((resolve, reject) => {
+    instance.db.on('/time', x => {
+      expect(x.hh).not.toBeFalsy()
+      expect(instance.db.get('/module/test')).toBe('123baz')
+      resolve()
+    })
+  })
 })

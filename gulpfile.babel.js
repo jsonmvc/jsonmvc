@@ -73,6 +73,8 @@ ${moduleName}.path = '/${list.join('/')}'
     exports += `exported.${cat}.push(${moduleName})\n`
   })
 
+  exports += `exported.name = '${x}'\n`
+
   let exported = `
 ${imports}
 ${extra}

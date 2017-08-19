@@ -6,7 +6,9 @@ function start(instance) {
 
   if (Object.keys(instance.views).length > 0) {
     let mount = instance.db.get('/config/ui/mount')
-    mountView(mount.root, instance.views[mount.view].component)
+    if (mount && mount.root) {
+      mountView(mount.root, instance.views[mount.view].component)
+    }
   }
 
 
