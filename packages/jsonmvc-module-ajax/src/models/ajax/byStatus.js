@@ -1,6 +1,5 @@
 
 const model = {
-  path: '/ajax/byStatus',
   args: {
     data: '/ajax/data'
   },

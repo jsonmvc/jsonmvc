@@ -1,7 +1,6 @@
-import padZero from './../fns/padZero'
+import padZero from './../../fns/padZero'
 
 const model = {
-  path: '/time/hhmmss',
   args: {
     ms: '/time/ms'
   },

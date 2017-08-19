@@ -1,6 +1,5 @@
 
 const model = {
-  path: '/ajax/toPatch',
   args: {
     data: '/ajax/byStatus/succesful'
   },

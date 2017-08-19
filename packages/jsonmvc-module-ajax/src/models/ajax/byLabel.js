@@ -1,6 +1,5 @@
 
 const model = {
-  path: '/ajax/byLabel',
   args: {
     data: '/ajax/data'
   },

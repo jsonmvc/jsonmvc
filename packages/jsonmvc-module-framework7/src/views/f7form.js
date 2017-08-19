@@ -1,6 +1,5 @@
 
 const view = {
-  name: 'f7form',
   args: {
     fieldList: '<fields>'
   },

@@ -1,7 +1,6 @@
-import isNewer from './../fns/isNewer'
+import isNewer from './../../fns/isNewer'
 
 const model = {
-  path: '/ajax/lastByLabel',
   args: {
     data: '/ajax/byLabel'
   },

@@ -1,6 +1,5 @@
 
 const model = {
-  path: '/time/hh',
   args: {
     mm: '/time/mm'
   },

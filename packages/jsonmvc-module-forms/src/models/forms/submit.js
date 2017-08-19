@@ -3,7 +3,6 @@ import transform from 'lodash-es/transform'
 import forEach from 'lodash-es/forEach'
 
 const model = {
-  path: '/forms/submit',
   args: {
     data: '/forms/data'
   },
