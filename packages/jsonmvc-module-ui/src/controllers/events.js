@@ -31,8 +31,7 @@ const controller = {
     })
     .filter(x => !!x.el)
     .map(x => {
-
-      if (false == x.e instanceof CustomEvent) {
+      if (x.e instanceof CustomEvent == false) {
         x.e.preventDefault()
       }
 

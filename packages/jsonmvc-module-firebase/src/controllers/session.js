@@ -8,7 +8,7 @@ const controller = {
   fn: stream
     .filter(x => !!x.config)
     .chain(x => observer(o => {
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           o.next({
             op: 'add',

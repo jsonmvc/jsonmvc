@@ -1,7 +1,7 @@
 
 import isArray from 'lodash-es/isArray'
 
-function subscribe(db, controller) {
+function subscribe (db, controller) {
   return controller.result.subscribe({
     next: x => {
       if (x && !isArray(x)) {

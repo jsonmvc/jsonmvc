@@ -10,7 +10,7 @@ const controller = {
     .chain((x, lib) => observer(o => {
       lib.on(x.path, y => {
         firebase.auth().signOut()
-          .catch(function(error) {
+          .catch(function (error) {
             o.next({
               op: 'add',
               path: '/firebase/session/error',

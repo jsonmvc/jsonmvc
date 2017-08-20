@@ -5,8 +5,7 @@ import clone from 'lodash-es/clone'
 import createView from './create'
 import viewsErrors from './viewsErrors'
 
-function createViews(db, views) {
-
+function createViews (db, views) {
   let err = viewsErrors(views)
   if (err instanceof Error) {
     throw err
@@ -60,7 +59,6 @@ function createViews(db, views) {
 
   // Create instances
   let instances = ordered.reduce((acc, x) => {
-
     let siblings = deps[x].reduce((acc2, y) => {
       acc2[y] = acc[y].component
       return acc2
@@ -73,7 +71,6 @@ function createViews(db, views) {
 
   // Apply patches on db
   Object.keys(instances).forEach(x => {
-
     let instance = instances[x]
 
     let usedStream = instance.stream.subscribe({
@@ -91,14 +88,13 @@ function createViews(db, views) {
       }
     })
 
-    instance.unsubscribe = function unsubscribeView() {
+    instance.unsubscribe = function unsubscribeView () {
       if (instance.instance) {
         instance.instance.$destroy()
       }
       // @TODO: Unsubscribe only when the destroyAt was set on the instance db
       usedStream.unsubscribe()
     }
-
   })
 
   return instances

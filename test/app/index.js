@@ -1,7 +1,6 @@
 
 import jsonmvc, { loadModule, reloadHMR } from './../../src/jsonmvc/index'
 
-
 let context = require.context('./', true, /\.js|yml/)
 let appModule = loadModule(context)
 let instance = jsonmvc(appModule, {

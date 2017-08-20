@@ -16,7 +16,6 @@ const model = {
       })
 
       return acc
-
     }, {})
   }
 }

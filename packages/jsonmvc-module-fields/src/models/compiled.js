@@ -10,7 +10,6 @@ const model = {
     options: '/fields/options'
   },
   fn: args => {
-
     if (!args.data || !args.fields || !args.options) {
       return {}
     }
@@ -28,7 +27,6 @@ const model = {
         })
       })
     })
-
   }
 }
 

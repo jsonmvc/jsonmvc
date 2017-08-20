@@ -24,10 +24,8 @@
  *  }
  */
 
-function parse(controller) {
+function parse (controller) {
 
 }
 
 export default parse
-
-

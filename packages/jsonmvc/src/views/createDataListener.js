@@ -1,7 +1,5 @@
 
-
-function createDataListener(db, path, data, prop) {
-
+function createDataListener (db, path, data, prop) {
   // @TODO: Remove when db.on returns also undefined values
   let v = db.get(path)
   if (undefined !== v) {
@@ -19,7 +17,6 @@ function createDataListener(db, path, data, prop) {
     }
     data[prop] = v
   })
-
 }
 
 export default createDataListener

@@ -1,7 +1,5 @@
 
-
 $(function () {
-
   let config = {
     wBoundry: 600,
     hBoundry: 400,
@@ -11,7 +9,7 @@ $(function () {
 
   config.outPadding = config.wBoundry * 0.03
   config.wContainer = config.wBoundry * 0.25
-  config.hContainer = config.hBoundry * 0.35;
+  config.hContainer = config.hBoundry * 0.35
   config.wCenter = (config.wBoundry / 2) - (config.wContainer / 2)
 
   let docStyle = document.documentElement.style
@@ -23,7 +21,7 @@ $(function () {
   svg.setAttribute('width', config.wBoundry)
   svg.setAttribute('height', config.hBoundry)
 
-  let rightTopPath =  document.createElementNS("http://www.w3.org/2000/svg", 'path')
+  let rightTopPath = document.createElementNS('http://www.w3.org/2000/svg', 'path')
 
   let loc = {
     start: {
@@ -42,7 +40,7 @@ $(function () {
 
   svg.append(rightTopPath)
 
-  let topCenterPath =  document.createElementNS("http://www.w3.org/2000/svg", 'path')
+  let topCenterPath = document.createElementNS('http://www.w3.org/2000/svg', 'path')
 
   loc = {
     start: {
@@ -120,5 +118,4 @@ $(function () {
   })
 
   tl.play()
-
 })

@@ -1,6 +1,5 @@
 
-
-function viewsError(views) {
+function viewsError (views) {
 
 }
 

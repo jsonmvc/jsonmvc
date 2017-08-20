@@ -1,5 +1,5 @@
 
-function getPath(schema, props, instance, prop) {
+function getPath (schema, props, instance, prop) {
   let path = schema[prop]
   let usedProps = props.schema.paths[path]
 

@@ -2,7 +2,7 @@
 import stringify from './stringify'
 import loadModule from './loadModule'
 
-function reloadHMR(instance, context) {
+function reloadHMR (instance, context) {
   try {
     let newModule = loadModule(context)
     let changes = {
@@ -13,7 +13,6 @@ function reloadHMR(instance, context) {
     }
 
     Object.keys(instance.module).forEach(x => {
-
       Object.keys(instance.module[x]).forEach(y => {
         if (!newModule[x][y]) {
           changes[x][y] = false
@@ -28,7 +27,6 @@ function reloadHMR(instance, context) {
           changes[x][y] = newModule[x][y]
         }
       })
-
     })
 
     // Because using Vue doesn't allow changing children

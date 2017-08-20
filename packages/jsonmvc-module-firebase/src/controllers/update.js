@@ -12,7 +12,7 @@ const controller = {
     .chain((x, lib) => observer(o => {
       let db = firebase().database
 
-      function saveOrUpdate(location) {
+      function saveOrUpdate (location) {
         return function (saveValues) {
           let ref
 
@@ -21,7 +21,6 @@ const controller = {
           }
 
           forEach(saveValues, (val, key) => {
-
             if (isEmpty(val.uid)) {
               ref = db.ref(location).push()
               val.value.key = ref.key
@@ -40,12 +39,11 @@ const controller = {
                 id: key
               }
             })
-
           })
         }
       }
 
-      function deleteFn(path, location) {
+      function deleteFn (path, location) {
         return function (values) {
           forEach(values, x => {
             db.ref(location + '/' + x.value).remove()
@@ -54,7 +52,6 @@ const controller = {
       }
 
       forEach(x.sync, (val, key) => {
-
         if (val.namespace) {
           key = val.namespace + '/' + key
         }
@@ -66,9 +63,7 @@ const controller = {
         if (val.delete) {
           lib.on(val.delete, deleteFn(val.delete, key))
         }
-
       })
-
     }))
 }
 

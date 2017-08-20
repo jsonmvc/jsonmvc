@@ -2,8 +2,7 @@
 import getPath from './getPath'
 import createDataListener from './createDataListener'
 
-function updateInstanceData(db, schema, props, data, self, prop, val) {
-
+function updateInstanceData (db, schema, props, data, self, prop, val) {
   // Unsubscribe all listeners for this prop
   if (props.schema.subscribes[prop]) {
     props.schema.subscribes[prop].forEach(y => y())

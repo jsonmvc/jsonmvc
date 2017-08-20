@@ -6,7 +6,7 @@ module.exports = {
     isValid: '/firebase/session/isValid',
     privateInfo: '/data/privateInfo'
   },
-  template: pug `
+  template: pug`
 .login
   h1 User section
   div(v-if="isValid !== true")

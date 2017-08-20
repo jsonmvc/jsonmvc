@@ -1,5 +1,5 @@
 
-function getValue(el) {
+function getValue (el) {
   let val = el.value
 
   // Handle return case
@@ -8,7 +8,7 @@ function getValue(el) {
   }
 
   // Handle null, undefined
-  val = val == null ? "" : val
+  val = val == null ? '' : val
 
   return val
 }

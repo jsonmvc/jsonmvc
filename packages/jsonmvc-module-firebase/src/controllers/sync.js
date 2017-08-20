@@ -5,11 +5,11 @@ import observer from 'jsonmvc-helper-observer'
 
 // @TODO: Add a buffer for the firebase stream for 10ms or so
 
-function unsyncData(key, handles) {
+function unsyncData (key, handles) {
 
 }
 
-function syncData(db, observer, errFn, key, val) {
+function syncData (db, observer, errFn, key, val) {
   let preloaded = false
 
   if (val.namespace) {
@@ -63,7 +63,6 @@ function syncData(db, observer, errFn, key, val) {
       path: `${val.path}/${x.key}`
     })
   }, errFn)
-
 }
 
 const controller = {
@@ -77,7 +76,7 @@ const controller = {
       let data = lib.get('/firebase/sync')
       let db = firebase().database
 
-      function errFn(e) {
+      function errFn (e) {
         throw e
       }
 

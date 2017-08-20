@@ -21,9 +21,9 @@ module.exports = config => {
     sourceMap: true,
     plugins: [
       // uglify(),
-      //rollupGrapher({ 
+      // rollupGrapher({
       //  dest: __dirname + '/../dist/build-graph.html'
-      //}),
+      // }),
       nodeResolve({
         jsnext: true,
         main: true

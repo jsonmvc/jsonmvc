@@ -7,12 +7,10 @@ module.exports = {
   },
   fn: stream
     .chain(x => observer(o => {
-
       o.next({
         op: 'add',
         path: '/observable',
         value: 'works!'
       })
-
     }))
 }

@@ -9,7 +9,6 @@ const controller = {
   fn: stream
     .filter(x => !!x.config)
     .chain(x => observer(o => {
-
       if (!window.firebase) {
         window.firebase = firebase
         firebase.initializeApp(x.config)
@@ -19,7 +18,6 @@ const controller = {
           value: true
         })
       }
-
     }))
 }
 

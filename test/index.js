@@ -49,4 +49,3 @@ let instance = jsonmvc({
   models: models,
   views: views
 })
-

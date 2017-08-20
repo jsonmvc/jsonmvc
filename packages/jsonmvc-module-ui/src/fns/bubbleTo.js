@@ -1,5 +1,5 @@
 
-function bubbleTo(selector, e) {
+function bubbleTo (selector, e) {
   let el = e.target
 
   if (!el) {

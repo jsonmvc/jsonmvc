@@ -2,7 +2,7 @@
 import reduce from 'lodash-es/reduce'
 import merge from 'lodash-es/merge'
 
-function bundleModules(modules) {
+function bundleModules (modules) {
   let bundle = reduce(modules, (acc, v1, k1) => {
     reduce(v1, (acc2, v2, k2) => {
       if (k2 !== 'data') {

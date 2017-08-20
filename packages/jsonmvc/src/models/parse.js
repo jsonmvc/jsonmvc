@@ -1,5 +1,4 @@
 
-
 /**
  * Reads and validates the following syntax:
  *
@@ -10,7 +9,7 @@
  * }
  */
 
-function parse(model) {
+function parse (model) {
 
 }
 

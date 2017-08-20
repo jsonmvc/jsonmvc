@@ -1,6 +1,6 @@
 
-function firebaseFn(db) {
-  return function getInstance() {
+function firebaseFn (db) {
+  return function getInstance () {
     let instance
 
     if (firebase.apps.length === 1) {
@@ -13,7 +13,7 @@ function firebaseFn(db) {
       throw new Error('No support for multiple Firebase instances')
     }
 
-    return  instance
+    return instance
   }
 }
 

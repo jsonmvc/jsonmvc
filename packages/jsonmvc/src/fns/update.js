@@ -8,8 +8,7 @@ import createModels from './../models/models'
 import createViews from './../views/views'
 import mountView from './mountView'
 
-function update(instance, modules) {
-
+function update (instance, modules) {
   let bundle = bundleModules(modules)
 
   if (bundle.controllers && Object.keys(bundle.controllers).length > 0) {
@@ -28,7 +27,6 @@ function update(instance, modules) {
       instance.controllers[name] = controller
       controller.subscription = subscribeController(instance.db, controller)
     })
-
   }
 
   if (bundle.models && Object.keys(bundle.models).length > 0) {
@@ -48,14 +46,13 @@ function update(instance, modules) {
   }
 
   if (bundle.data && Object.keys(bundle.data).length > 0) {
-
     if (bundle.data.initial) {
       console.log(bundle.data.initial)
       Object.keys(bundle.data.initial).forEach(x => {
         let val = bundle.data.initial[x]
         let op = isPlainObject(val) ? 'merge' : 'add'
 
-      instance.db.patch([{
+        instance.db.patch([{
           op: op,
           path: '/' + x,
           value: val
@@ -66,11 +63,9 @@ function update(instance, modules) {
     if (bundle.data.schema) {
       console.error('Schema HMR not implemented yet')
     }
-
   }
 
   if (bundle.views && Object.keys(bundle.views).length > 0) {
-
     forEach(instance.views, view => {
       view.unsubscribe()
     })
@@ -85,7 +80,6 @@ function update(instance, modules) {
     // Update logic
     mountView(config.el, instance.views[config.component].component)
   }
-
 }
 
 export default update

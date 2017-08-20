@@ -10,8 +10,7 @@ import guid from 'jsonmvc-helper-guid'
 
 const PROP_REGEX = /<([a-z]+)>/g
 
-function createView(db, view, siblings) {
-
+function createView (db, view, siblings) {
   let observer
   let observable = new Observable(_observer => {
     observer = _observer
@@ -61,7 +60,6 @@ function createView(db, view, siblings) {
     // <bam id="123"></bam>
     required: [],
 
-
     // Linking the required props with the data paths
     // from the schema
     schema: {},
@@ -72,7 +70,7 @@ function createView(db, view, siblings) {
     subscribes: {},
 
     // When instance props change the data function is not
-    // called but watchers. DB.on listeners should be 
+    // called but watchers. DB.on listeners should be
     // updated.
     watchers: {}
   }
@@ -120,7 +118,6 @@ function createView(db, view, siblings) {
       if (acc.paths[path].indexOf(b) === -1) {
         acc.paths[path].push(b)
       }
-
     })
 
     return acc
@@ -132,7 +129,6 @@ function createView(db, view, siblings) {
 
   // Watch for changes on the instance properties
   props.watchers = props.required.reduce((acc, x) => {
-
     acc[x] = function (val) {
       let self = this
       let props = self.__JSONMVC_PROPS
@@ -165,13 +161,11 @@ function createView(db, view, siblings) {
         path: `${rootPath}/mounted`,
         value: true
       })
-
     },
     beforeCreate: function () {
       let self = this
       let id = guid()
       let rootPath = `/views/${view.name}/instances/${id}`
-
 
       self.__JSONMVC_ID = id
       self.__JSONMVC_PROPS = JSON.parse(JSON.stringify(props))
@@ -208,7 +202,6 @@ function createView(db, view, siblings) {
         path: `${rootPath}/destroyedAt`,
         value: new Date().getTime()
       })
-
     },
     data: function () {
       let self = this
@@ -230,7 +223,6 @@ function createView(db, view, siblings) {
         }
 
         props.subscribes[x].push(listener)
-
       })
 
       return data

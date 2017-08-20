@@ -14,7 +14,6 @@ let moduleIndexExported = `let exported = {
 `
 
 modulesList.forEach(moduleName => {
-
   if (moduleName.indexOf('.') > -1) {
     return
   }
@@ -46,9 +45,9 @@ modulesList.forEach(moduleName => {
 
       // exclude
       if (
-        x === 'data'
-        && (ext === 'js'
-        || ext === 'json')
+        x === 'data' &&
+        (ext === 'js' ||
+        ext === 'json')
         ) {
         return
       }

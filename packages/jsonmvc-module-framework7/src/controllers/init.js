@@ -34,7 +34,7 @@ const controller = {
             if (!val.destroyedAt) {
               let inputs = document.querySelectorAll(`[view-id="${val.viewid}"] ${f7.calendar.input}`)
 
-              if (null !== inputs) {
+              if (inputs !== null) {
                 inputs.forEach(x => {
                   let config = Object.assign({}, f7.calendar, { input: x })
                   app.calendar(config)
@@ -46,7 +46,6 @@ const controller = {
                   value: true
                 })
               }
-
             }
           })
         })

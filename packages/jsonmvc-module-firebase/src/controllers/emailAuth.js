@@ -11,7 +11,7 @@ const controller = {
       lib.on(x.path, y => {
         firebase.auth()
           .signInWithEmailAndPassword(y.email, y.password)
-          .catch(function(error) {
+          .catch(function (error) {
             o.next({
               op: 'add',
               path: '/firebase/emailAuth/error',

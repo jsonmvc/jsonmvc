@@ -18,15 +18,14 @@ const lib = db => {
   }
 }
 
-function buildObservable(source, lib, ops) {
-
+function buildObservable (source, lib, ops) {
   ops.forEach(x => {
     let op = x[0]
     let args = x[1]
     args = Array.prototype.slice.call(args)
     if (isFunction(args[0])) {
       let fn = args[0]
-      args[0] = function controllerWrapperFn() {
+      args[0] = function controllerWrapperFn () {
         let fnArgs = Array.prototype.slice.call(arguments)
         fnArgs.push(lib)
         return fn.apply(null, fnArgs)
@@ -38,11 +37,10 @@ function buildObservable(source, lib, ops) {
   return source
 }
 
-function createController(db, controller, name) {
+function createController (db, controller, name) {
   let off = () => {}
 
   if (!controller.args || !controller.fn) {
-
     throw new Error(`Controller [${name}] should look like:
       --
       {
@@ -62,9 +60,7 @@ function createController(db, controller, name) {
         }
       }
 `)
-
   }
-
 
   let observable = new Observable(observer => {
     let keys = Object.keys(controller.args)
@@ -87,7 +83,6 @@ function createController(db, controller, name) {
       })
       observer.complete()
     }
-
   })
 
   let ops = []

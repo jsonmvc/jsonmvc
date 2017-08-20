@@ -10,4 +10,3 @@ it('should pass the values to the observer', () => {
     expect(x).toBe(10)
   })
 })
-

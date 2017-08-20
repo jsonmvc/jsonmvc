@@ -12,7 +12,6 @@ import lib from './../src/index'
 jest.useFakeTimers()
 
 it('should create a basic app', () => {
-
   let app = {
     controllers: [],
     models: [],
@@ -85,9 +84,7 @@ it('should create a basic app', () => {
 
   jest.runAllTimers()
   expect(instance.db.get('/baz')).toBe('barbaz321')
-
 })
-
 
 it('should work with all modules', () => {
   let modules = [

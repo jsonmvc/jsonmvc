@@ -10,7 +10,6 @@ const model = {
     options: '/fields/options'
   },
   fn: args => {
-
     if (!args.data || !args.templates) {
       return {}
     }
@@ -18,7 +17,6 @@ const model = {
     let data = JSON.parse(JSON.stringify(args.data))
 
     return transform(args.templates, (acc, val, key) => {
-
       let keys = Object.keys(val.fields)
 
       if (val.order) {
@@ -47,7 +45,6 @@ const model = {
 
       acc[key] = fields
     })
-
   }
 }
 

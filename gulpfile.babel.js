@@ -13,8 +13,7 @@ const rollup = require('rollup')
 const rollupConfig = require('./rollup.config.js')
 
 const base = path.join(__dirname, '..', 'packages')
-const scripts = "./../packages"
-
+const scripts = './../packages'
 
 const forEachPackage = cb => {
   let folders = glob.sync(__dirname + '/packages/*')
@@ -65,7 +64,7 @@ ${moduleName}.meta = {
 ${moduleName}.name = '${list.join('-')}'
 `
     } else if (cat === 'models') {
-    extra += `
+      extra += `
 ${moduleName}.path = '/${list.join('/')}'
 `
     }
@@ -119,16 +118,16 @@ gulp.task('build', done => {
     rollup
       .rollup(config)
       .then(bundle => {
-         bundle.write(config)
+        bundle.write(config)
 
-         let stop = now()
-         let dur = ((stop-start) / 1000).toFixed(2)
+        let stop = now()
+        let dur = ((stop - start) / 1000).toFixed(2)
 
-         console.log(`[ ${dur}s ] ${x}`)
-         finished += 1
-         if (finished === count) {
+        console.log(`[ ${dur}s ] ${x}`)
+        finished += 1
+        if (finished === count) {
           done()
-         }
+        }
       })
   })
 })

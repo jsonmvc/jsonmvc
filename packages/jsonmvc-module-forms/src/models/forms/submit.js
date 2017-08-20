@@ -7,12 +7,10 @@ const model = {
     data: '/forms/data'
   },
   fn: args => {
-
     let result = transform(args.data, (acc, v, k) => {
       acc[k] = {}
 
       forEach(v, (v2, k2) => {
-
         if (v2 && v2.submit) {
           let lastTimestamp
           let submitTimestamp
@@ -36,10 +34,8 @@ const model = {
           if (lastTimestamp > submitTimestamp) {
             delete acc[k][k2]
           }
-
         }
       })
-
     })
 
     return result

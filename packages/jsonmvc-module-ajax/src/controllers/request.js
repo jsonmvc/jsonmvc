@@ -37,10 +37,10 @@ const controller = {
           switch (xhr.status) {
             case 0:
               error = 'ERR_NAME_NOT_RESOLVED'
-              break;
+              break
             case 404:
               error = 'Page not found'
-              break;
+              break
           }
 
           o.next({
@@ -64,7 +64,6 @@ const controller = {
           // the result and decides to retry in case of timeout
         })
       })
-
     }))
 
 }

@@ -1,5 +1,5 @@
 
-function loadModule(context) {
+function loadModule (context) {
   let module = {
     controllers: [],
     views: [],
@@ -8,7 +8,6 @@ function loadModule(context) {
   }
 
   context.keys().forEach(file => {
-
     let path = file.match(/([a-zA-Z0-9_]+)/gi)
     let componentType = path.shift()
     path.pop()
@@ -19,7 +18,6 @@ function loadModule(context) {
       component.file = file
       module[componentType].push(component)
     }
-
   })
 
   module.views = module.views.map(x => {

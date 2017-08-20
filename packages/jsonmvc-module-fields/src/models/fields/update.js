@@ -8,7 +8,6 @@ const model = {
     data: '/data'
   },
   fn: args => {
-
     return transform(args.fields, (acc, val, key) => {
       acc[key] = {}
       forEach(args.data[key], (val2, key2) => {
@@ -16,13 +15,12 @@ const model = {
         forEach(val, val3 => {
           let value = args.data[key][key2][val3.key]
 
-          let result =  Object.assign({}, { value }, val3)
+          let result = Object.assign({}, { value }, val3)
 
           acc[key][key2][val3.key] = result
         })
       })
     })
-
   }
 }
 
