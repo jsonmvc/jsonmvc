@@ -63,6 +63,10 @@ module.exports = config => {
       globals(),
       resolve()
     ],
+    globals: {
+      firebase: 'firebase'
+    },
+    external: ['firebase'],
   //  external: ['lodash', 'lodash-es', 'setimmediate'],
     dest: root + '/dist/' + config.package + '.js'
   }

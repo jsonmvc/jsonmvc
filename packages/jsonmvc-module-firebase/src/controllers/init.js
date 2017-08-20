@@ -1,5 +1,6 @@
 import stream from 'jsonmvc-helper-stream'
 import observer from 'jsonmvc-helper-observer'
+import firebase from 'firebase'
 
 const controller = {
   args: {
