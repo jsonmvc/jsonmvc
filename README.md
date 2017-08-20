@@ -1,14 +1,14 @@
 # JSONMVC - (Documentation in progress)
 
-[![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
-[![Backers on Open Collective](https://opencollective.com/jsonmvc/backers/badge.svg)](#backers)
-[![Sponsors on Open Collective](https://opencollective.com/jsonmvc/sponsors/badge.svg)](#sponsors)
-
 [![Build Status](https://travis-ci.org/jsonmvc/jsonmvc.svg?branch=master)](https://travis-ci.org/jsonmvc/jsonmvc)
 [![Coverage Status](https://coveralls.io/repos/github/jsonmvc/jsonmvc/badge.svg?branch=master)](https://coveralls.io/github/jsonmvc/jsonmvc?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Greenkeeper badge](https://badges.greenkeeper.io/jsonmvc/jsonmvc.svg)](https://greenkeeper.io/)
 [![Dependency Status](https://dependencyci.com/github/jsonmvc/jsonmvc/badge)](https://dependencyci.com/github/jsonmvc/jsonmvc)
+
+[![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
+[![Backers on Open Collective](https://opencollective.com/jsonmvc/backers/badge.svg)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/jsonmvc/sponsors/badge.svg)](#sponsors)
 
 **JSONMVC** is a JavaScript framework for effortless web application modeling.
 
