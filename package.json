@@ -6,6 +6,7 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/jest",
+    "test-on-travis": "./node_modules/.bin/jest && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
     "clean": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js clean",
     "build:modules": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build:modules",
@@ -54,6 +55,7 @@
     "babel-plugin-transform-pug-html": "^0.1.2",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "coveralls": "^2.13.1",
     "del": "^3.0.0",
     "firebase": "^4.2.0",
     "framework7": "^1.6.4",
