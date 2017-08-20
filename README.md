@@ -1,5 +1,7 @@
 # JSONMVC - (Documentation in progress)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jsonmvc/jsonmvc.svg)](https://greenkeeper.io/)
+
 [![Backers on Open Collective](https://opencollective.com/jsonmvc/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/jsonmvc/sponsors/badge.svg)](#sponsors) [![Build Status](https://travis-ci.org/jsonmvc/jsonmvc.svg?branch=master)](https://travis-ci.org/jsonmvc/jsonmvc) [![Coverage Status](https://coveralls.io/repos/github/jsonmvc/jsonmvc/badge.svg?branch=master)](https://coveralls.io/github/jsonmvc/jsonmvc?branch=master) [![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
 
 **JSONMVC** is a JavaScript framework for effortless web application modeling.
