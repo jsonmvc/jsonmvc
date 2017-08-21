@@ -46,8 +46,8 @@ it('should create a basic app', () => {
     },
     template: `
       <div>
-        <p>{{ baz }}</p>
-        <p>{{ qux }}</p>
+        <p class="baz">{{ baz }}</p>
+        <p class="qux">{{ qux }}</p>
       </div>
     `
   })
@@ -84,6 +84,15 @@ it('should create a basic app', () => {
 
   jest.runAllTimers()
   expect(instance.db.get('/baz')).toBe('barbaz321')
+
+  let baz = document.querySelector('.baz')
+  let qux = document.querySelector('.qux')
+
+  expect(baz).not.toBeNull()
+  expect(qux).not.toBeNull()
+
+  expect(baz.innerHTML).toBeTruthy()
+  expect(qux.innerHTML).toBeTruthy()
 })
 
 it('should work with all modules', () => {
