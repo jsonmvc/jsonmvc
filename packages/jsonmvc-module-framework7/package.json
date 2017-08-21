@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-module-framework7",
   "description": "A JSONMVC module for Framework7 integration",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
@@ -22,9 +22,9 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-framework7#readme",
   "dependencies": {
     "framework7": "^1.6.4",
-    "jsonmvc-helper-observer": "^0.2.3",
-    "jsonmvc-helper-stream": "^0.2.3",
+    "jsonmvc-helper-observer": "^0.2.4",
+    "jsonmvc-helper-stream": "^0.2.4",
     "lodash-es": "^4.17.4"
   },
-  "version": "0.2.3"
+  "version": "0.2.4"
 }
