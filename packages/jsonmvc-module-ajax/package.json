@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-module-ajax",
   "description": "JSONMVC AJAX Module",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "main": "src/index.js",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-ajax#readme",
   "dependencies": {
     "@fdaciuk/ajax": "^2.3.0",
-    "jsonmvc-helper-observer": "^0.2.1",
-    "jsonmvc-helper-stream": "^0.2.1"
+    "jsonmvc-helper-observer": "^0.2.3",
+    "jsonmvc-helper-stream": "^0.2.3"
   }
 }
