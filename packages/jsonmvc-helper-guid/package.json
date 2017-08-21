@@ -1,8 +1,8 @@
 {
   "name": "jsonmvc-helper-guid",
   "description": "Generate a random global unique identifier (guid).",
-  "version": "0.2.4",
-  "main": "dist/index.js",
+  "version": "0.2.5",
+  "main": "dist/jsonmvc-helper-guid.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
