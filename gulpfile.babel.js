@@ -113,6 +113,18 @@ gulp.task('build', done => {
       package: x
     })
 
+    let packageJSON = require(__dirname + '/packages/' + x + '/package.json')
+    let deps = []
+    if (packageJSON.dependencies) {
+      deps = Object.keys(packageJSON.dependencies)
+    }
+
+    config.external = deps
+    config.globals = deps.reduce((acc, x) => {
+      acc[x] = x
+      return acc
+    }, {})
+
     let start = now()
 
     rollup
@@ -129,5 +141,6 @@ gulp.task('build', done => {
           done()
         }
       })
+
   })
 })

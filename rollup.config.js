@@ -15,10 +15,7 @@ module.exports = config => {
   let root = __dirname + '/packages/' + config.package
 
   return {
-    entry: root + '/src/index.js',
-    format: 'umd',
-    moduleName: config.package,
-    sourceMap: true,
+    input: root + '/src/index.js',
     plugins: [
       // uglify(),
       // rollupGrapher({
@@ -63,11 +60,20 @@ module.exports = config => {
       globals(),
       resolve()
     ],
+    external: ['firebase', 'jsonmvc-helper-observer', 'jsonmvc-helper-guid'],
+    file: root + '/dist/' + config.package + '.js',
+    format: 'umd',
+    name: config.package,
     globals: {
-      firebase: 'firebase'
+      firebase: 'firebase',
+      'jsonmvc-helper-guid': 'jsonmvc-helper-guid'
     },
-    external: ['firebase'],
   //  external: ['lodash', 'lodash-es', 'setimmediate'],
-    dest: root + '/dist/' + config.package + '.js'
+    output: {
+      file: root + '/dist/' + config.package + '.js',
+      format: 'umd',
+      name: config.package,
+      sourcemap: true,
+    }
   }
 }
