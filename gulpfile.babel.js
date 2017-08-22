@@ -120,6 +120,7 @@ gulp.task('build', done => {
     }
 
     config.external = deps
+    deps = deps.filter(x => x !== 'vue')
     config.globals = deps.reduce((acc, x) => {
       acc[x] = x
       return acc
@@ -141,6 +142,5 @@ gulp.task('build', done => {
           done()
         }
       })
-
   })
 })

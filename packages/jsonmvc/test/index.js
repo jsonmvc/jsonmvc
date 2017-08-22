@@ -8,7 +8,17 @@ import fields from 'jsonmvc-module-fields'
 import ajax from 'jsonmvc-module-ajax'
 import Promise from 'promise'
 
-import lib from './../src/index'
+console.log('Dev is',__DEV__)
+
+let lib
+if(__DEV__) {
+  lib = require('./../src/index').default
+} else {
+  lib = require('./../dist/jsonmvc')
+}
+
+console.log(lib)
+
 jest.useFakeTimers()
 
 it('should create a basic app', () => {

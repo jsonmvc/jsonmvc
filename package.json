@@ -5,11 +5,13 @@
     "build": "Build an ES6 module"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jest",
-    "test-on-travis": "./node_modules/.bin/jest && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "build": "npm run clean && npm run build:modules && ./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
+    "test": "./node_modules/.bin/jest -c jest.src.json",
+    "test:dist": "./node_modules/.bin/jest -c jest.dist.json",
+    "test-on-travis": "npm test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && npm run test:dist",
+    "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
     "clean": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js clean",
     "build:modules": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build:modules",
+    "prepublish": "npm run clean && npm run build:modules && npm run build && npm run test:dist",
     "postinstall": "opencollective postinstall"
   },
   "engines": {
@@ -85,26 +87,6 @@
     "type": "opencollective",
     "url": "https://opencollective.com/jsonmvc",
     "logo": "https://opencollective.com/opencollective/logo.txt"
-  },
-  "jest": {
-    "rootDir": "packages",
-    "transform": {
-      ".*": "babel-jest"
-    },
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lodash-es)"
-    ],
-    "testRegex": "test/.*\\.js$",
-    "testEnvironment": "jsdom",
-    "collectCoverage": true,
-    "verbose": true,
-    "moduleNameMapper": {
-      "vue": "vue/dist/vue.esm.js"
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ]
   },
   "workspaces": [
     "packages/*"

@@ -1,0 +1,26 @@
+{
+    "rootDir": "packages",
+    "globals": {
+      "__DEV__": true
+    },
+    "transform": {
+      ".*": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!lodash-es)"
+    ],
+    "testRegex": "test/.*\\.js$",
+    "testEnvironment": "jsdom",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "packages/jsonmvc/src/**/*.js"
+    ],
+    "verbose": true,
+    "moduleNameMapper": {
+      "vue": "vue/dist/vue.esm.js"
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  }

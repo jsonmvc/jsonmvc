@@ -27,7 +27,7 @@ module.exports = config => {
       }),
       json(),
       alias({
-        'vue': root + '/node_modules/vue/dist/vue.esm.js',
+        '_vue': root + '/node_modules/vue/dist/vue.esm.js',
         'symbol-observable': root + '/node_modules/symbol-observable/es/index.js'
       }),
       babel({
