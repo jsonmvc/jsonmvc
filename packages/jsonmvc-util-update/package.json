@@ -1,0 +1,24 @@
+{
+  "name": "jsonmvc-util-update",
+  "description": "JSONMVC util for updating an instance",
+  "version": "0.2.5",
+  "main": "dist/jsonmvc-util-update.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jsonmvc/jsonmvc.git"
+  },
+  "keywords": [
+    "jsonmvc",
+    "build",
+    "hmr",
+    "hot module reload",
+    "update",
+    "development"
+  ],
+  "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsonmvc/jsonmvc/issues"
+  },
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-util-update#readme"
+}

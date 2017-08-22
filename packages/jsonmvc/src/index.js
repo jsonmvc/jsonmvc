@@ -7,13 +7,13 @@ import isArray from 'lodash-es/isArray'
 import isObject from 'lodash-es/isObject'
 
 import DB from 'jsonmvc-db'
-import guid from 'jsonmvc-helper-guid'
 
 import createControllers from './controllers/controllers'
 import createViews from './views/views'
 import createModels from './models/models'
 import update from './fns/update'
 import bundleModules from './fns/bundleModules'
+import processModules from './fns/processModules'
 import start from './fns/start'
 
 const jsonmvc = modules => {
@@ -26,45 +26,7 @@ const jsonmvc = modules => {
     modules = [modules]
   }
 
-  modules = modules.reduce((acc, module) => {
-
-    if (module.controllers) {
-      module.controllers = module.controllers.reduce((acc, x) => {
-        acc[guid()] = x
-        return acc
-      }, {})
-    }
-
-    if (module.models) {
-      module.models = module.models.reduce((acc, x) => {
-        acc[guid()] = x
-        return acc
-      }, {})
-    }
-
-    if (module.views) {
-      module.views = module.views.reduce((acc, x) => {
-        acc[guid()] = x
-        return acc
-      }, {})
-    }
-
-    if (module.data) {
-      module.data = {
-        initial: module.data
-      }
-    } else {
-      module.data = {
-        initial: {}
-      }
-    }
-
-    let moduleName = module.name || guid()
-
-    acc[module.name] = module
-
-    return acc
-  }, {})
+  modules = processModules(modules)
 
   let bundle = bundleModules(modules)
 
@@ -98,11 +60,13 @@ const jsonmvc = modules => {
 
   return {
     db,
-    module,
-    update: module => {
-      update(instance, {
-        app: module
-      })
+    module: bundle,
+    update: modules => {
+      if (!isArray(modules) && isObject(modules)) {
+        modules = [modules]
+      }
+      modules = processModules(modules)
+      update(instance, modules)
     }
   }
 }

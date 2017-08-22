@@ -1,18 +1,16 @@
 {
-  "name": "jsonmvc-utils-webpack",
-  "description": "JSONMVC utils for Webpack bundling and HMR",
+  "name": "jsonmvc-util-load",
+  "description": "JSONMVC util for loading a module",
   "version": "0.2.5",
-  "main": "dist/jsonmvc-utils-webpack.js",
+  "main": "dist/jsonmvc-util-load.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
   },
   "keywords": [
     "jsonmvc",
-    "webpack",
+    "loader",
     "build",
-    "hmr",
-    "hot module reload",
     "development"
   ],
   "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
@@ -20,5 +18,5 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-utils-webpack#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-util-load#readme"
 }

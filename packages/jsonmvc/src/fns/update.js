@@ -47,7 +47,6 @@ function update (instance, modules) {
 
   if (bundle.data && Object.keys(bundle.data).length > 0) {
     if (bundle.data.initial) {
-      console.log(bundle.data.initial)
       Object.keys(bundle.data.initial).forEach(x => {
         let val = bundle.data.initial[x]
         let op = isPlainObject(val) ? 'merge' : 'add'

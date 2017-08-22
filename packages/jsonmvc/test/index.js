@@ -15,8 +15,6 @@ if(__DEV__) {
   lib = require('./../dist/jsonmvc')
 }
 
-console.log(lib)
-
 jest.useFakeTimers()
 
 it('should create a basic app', () => {
@@ -90,7 +88,7 @@ it('should create a basic app', () => {
     value: 'bar'
   }])
 
-  jest.runAllTimers()
+  jest.runOnlyPendingTimers()
   expect(instance.db.get('/baz')).toBe('barbaz321')
 
   let baz = document.querySelector('.baz')
@@ -115,6 +113,7 @@ it('should work with all modules', () => {
   ]
 
   modules.push({
+    name: 'app',
     models: [{
       path: '/module/test',
       args: {
@@ -129,7 +128,7 @@ it('should work with all modules', () => {
 
   let instance = lib(modules)
 
-  jest.runAllTimers()
+  jest.runOnlyPendingTimers()
 
   return new Promise((resolve, reject) => {
     instance.db.on('/time', x => {
@@ -138,4 +137,47 @@ it('should work with all modules', () => {
       resolve()
     })
   })
+})
+
+it('should update the instance with the new modules', () => {
+  let app = {
+    name: 'app',
+    models: [{
+      name: 'add-qux',
+      path: '/qux',
+      args: {
+        baz: '/baz'
+      },
+      fn: args => args.baz + 'qux'
+    }],
+    data: {
+      baz: 123
+    }
+  }
+
+  let instance = lib(app)
+
+  instance.update({
+    name: 'app',
+    models: [{
+      name: 'add-qux',
+      path: '/qux',
+      args: {
+        baz: '/baz'
+      },
+      fn: args => args.baz + 'bam'
+    }, {
+      path: '/bux',
+      args: {
+        qux: '/qux'
+      },
+      fn: args => args.qux + 'bux'
+    }]
+  })
+
+  jest.runOnlyPendingTimers()
+
+  expect(instance.db.get('/baz')).toBe(123)
+  expect(instance.db.get('/qux')).toBe('123bam')
+  expect(instance.db.get('/bux')).toBe('123bambux')
 })
