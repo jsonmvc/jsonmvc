@@ -5,6 +5,7 @@ install:
 - npm install -g npm@5
 - npm install -g greenkeeper-lockfile@1
 - npm install
+- ./node_modules/.bin/lerna bootstrap
 before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
-script: npm run build:modules && npm run build && npm run-script test-on-travis
+script: npm run-script test-on-travis

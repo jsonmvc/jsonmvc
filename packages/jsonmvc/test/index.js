@@ -8,8 +8,6 @@ import fields from 'jsonmvc-module-fields'
 import ajax from 'jsonmvc-module-ajax'
 import Promise from 'promise'
 
-console.log('Dev is',__DEV__)
-
 let lib
 if(__DEV__) {
   lib = require('./../src/index').default
