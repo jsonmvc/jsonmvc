@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-util-update#readme"
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-util-update#readme",
+  "dependencies": {
+    "jsonmvc-util-load": "^0.2.5"
+  }
 }

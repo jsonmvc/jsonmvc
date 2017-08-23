@@ -59,4 +59,11 @@ typings/
 
 build/custom.env
 dist
-packages/**/src/index.js
+
+packages/jsonmvc-module-ui/src/index.js
+packages/jsonmvc-module-time/src/index.js
+packages/jsonmvc-module-framework7/src/index.js
+packages/jsonmvc-module-forms/src/index.js
+packages/jsonmvc-module-firebase/src/index.js
+packages/jsonmvc-module-fields/src/index.js
+packages/jsonmvc-module-ajax/src/index.js
