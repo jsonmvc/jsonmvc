@@ -1,48 +1,102 @@
 
-import jsonmvc from 'jsonmvc'
-import loadModule from 'jsonmvc-util-load'
-
+let jsonmvc
+let loadModule
 let lib
+
 if(__DEV__) {
   lib = require('./../src/index').default
+  jsonmvc = require('./../../jsonmvc/src/index.js').default
+  loadModule = require('./../../jsonmvc-util-load/src/index.js').default
 } else {
   lib = require('./../dist/jsonmvc-util-update')
+  jsonmvc = require('jsonmvc')
+  loadModule = require('jsonmvc-util-load')
 }
+
+jest.useFakeTimers()
 
 it('should update an instance', () => {
   let mod = loadModule({
+    'controllers/baz.js': {
+      args: {
+        baz: '/baz'
+      },
+      fn: args => ([])
+    },
+    'views/bam.js': {
+      name: 'bam',
+      args: {
+        bam: '/bam'
+      },
+      template: `<div id="thebam">{{ bam }}</div>`
+    },
     'models/bam.js': {
       path: '/bam',
       args: {
         baz: '/baz'
       },
-      fn: args => (`${args.baz}bam`)
+      fn: args => args.baz + '123'
     },
     'data/initial.js': {
+      config: {
+        ui: {
+          mount: {
+            root: '#app',
+            view: 'bam'
+          }
+        }
+      },
       baz: '321'
     }
   })
 
-  mod.name = 'app'
+  let root = document.createElement('div')
+  root.setAttribute('id', 'app')
+  document.body.appendChild(root)
 
   let instance = jsonmvc(mod)
 
-  expect(instance.db.get('/bam')).toBe('321bam')
+  jest.runOnlyPendingTimers()
+
+  let el = document.querySelector('#thebam')
+
+  expect(instance.db.get('/bam')).toBe('321123')
+  expect(el).not.toBeNull()
+  expect(el.innerHTML).toBe('321123')
+
 
   let updatedModule = loadModule({
+    'models/qux.js': {
+      path: '/qux',
+      args: {
+        bam: '/bam'
+      },
+      fn: args => (`${args.bam}+qux`)
+    },
     'models/bam.js': {
       path: '/bam',
       args: {
         baz: '/baz'
       },
       fn: args => (`${args.baz}+updated`)
+    },
+    'views/bam.js': {
+      args: {
+        bam: '/qux'
+      },
+      template: '<div id="thebam">{{ bam }}</div>'
     }
   })
 
-  updatedModule.name = 'app'
-
   lib(instance, updatedModule)
 
+  jest.runOnlyPendingTimers()
+
+  el = document.querySelector('#thebam')
+
   expect(instance.db.get('/bam')).toBe('321+updated')
+  expect(el).not.toBeNull()
+  expect(el.innerHTML).toBe('321+updated+qux')
+
 })
 

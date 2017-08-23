@@ -1,11 +1,13 @@
 
-import jsonmvc from 'jsonmvc'
+let jsonmvc
 
 let lib
 if(__DEV__) {
   lib = require('./../src/index').default
+  jsonmvc = require('./../../jsonmvc/src/index').default
 } else {
   lib = require('./../dist/jsonmvc-util-load')
+  jsonmvc = require('jsonmvc')
 }
 
 jest.useFakeTimers()

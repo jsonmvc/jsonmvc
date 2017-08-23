@@ -1,18 +1,33 @@
 
-import firebase from 'jsonmvc-module-firebase'
-import ui from 'jsonmvc-module-ui'
-import framework7 from 'jsonmvc-module-framework7'
-import time from 'jsonmvc-module-time'
-import forms from 'jsonmvc-module-forms'
-import fields from 'jsonmvc-module-fields'
-import ajax from 'jsonmvc-module-ajax'
 import Promise from 'promise'
 
 let lib
+let firebase
+let ui
+let framework7
+let time
+let forms
+let fields
+let ajax
+
 if(__DEV__) {
   lib = require('./../src/index').default
+  firebase = require('./../../jsonmvc-module-firebase/src/index.js').default
+  ui = require('./../../jsonmvc-module-ui/src/index.js').default
+  framework7 = require('./../../jsonmvc-module-framework7/src/index.js').default
+  time = require('./../../jsonmvc-module-time/src/index.js').default
+  forms = require('./../../jsonmvc-module-forms/src/index.js').default
+  fields = require('./../../jsonmvc-module-fields/src/index.js').default
+  ajax = require('./../../jsonmvc-module-ajax/src/index.js').default
 } else {
   lib = require('./../dist/jsonmvc')
+  firebase = require('jsonmvc-module-firebase')
+  ui = require('jsonmvc-module-ui')
+  framework7 = require('jsonmvc-module-framework7')
+  time = require('jsonmvc-module-time')
+  forms = require('jsonmvc-module-forms')
+  fields = require('jsonmvc-module-fields')
+  ajax = require('jsonmvc-module-ajax')
 }
 
 jest.useFakeTimers()

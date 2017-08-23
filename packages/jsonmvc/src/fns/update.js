@@ -71,13 +71,13 @@ function update (instance, modules) {
 
     let config = instance.db.get('/config/ui/mount')
 
-    let root = instance.views[config.component]
+    let root = instance.views[config.view]
     root.instance.$el.remove()
 
     instance.views = createViews(db, bundle.views)
 
     // Update logic
-    mountView(config.el, instance.views[config.component].component)
+    mountView(config.root, instance.views[config.view].component)
   }
 }
 
