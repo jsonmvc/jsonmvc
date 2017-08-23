@@ -15,19 +15,16 @@ function loadModule (files) {
 
     if (module[componentType]) {
       let component = files[file]
-      component.name = file
+
+      if (!component.name) {
+        let path = file.match(/([a-zA-Z0-9_]+)/gi)
+        path.pop()
+        path.shift()
+        component.name = path.join('-')
+      }
+
       module[componentType].push(component)
     }
-  })
-
-  module.views = module.views.map(x => {
-    if (!x.name && x.file) {
-      let path = x.file.match(/([a-zA-Z0-9_]+)/gi)
-      path.pop()
-      path.shift()
-      x.name = path.join('-')
-    }
-    return x
   })
 
   module.data = module.data[0]

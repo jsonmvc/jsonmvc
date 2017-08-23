@@ -77,7 +77,7 @@ it('should create a basic app', () => {
 
   let instance = lib(app)
 
-  jest.runAllTimers()
+  jest.runOnlyPendingTimers()
 
   expect(instance.db.get('/baz')).toBe(123)
   expect(instance.db.get('/qux')).toBe('123qux')
@@ -89,6 +89,7 @@ it('should create a basic app', () => {
   }])
 
   jest.runOnlyPendingTimers()
+
   expect(instance.db.get('/baz')).toBe('barbaz321')
 
   let baz = document.querySelector('.baz')
