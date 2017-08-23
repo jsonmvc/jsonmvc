@@ -74,7 +74,7 @@ const controller = {
     .filter(x => x.init === true)
     .chain((x, lib) => observer(o => {
       let data = lib.get('/firebase/sync')
-      let db = firebase().database
+      let db = firebase.database()
 
       function errFn (e) {
         throw e

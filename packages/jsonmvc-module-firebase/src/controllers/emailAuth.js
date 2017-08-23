@@ -3,10 +3,11 @@ import observer from 'jsonmvc-helper-observer'
 
 const controller = {
   args: {
-    path: '/firebase/emailAuth/path'
+    path: '/firebase/emailAuth/path',
+    init: '/firebase/init'
   },
   fn: stream
-    .filter(x => !!x.path)
+    .filter(x => !!x.path && x.init === true)
     .chain((x, lib) => observer(o => {
       lib.on(x.path, y => {
         firebase.auth()

@@ -3,10 +3,11 @@ import observer from 'jsonmvc-helper-observer'
 
 const controller = {
   args: {
-    config: '/firebase/config'
+    config: '/firebase/config',
+    init: '/firebase/init'
   },
   fn: stream
-    .filter(x => !!x.config)
+    .filter(x => !!x.config && x.init === true)
     .chain(x => observer(o => {
       firebase.auth().onAuthStateChanged(function (user) {
         if (user) {

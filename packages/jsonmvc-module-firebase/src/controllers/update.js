@@ -5,12 +5,13 @@ import observer from 'jsonmvc-helper-observer'
 
 const controller = {
   args: {
-    sync: '/firebase/sync'
+    sync: '/firebase/sync',
+    init: '/firebase/init'
   },
   fn: stream
-    .filter(x => !!x.sync)
+    .filter(x => !!x.sync && x.init === true)
     .chain((x, lib) => observer(o => {
-      let db = firebase().database
+      let db = firebase.database()
 
       function saveOrUpdate (location) {
         return function (saveValues) {
