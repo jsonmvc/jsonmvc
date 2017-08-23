@@ -27,11 +27,15 @@ function updateModule (instance, newModule) {
       }
 
       if (newModule[x]) {
-        Object.keys(newModule[x]).forEach(y => {
-          if (!instance.module[x] || !instance.module[x][y]) {
-            changes[x].push(newModule[x][y])
-          }
-        })
+        if (x === 'data') {
+          changes.data = newModule[x]
+        } else {
+          Object.keys(newModule[x]).forEach(y => {
+            if (!instance.module[x] || !instance.module[x][y]) {
+              changes[x].push(newModule[x][y])
+            }
+          })
+        }
       }
     })
 

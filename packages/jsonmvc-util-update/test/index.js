@@ -64,7 +64,6 @@ it('should update an instance', () => {
   expect(el).not.toBeNull()
   expect(el.innerHTML).toBe('321123')
 
-
   let updatedModule = loadModule({
     'models/qux.js': {
       path: '/qux',
@@ -80,6 +79,17 @@ it('should update an instance', () => {
       },
       fn: args => (`${args.baz}+updated`)
     },
+    'data/initial.js': {
+      config: {
+        ui: {
+          mount: {
+            root: '#app',
+            view: 'bam'
+          }
+        }
+      },
+      baz: '555'
+    },
     'views/bam.js': {
       args: {
         bam: '/qux'
@@ -94,9 +104,9 @@ it('should update an instance', () => {
 
   el = document.querySelector('#thebam')
 
-  expect(instance.db.get('/bam')).toBe('321+updated')
+  expect(instance.db.get('/bam')).toBe('555+updated')
   expect(el).not.toBeNull()
-  expect(el.innerHTML).toBe('321+updated+qux')
+  expect(el.innerHTML).toBe('555+updated+qux')
 
 })
 
