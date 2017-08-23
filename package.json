@@ -11,7 +11,8 @@
     "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
     "clean": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js clean",
     "build:modules": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build:modules",
-    "suite": "npm run clean && npm run build:modules && npm run build && npm test && npm run test:dist",
+    "bootstrap": "./node_modules/.bin/lerna bootstrap",
+    "suite": "npm run bootstrap && npm run clean && npm run build:modules && npm run build && npm test && npm run test:dist",
     "postinstall": "opencollective postinstall"
   },
   "engines": {
