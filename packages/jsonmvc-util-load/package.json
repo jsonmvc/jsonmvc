@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-util-load",
   "description": "JSONMVC util for loading a module",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "main": "dist/jsonmvc-util-load.js",
   "repository": {
     "type": "git",
