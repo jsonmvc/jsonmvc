@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-util-update",
   "description": "JSONMVC util for updating an instance",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "main": "dist/jsonmvc-util-update.js",
   "repository": {
     "type": "git",
