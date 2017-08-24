@@ -1,4 +1,14 @@
 
+Merge with jsonvc-db:
+https://stackoverflow.com/questions/1425892/how-do-you-merge-two-git-repositories
+
+UUID
+https://www.npmjs.com/package/uuid-v4
+https://github.com/mzabriskie/axios
+
+Record presentation videos with:
+https://asciinema.org/
+
 Change model path to folder structure in order
 to ensure predictability.
 
