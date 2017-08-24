@@ -5,6 +5,7 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Greenkeeper badge](https://badges.greenkeeper.io/jsonmvc/jsonmvc.svg)](https://greenkeeper.io/)
 [![Dependency Status](https://dependencyci.com/github/jsonmvc/jsonmvc/badge)](https://dependencyci.com/github/jsonmvc/jsonmvc)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjsonmvc%2Fjsonmvc.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjsonmvc%2Fjsonmvc?ref=badge_shield)
 
 [![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
 [![Backers on Open Collective](https://opencollective.com/jsonmvc/backers/badge.svg)](#backers)
@@ -142,3 +143,7 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/jsonmvc/sponsor/9/website" target="_blank"><img src="https://opencollective.com/jsonmvc/sponsor/9/avatar.svg"></a>
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjsonmvc%2Fjsonmvc.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjsonmvc%2Fjsonmvc?ref=badge_large)
