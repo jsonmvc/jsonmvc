@@ -6,6 +6,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/jsonmvc/jsonmvc.svg)](https://greenkeeper.io/)
 [![Dependency Status](https://dependencyci.com/github/jsonmvc/jsonmvc/badge)](https://dependencyci.com/github/jsonmvc/jsonmvc)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjsonmvc%2Fjsonmvc.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjsonmvc%2Fjsonmvc?ref=badge_shield)
+[![dependencies Status](https://david-dm.org/jsonmvc/jsonmvc/status.svg)](https://david-dm.org/jsonmvc/jsonmvc)
 
 [![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
 [![Backers on Open Collective](https://opencollective.com/jsonmvc/backers/badge.svg)](#backers)
