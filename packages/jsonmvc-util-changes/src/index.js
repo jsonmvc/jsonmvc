@@ -1,5 +1,6 @@
 
 import stringify from './fns/stringify'
+// import merge from 'lodash-es/merge'
 
 function changes (instance, newModule) {
 
@@ -18,7 +19,7 @@ function changes (instance, newModule) {
     if (instance.module[x] && newModule[x]) {
       if (x === 'data') {
         if (JSON.stringify(instance.module[x]) !== JSON.stringify(newModule[x])) {
-          changes.data = newModule[x]
+          // changes.data = merge(instance.module[x], newModule[x])
         }
       } else {
         newModule[x].forEach(y => {
