@@ -24,7 +24,7 @@ function loadModule (newModule) {
         let path = file.match(/([a-zA-Z0-9_]+)/gi)
         path.pop()
         path.shift()
-        component.name = name + '-' + path.join('-')
+        component.name = path.join('-')
       }
 
       module[componentType].push(component)

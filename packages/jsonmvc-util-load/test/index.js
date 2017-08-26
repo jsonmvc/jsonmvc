@@ -23,7 +23,6 @@ it('should loadModule', () => {
         fn: args => ([])
       },
       'views/bam.js': {
-        name: 'bam',
         args: {
           bam: '/bam'
         },
