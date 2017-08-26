@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-util-changes",
   "description": "JSONMVC util for parsing changes",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "main": "dist/jsonmvc-util-changes.js",
   "repository": {
     "type": "git",
