@@ -4,29 +4,29 @@ import guid from 'jsonmvc-helper-guid'
 function processModules(modules) {
   return modules.reduce((acc, mod) => {
 
-    if (mod.controllers) {
-      mod.controllers = mod.controllers.reduce((acc, x) => {
-        let name = x.name || guid()
-        acc[name] = x
-        return acc
-      }, {})
+    let components = [
+      'controllers',
+      'views',
+      'models'
+    ]
+
+    if (!mod.name) {
+      mod.name = 'app'
     }
 
-    if (mod.models) {
-      mod.models = mod.models.reduce((acc, x) => {
-        let name = x.name || guid()
-        acc[name] = x
-        return acc
-      }, {})
+    if (acc[mod.name]) {
+      throw new Error(`Module name [${mod.name}] is already used. Please choose another module name.`)
     }
 
-    if (mod.views) {
-      mod.views = mod.views.reduce((acc, x) => {
-        let name = x.name || guid()
-        acc[name] = x
-        return acc
-      }, {})
-    }
+    components.forEach(x => {
+      if (mod[x]) {
+        mod[x] = mod[x].reduce((acc, y) => {
+          let name = y.name || mod.name + '-' + guid()
+          acc[name] = y
+          return acc
+        }, {})
+      }
+    })
 
     if (mod.data) {
       mod.data = {
@@ -36,14 +36,6 @@ function processModules(modules) {
       mod.data = {
         initial: {}
       }
-    }
-
-    if (!mod.name) {
-      mod.name = 'app'
-    }
-
-    if (acc[mod.name]) {
-      throw new Error(`Module name [${mod.name}] is already used. Please choose another module name.`)
     }
 
     acc[mod.name] = mod

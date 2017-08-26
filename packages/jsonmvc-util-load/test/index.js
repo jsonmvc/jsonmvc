@@ -14,36 +14,39 @@ jest.useFakeTimers()
 
 it('should loadModule', () => {
   let mod = lib({
-    'controllers/baz.js': {
-      args: {
-        baz: '/baz'
+    name: 'app',
+    files: {
+      'controllers/baz.js': {
+        args: {
+          baz: '/baz'
+        },
+        fn: args => ([])
       },
-      fn: args => ([])
-    },
-    'views/bam.js': {
-      name: 'bam',
-      args: {
-        bam: '/bam'
+      'views/bam.js': {
+        name: 'bam',
+        args: {
+          bam: '/bam'
+        },
+        template: `<div id="thebam">{{ bam }}</div>`
       },
-      template: `<div id="thebam">{{ bam }}</div>`
-    },
-    'models/bam.js': {
-      path: '/bam',
-      args: {
-        baz: '/baz'
+      'models/bam.js': {
+        path: '/bam',
+        args: {
+          baz: '/baz'
+        },
+        fn: args => args.baz + '123'
       },
-      fn: args => args.baz + '123'
-    },
-    'data/initial.js': {
-      config: {
-        ui: {
-          mount: {
-            root: '#app',
-            view: 'bam'
+      'data/initial.js': {
+        config: {
+          ui: {
+            mount: {
+              root: '#app',
+              view: 'bam'
+            }
           }
-        }
-      },
-      baz: '321'
+        },
+        baz: '321'
+      }
     }
   })
 

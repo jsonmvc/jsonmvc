@@ -167,9 +167,29 @@ it('should update the instance with the new modules', () => {
       fn: args => args.baz + 'qux'
     }],
     data: {
-      baz: 123
-    }
+      config: {
+        ui: {
+          mount: {
+            root: '#app',
+            view: 'app'
+          }
+        }
+      },
+      baz: 123,
+      bam: 321
+    },
+    views: [{
+      name: 'app',
+      args: {
+        qux: '/qux'
+      },
+      template: '<div id="the-app">{{ qux }}</div>'
+    }]
   }
+
+  let root = document.createElement('div')
+  root.setAttribute('id', 'app')
+  document.body.appendChild(root)
 
   let instance = lib(app)
 
@@ -196,4 +216,35 @@ it('should update the instance with the new modules', () => {
   expect(instance.db.get('/baz')).toBe(123)
   expect(instance.db.get('/qux')).toBe('123bam')
   expect(instance.db.get('/bux')).toBe('123bambux')
+
+  let el = document.querySelector('#the-app')
+  expect(el).not.toBeNull()
+  expect(el.innerHTML).toBe('123bam')
+
+  instance.update({
+    name: 'app',
+    models: [{
+      path: '/foo',
+      args: {
+        bam: '/bam',
+        qux: '/qux'
+      },
+      fn: args => args.bam + '-' + args.qux
+    }],
+    views: [{
+      name: 'app',
+      args: {
+        foo: '/foo'
+      },
+      template: '<div id="the-app">{{ foo }}</div>'
+    }]
+  })
+
+  jest.runOnlyPendingTimers()
+
+  let el2 = document.querySelector('#the-app')
+  expect(el2).not.toBeNull()
+  expect(el2.innerHTML).toBe('321-123bam')
+
+
 })

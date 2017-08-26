@@ -1,11 +1,15 @@
 
-function loadModule (files) {
+function loadModule (newModule) {
+  let name = newModule.name ? newModule.name : 'app'
   let module = {
+    name,
     controllers: [],
     views: [],
     models: [],
     data: []
   }
+
+  let files = newModule.files
 
   Object.keys(files).forEach(file => {
     let path = file.match(/([a-zA-Z0-9_]+)/gi)
@@ -20,7 +24,7 @@ function loadModule (files) {
         let path = file.match(/([a-zA-Z0-9_]+)/gi)
         path.pop()
         path.shift()
-        component.name = path.join('-')
+        component.name = name + '-' + path.join('-')
       }
 
       module[componentType].push(component)

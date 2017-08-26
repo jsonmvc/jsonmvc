@@ -65,6 +65,7 @@ const jsonmvc = modules => {
       if (!isArray(modules) && isObject(modules)) {
         modules = [modules]
       }
+
       modules = processModules(modules)
       update(instance, modules)
     }

@@ -1,8 +1,8 @@
 {
-  "name": "jsonmvc-util-update",
-  "description": "JSONMVC util for updating an instance",
+  "name": "jsonmvc-util-changes",
+  "description": "JSONMVC util for parsing changes",
   "version": "0.2.10",
-  "main": "dist/jsonmvc-util-update.js",
+  "main": "dist/jsonmvc-util-changes.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
@@ -12,7 +12,7 @@
     "build",
     "hmr",
     "hot module reload",
-    "update",
+    "changes",
     "development"
   ],
   "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
-  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-util-update#readme",
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-util-changes#readme",
   "dependencies": {
     "jsonmvc-util-load": "^0.2.9"
   }
