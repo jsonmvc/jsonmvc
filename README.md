@@ -1,7 +1,7 @@
 # JSONMVC - (Documentation in progress)
 
 [![Build Status](https://travis-ci.org/jsonmvc/jsonmvc.svg?branch=master)](https://travis-ci.org/jsonmvc/jsonmvc)
-[![Coverage Status](https://coveralls.io/repos/github/jsonmvc/jsonmvc/badge.svg?branch=master)](https://coveralls.io/github/jsonmvc/jsonmvc?branch=master)
+[![codecov](https://codecov.io/gh/jsonmvc/jsonmvc/branch/master/graph/badge.svg)](https://codecov.io/gh/jsonmvc/jsonmvc)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Greenkeeper badge](https://badges.greenkeeper.io/jsonmvc/jsonmvc.svg)](https://greenkeeper.io/)
 [![Dependency Status](https://dependencyci.com/github/jsonmvc/jsonmvc/badge)](https://dependencyci.com/github/jsonmvc/jsonmvc)
