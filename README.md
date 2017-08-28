@@ -10,6 +10,7 @@
 [![dependencies Status](https://david-dm.org/jsonmvc/jsonmvc/status.svg)](https://david-dm.org/jsonmvc/jsonmvc)
 [![CodeFactor](https://www.codefactor.io/repository/github/jsonmvc/jsonmvc/badge)](https://www.codefactor.io/repository/github/jsonmvc/jsonmvc)
 [![Known Vulnerabilities](https://snyk.io/test/github/jsonmvc/jsonmvc/badge.svg)](https://snyk.io/test/github/jsonmvc/jsonmvc)
+[![BCH compliance](https://bettercodehub.com/edge/badge/jsonmvc/jsonmvc?branch=master)](https://bettercodehub.com/)
 
 [![npm version](https://badge.fury.io/js/jsonmvc.svg)](https://badge.fury.io/js/jsonmvc)
 [![Backers on Open Collective](https://opencollective.com/jsonmvc/backers/badge.svg)](#backers)
