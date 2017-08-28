@@ -1,6 +1,87 @@
 
+
+The JSONMVC instance is just a hub for a plug and play plugins.
+Instead of doing the update as a framework part, the instance should
+export an api for each of the registered components:
+
+const instance = jsonmvc(modules)
+
+instance.controllers['foobar'].replace({  new foobar }} )
+
+instance.controllers['foobar'].calls // an array with all the calls made for triggering the controller
+instance.controllers['foobar'].returns // an array with all the patches returned by the controller
+[{
+  timestamp: 1530123103,
+  value: { op: 'add', ... },
+  error: 'The patch is not properly....',
+  duration: 132 // for sync controllers
+}]
+
+The calls and returns do not match due to the async nature of a controller.
+
+The same functionality on the models but there the call and return can be tracked.
+
+Naming:
+calls / returns
+input / output
+
+instance.models['foobar'].stats => {
+  calls: 12,
+  errors: 0,
+  time: {
+    total: 123119,
+    average: 2132,
+    max: 12331,
+    min: 1111
+  }
+}
+
+Of course, these can be calculated based on the calls/returns arrays and should be created
+a plugin that makes just this.
+
+instance.db.patches // Gives the patch list from the very beginning until now:
+[{
+  timestamp: 15421312...,
+  patch: [{ op: 'add', .... }],
+  error: null,
+  duration: 13
+}]
+
+Actually the calls should be added in a single place for easier parsing:
+instance.controllers.log => [{ type: 'input|output', timestamp, args, time, etc }]
+instance.controllers.on('log', x => // a new item was added to the logs )
+instance.controllers.on('error', e => { name: 'foobar', error: 123, args: {}, etc })
+
+instance.controllers['foobar'].replace({})
+
+Events can be triggerd on individual controllers:
+instance.on('controllers:foobar:log', e => {}) => Listenes to the activity of the foobar controller
+instance.on('log', e => {}) // Any log activity from any model, controller, view or database will be called.
+instance.on('views:error', x => {}) // Any error from any view will be reported here
+instance.on('\*') => Will log any type of activity from any component
+
+---
+
+A great opportunity is to integrate with a webpack/rollup builder. Instead of having a build tool orchestrating
+the build step that will eventually produce the jsonmvc application, JSONMVC can be used on the server to 
+do this orchestration in an application aware way.
+
+Babel now parses javascript code syntax but without context resulting in a simple transpiling of code. With jsonmvc
+this can be done application aware resulting in an optimized application build. More-so additional checks can be made
+on the application to ensure every function does not mutate or use external data or that it doesn't store internal data, etc.
+
+More so, a tool like Flow can be used in order to ensure static type checking based on the data structure. Everything
+is encapusalted in a well defined data flow - having a data schema all the transformations can be tracked from their original
+source thus giving the type checker more power than ever. It's a new type checker actually - an application checker that 
+ensures code is valid based on the application and not on the syntax.
+
+---
+
 Merge with jsonvc-db:
 https://stackoverflow.com/questions/1425892/how-do-you-merge-two-git-repositories
+
+Add testing on sauceLabs:
+https://github.com/primus/eventemitter3/blob/master/test/browser.js
 
 UUID
 https://www.npmjs.com/package/uuid-v4
