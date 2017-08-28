@@ -5,14 +5,14 @@
     "build": "Build an ES6 module"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jest -c jest.src.json",
-    "test:dist": "./node_modules/.bin/jest -c jest.dist.json",
+    "test": "snyk test && jest -c jest.src.json",
+    "test:dist": "jest -c jest.dist.json",
     "test:full": "npm run clean && npm run build:modules && npm run build && npm test && npm run test:dist",
     "test-on-travis": "npm run build:modules && npm run build && npm test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && npm run test:dist",
-    "build": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build",
-    "clean": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js clean",
-    "build:modules": "./node_modules/.bin/gulp --gulpfile gulpfile.babel.js build:modules",
-    "bootstrap": "./node_modules/.bin/lerna bootstrap",
+    "build": "gulp --gulpfile gulpfile.babel.js build",
+    "clean": "gulp --gulpfile gulpfile.babel.js clean",
+    "build:modules": "gulp --gulpfile gulpfile.babel.js build:modules",
+    "bootstrap": "lerna bootstrap",
     "suite": "npm run bootstrap && npm run clean && npm run build:modules && npm run build && npm test && npm run test:dist",
     "postinstall": "opencollective postinstall"
   },
@@ -82,6 +82,7 @@
     "rollup-plugin-replace": "^1.1.1",
     "rollup-plugin-uglify": "^2.0.1",
     "rollup-plugin-vue": "^2.4.1",
+    "snyk": "^1.40.1",
     "standard": "^10.0.3",
     "yamljs": "^0.3.0"
   },
