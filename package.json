@@ -45,7 +45,7 @@
     "most": "^1.6.2",
     "opencollective": "^1.0.3",
     "shortid": "^2.2.8",
-    "source-map-support": "0.4.16",
+    "source-map-support": "0.4.17",
     "vue": "^2.4.2",
     "zen-observable": "^0.5.2"
   },
