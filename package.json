@@ -13,8 +13,9 @@
     "clean": "gulp --gulpfile gulpfile.babel.js clean",
     "build:modules": "gulp --gulpfile gulpfile.babel.js build:modules",
     "bootstrap": "lerna bootstrap",
-    "suite": "npm run bootstrap && npm run clean && npm run build:modules && npm run build && npm test && npm run test:dist",
-    "postinstall": "opencollective postinstall"
+    "suite": "npm run bootstrap && npm run test:full",
+    "postinstall": "opencollective postinstall",
+    "publish": "npm run suite && lerna publish"
   },
   "engines": {
     "node": ">= 4.x <= 8.x",
