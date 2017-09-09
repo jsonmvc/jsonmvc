@@ -27,6 +27,10 @@ function loadModule (newModule) {
         component.name = path.join('-')
       }
 
+      if (componentType === 'models' && !component.path) {
+        component.path = '/' + component.name.replace('-', '/')
+      }
+
       module[componentType].push(component)
     }
   })
