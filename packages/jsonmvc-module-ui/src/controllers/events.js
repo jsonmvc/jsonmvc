@@ -31,7 +31,7 @@ const controller = {
     })
     .filter(x => !!x.el)
     .map(x => {
-      if (x.e instanceof CustomEvent == false) {
+      if (x.el.hasAttribute('href')) {
         x.e.preventDefault()
       }
 
