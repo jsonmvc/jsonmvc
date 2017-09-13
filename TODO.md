@@ -1,4 +1,12 @@
 
+Add on CDN https://www.jsdelivr.com/?query=jsonmvc
+
+Use http://www.collectionsjs.com/ for optimized arrays/objects
+
+Use https://github.com/montagejs/mop for inspiration on creating ` jsonmvc build `.
+Great info!
+
+---
 
 The JSONMVC instance is just a hub for a plug and play plugins.
 Instead of doing the update as a framework part, the instance should
@@ -100,7 +108,8 @@ Checkout for optimizations:
 https://www.smashingmagazine.com/2016/12/front-end-performance-checklist-2017-pdf-pages/
 http://jankfree.org/
 http://www.performancebudget.io/
-Add on CDN https://www.jsdelivr.com/?query=jsonmvc
+
+
 Try out https://github.com/ngryman/speedracer
 
 Add a similar debug message to:
