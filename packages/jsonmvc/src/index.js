@@ -44,18 +44,21 @@ const jsonmvc = modules => {
     window.instance = instance
   }
 
+
   if (Object.keys(instance.views).length > 0) {
-    setTimeout(() => {
-      if (document.readyState === "complete") {
-        start(instance)
-      } else {
-        document.addEventListener('DOMContentLoaded', function () {
+    let root = db.get('/config/ui/mount/root')
+    setTimeout(function () {
+      function retry() {
+        if (!document.readyState === "complete" || !document.querySelector(root)) {
+          setTimeout(retry, 50)
+        } else {
           start(instance)
-        })
+        }
       }
-    })
+      retry()
+    });
   } else {
-    start(instance)
+    start(instance);
   }
 
   return {
