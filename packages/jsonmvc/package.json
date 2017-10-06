@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc",
   "description": "The JSONMVC Framework",
-  "version": "0.2.12",
+  "version": "0.2.16",
   "main": "dist/jsonmvc.js",
   "repository": {
     "type": "git",
