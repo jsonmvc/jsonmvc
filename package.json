@@ -60,7 +60,7 @@
     "babel-plugin-transform-pug-html": "^0.1.2",
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "codecov": "^2.3.0",
+    "codecov": "^3.0.0",
     "del": "^3.0.0",
     "firebase": "^4.3.0",
     "framework7": "^1.6.4",
