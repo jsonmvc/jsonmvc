@@ -44,9 +44,8 @@ const jsonmvc = modules => {
     window.instance = instance
   }
 
-
-  if (Object.keys(instance.views).length > 0) {
-    let root = db.get('/config/ui/mount/root')
+  let root = db.get('/config/ui/mount/root')
+  if (Object.keys(instance.views).length > 0 && !!root) {
     setTimeout(function () {
       function retry() {
         if (!document.readyState === "complete" || !document.querySelector(root)) {

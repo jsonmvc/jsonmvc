@@ -147,11 +147,19 @@ it('should work with all modules', () => {
   jest.runOnlyPendingTimers()
 
   return new Promise((resolve, reject) => {
-    instance.db.on('/time', x => {
+    let off = instance.db.on('/time', x => {
+      if (x.hh === null) {
+        jest.runOnlyPendingTimers()
+        return
+      }
+
       expect(x.hh).not.toBeFalsy()
       expect(instance.db.get('/module/test')).toBe('123baz')
       resolve()
+      off()
     })
+
+    jest.runOnlyPendingTimers()
   })
 })
 
