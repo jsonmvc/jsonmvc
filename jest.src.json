@@ -12,6 +12,7 @@
   "testRegex": "test/.*\\.js$",
   "testEnvironment": "jsdom",
   "collectCoverage": true,
+  "coverageDirectory": "./../coverage",
   "collectCoverageFrom": [
     "packages/**/src/**/*.js"
   ],
