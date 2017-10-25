@@ -5,6 +5,10 @@ const model = {
     ms: '/time/ms'
   },
   fn: args => {
+    if (!args.ms) {
+      return
+    }
+
     let x = new Date(args.ms)
     let hh = padZero(x.getHours())
     let mm = padZero(x.getMinutes())

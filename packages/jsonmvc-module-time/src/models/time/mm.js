@@ -3,7 +3,13 @@ const model = {
   args: {
     ms: '/time/ms'
   },
-  fn: args => args.ms - (args.ms % (60 * 1000))
+  fn: args => {
+    if (!args.ms) {
+      return
+    }
+
+    return args.ms - (args.ms % (60 * 1000))
+  }
 }
 
 export default model
