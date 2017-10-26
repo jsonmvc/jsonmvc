@@ -1,6 +1,12 @@
 
-function getValue (el) {
-  let val = el.value
+function getValue (el, prop) {
+  let val
+  
+  if (prop === 'value') {
+    val = el[prop]
+  } else {
+    val = el.getAttribute(prop)
+  }
 
   // Handle return case
   if (typeof val === 'string') {
