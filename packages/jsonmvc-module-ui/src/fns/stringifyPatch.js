@@ -5,7 +5,19 @@ function stringifyPatch(x) {
     acc += `${z.op} ${z.path}`
 
     if (z.value) {
-      acc += ` ${z.value}`
+      let type = typeof z.value 
+      if (type === 'string') {
+
+        if (z.value[0]  === '[') {
+          acc += ` ${z.value}`
+        } else {
+          acc += ` '${z.value}'`
+        }
+      } else if (type === 'number') {
+        acc += ` ${z.value}`
+      } else if (type === 'object') {
+        acc += ` ${JSON.stringify(z.value)}`
+      }
     }
 
     if (i !== x.length - 1) {

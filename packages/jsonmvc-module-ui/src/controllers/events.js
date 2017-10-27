@@ -1,9 +1,20 @@
 import * as most from 'most'
+import stream from 'jsonmvc-helper-stream'
+
 import getValue from './../fns/getValue'
 import bubbleTo from './../fns/bubbleTo'
 import parsePatch from './../fns/parsePatch'
-import stream from 'jsonmvc-helper-stream'
+import {
+  numberRegExpStr,
+  textRegExpStr,
+  objRegExpStr,
+  htmlPropRegExpStr
+} from './../fns/parsePatch'
 
+const numberRegExp = new RegExp(numberRegExpStr, 'g')
+const objRegExp = new RegExp(objRegExpStr, 'g')
+const textRegExp = new RegExp(textRegExpStr, 'g')
+const htmlPropRegExp = new RegExp(htmlPropRegExpStr, 'g')
 
 const controller = {
   args: {
@@ -52,20 +63,22 @@ const controller = {
 
         let firstChar = x.value[0]
 
-        if (firstChar === '{') {
+        if (x.value.match(objRegExp) !== null) {
           try {
-            value = JSON.parse(value)
+            x.value = JSON.parse(x.value)
           } catch (e) {
             console.error('Tried to JSON.parse ', value, ' from the patch ', x, ' and got ', e)
             throw e
           }
-        } else if (firstChar === '[') {
-          let prop = x.value.substr(1, x.value.length - 1)
+        } else if (x.value.match(htmlPropRegExp) !== null) {
+          let prop = x.value.substr(1, x.value.length - 2)
           x.value = getValue(el, prop)
-        } else if (firstChar === '\'' || firstChar === '\"') {
-          x.value = x.value.substr(1, x.value.length - 1)
-        } else if (/[0-9]/.test(firstChar)) {
+        } else if (x.value.match(textRegExp) !== null) {
+          x.value = x.value.substr(1, x.value.length - 2)
+        } else if (x.value.match(numberRegExp) !== null) {
           x.value = parseFloat(x.value)
+        } else {
+          throw new Error('Patch value not recognized "' + x.value + '". It should start and end with {..}, [..], \'..\', "..", or be a number')
         }
 
         return x

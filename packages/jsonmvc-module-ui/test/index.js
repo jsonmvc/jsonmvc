@@ -1,7 +1,6 @@
 
 import Promise from 'promise'
 import jsonmvc from 'jsonmvc'
-import $ from 'jquery'
 
 import stringifyPatch from './../src/fns/stringifyPatch'
 
@@ -38,29 +37,62 @@ it('should init properly', () => {
     },
     template: `
       <div>
-        <button v-for="(patch, id) in patches" :data-patch="patch" :id="id">Button</button>
+        <button v-for="(patch, id) in patches" :name="id" :value="id" :data-patch="patch" :id="id">Button</button>
       </div>
     `
   })
 
   let patches = {
-    single: [{
+    text: [{
       op: 'add',
-      path: '/boo',
-      value: 123
+      path: '/foo1',
+      value: 'Sample text !@#$%^&*(+"'
     }],
-    multiple: [{
+    number: [{
       op: 'add',
-      path: '/foo',
-      value: 123
-    }, {
+      path: '/foo2',
+      value: -123.0981
+    }],
+    htmlAttribute: [{
       op: 'add',
-      path: '/bam',
-      value: 321
+      path: '/foo3',
+      value: '[name]'
+    }],
+    htmlValueAttribute: [{
+      op: 'add',
+      path: '/foo4',
+      value: '[value]'
+    }],
+    object: [{
+      op: 'add',
+      path: '/foo5',
+      value: {
+        foo: {
+          bar: 123,
+          baz: 'A !@#$%^&*(}{13'
+        }
+      }
     }],
     remove: [{
       op: 'remove',
-      path: '/bam'
+      path: '/foo6'
+    }],
+    multiple: [{
+      op: 'add',
+      path: '/foo7',
+      value: 123
+    }, {
+      op: 'add',
+      path: '/bar7',
+      value: {
+        foo: {
+          bar: 123,
+          baz: 'A0!@#$%^&*()|}}'
+        }
+      }
+    }, {
+      op: 'remove',
+      path: '/foo7'
     }]
   }
 
@@ -100,15 +132,20 @@ it('should init properly', () => {
         let patch = patches[x]
         let el = document.querySelector(`#${x}`)
 
-        // Get prev value for comparison
-
+// @TODO: Get prev value for comparison
         click(el)
 
-        patch.forEach(y => {
-          if (['add', 'replace'].indexOf(y.op) !== -1) {
-            expect(db.get(y.path)).toBe(y.value)
+        let removedPaths = []
+        patch.reverse().forEach(y => {
+          if (['add', 'replace'].indexOf(y.op) !== -1 && removedPaths.indexOf(y.path) === -1) {
+            if (y.value[0] === '[') {
+              expect(db.get(y.path)).toBe(x)
+            } else {
+              expect(db.get(y.path)).toEqual(y.value)
+            }
           } else if (y.op === 'remove') {
             expect(db.get(y.path)).toBeUndefined()
+            removedPaths.push(y.path)
           }
         })
       })

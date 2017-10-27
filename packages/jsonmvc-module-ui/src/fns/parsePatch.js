@@ -1,47 +1,31 @@
 
-let text = '[a-z0-9\-+&\/]*'
 let op = '(add|merge|replace)'
-let separator = '\\s'
-let path = '([\\/[a-z0-9]+)'
-let valueObj = `({[a-z\\s0-9{}"':,]+})`
+let separator = '\\s+'
+let path = '([\\/[a-zA-Z0-9]+)'
+let objRegExpStr = `(?:{.+?(?=}\s*(;|$)))`
+let numberRegExpStr = `(?:-?(?:(?:[1-9]\\d*)|0)\\.?\\d*)`
+let textRegExpStr = `(?:'.*?')|(?:".*?")` 
+let htmlPropRegExpStr = `(?:\\[[^\\t\\n\\f\\s\\/>"'=]+\\])`
 
-let valueNumber = `-?(?:(?:[1-9]\d*)|0)\.?\d*`
-let valueText = `('.*?')` 
 let patchReg =
-  op +
-  separator +
-  path +
-  `(?:\\s([0-9]+|\\[[a-z0-9\-]+\\]|\\'[a-z0-9]+\\'|\\"[a-z0-9]+\\"|))?`
-
-let updateReg =
-  '(add|replace)' +
-  separator +
-  path +
-  separator +
-  '(?:' + valueText + '|' + valueNumber + ')'
-
-let removeReg = 
-  '(remove)' +
-  separator +
-  path
-
-let mergeReg = 
-  '(merge)' +
-  separator +
-  path +
-  separator +
-  valueObj
+  '(add|replace|merge|remove)'
+  + separator
+  + path
+  + '(?:'
+    + separator
+    + '(' + htmlPropRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
+  + ')?'
 
 function parsePatch(x) {
 
-  let reg = new RegExp(updateReg, 'gi')
+  let reg = new RegExp(patchReg, 'gi')
 
   let found
   let results = []
   while ((found = reg.exec(x)) !== null) {
     let op = found[1]
     let path = found[2]
-    let value = found[3] || found[4]
+    let value = found[3]
 
     let patch = {
       op,
@@ -50,6 +34,12 @@ function parsePatch(x) {
 
     if (op !== 'remove') {
       patch.value = value
+
+// @TODO: Find a way to include the trailing '}' char in the object
+// regexp selection, until then this is a hack
+      if (patch.value[0] === '{') {
+        patch.value += '}'
+      }
     }
 
     results.push(patch)
@@ -58,4 +48,8 @@ function parsePatch(x) {
   return results
 }
 
+export { objRegExpStr }
+export { htmlPropRegExpStr }
+export { numberRegExpStr }
+export { textRegExpStr }
 export default parsePatch
