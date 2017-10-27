@@ -7,6 +7,8 @@ let numberRegExpStr = `(?:-?(?:(?:[1-9]\\d*)|0)\\.?\\d*)`
 let textRegExpStr = `(?:'.*?')|(?:".*?")` 
 let htmlPropRegExpStr = `(?:\\[[^\\t\\n\\f\\s\\/>"'=]+\\])`
 
+// @TODO: Split the remove patch test in another regex
+// so that we can find precise matches for update operations
 let patchReg =
   '(add|replace|merge|remove)'
   + separator
