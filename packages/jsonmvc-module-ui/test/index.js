@@ -43,6 +43,11 @@ it('should init properly', () => {
   })
 
   let patches = {
+    dbPath: [{
+      op: 'add',
+      path: '/foo/a',
+      value: '/sample'
+    }],
     text: [{
       op: 'add',
       path: '/foo1',
@@ -104,7 +109,8 @@ it('should init properly', () => {
           view: 'app'
         }
       }
-    }
+    },
+    sample: 123
   }
 
   app.data.patches = Object.keys(patches).reduce((acc, x) => {
@@ -140,6 +146,8 @@ it('should init properly', () => {
           if (['add', 'replace'].indexOf(y.op) !== -1 && removedPaths.indexOf(y.path) === -1) {
             if (y.value[0] === '[') {
               expect(db.get(y.path)).toBe(x)
+            } else if (y.value[0] === '/') {
+              expect(db.get(y.path)).toBe(db.get(y.value))
             } else {
               expect(db.get(y.path)).toEqual(y.value)
             }

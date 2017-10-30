@@ -7,8 +7,7 @@ function stringifyPatch(x) {
     if (z.value) {
       let type = typeof z.value 
       if (type === 'string') {
-
-        if (z.value[0]  === '[') {
+        if (z.value[0]  === '[' || z.value[0] === '/') {
           acc += ` ${z.value}`
         } else {
           acc += ` '${z.value}'`

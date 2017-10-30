@@ -8,13 +8,15 @@ import {
   numberRegExpStr,
   textRegExpStr,
   objRegExpStr,
-  htmlPropRegExpStr
+  htmlPropRegExpStr,
+  pathOptRegExpStr
 } from './../fns/parsePatch'
 
-const numberRegExp = new RegExp(numberRegExpStr, 'g')
-const objRegExp = new RegExp(objRegExpStr, 'g')
-const textRegExp = new RegExp(textRegExpStr, 'g')
-const htmlPropRegExp = new RegExp(htmlPropRegExpStr, 'g')
+const numberRegExp = new RegExp('^' + numberRegExpStr + '$', 'g')
+const objRegExp = new RegExp('^' + objRegExpStr, 'g')
+const textRegExp = new RegExp('^' + textRegExpStr + '$', 'g')
+const htmlPropRegExp = new RegExp('^' + htmlPropRegExpStr + '$', 'g')
+const pathRegExp = new RegExp('^' + pathOptRegExpStr + '$', 'g')
 
 const controller = {
   args: {
@@ -44,7 +46,7 @@ const controller = {
       }
     })
     .filter(x => !!x.el)
-    .map(x => {
+    .map((x, lib) => {
       if (x.el.hasAttribute('href')) {
         x.e.preventDefault()
       }
@@ -63,19 +65,29 @@ const controller = {
 
         let firstChar = x.value[0]
 
-        if (x.value.match(objRegExp) !== null) {
+        let match = {
+          obj: x.value.match(objRegExp) !== null,
+          htmlProp: x.value.match(htmlPropRegExp) !== null,
+          path: x.value.match(pathRegExp) !== null,
+          text: x.value.match(textRegExp) !== null,
+          number: x.value.match(numberRegExp) !== null
+        }
+
+        if (match.obj) {
           try {
             x.value = JSON.parse(x.value)
           } catch (e) {
             console.error('Tried to JSON.parse ', value, ' from the patch ', x, ' and got ', e)
             throw e
           }
-        } else if (x.value.match(htmlPropRegExp) !== null) {
+        } else if (match.htmlProp) {
           let prop = x.value.substr(1, x.value.length - 2)
           x.value = getValue(el, prop)
-        } else if (x.value.match(textRegExp) !== null) {
+        } else if (match.path) {
+          x.value = lib.get(x.value)
+        } else if (match.text) {
           x.value = x.value.substr(1, x.value.length - 2)
-        } else if (x.value.match(numberRegExp) !== null) {
+        } else if (match.number) {
           x.value = parseFloat(x.value)
         } else {
           throw new Error('Patch value not recognized "' + x.value + '". It should start and end with {..}, [..], \'..\', "..", or be a number')

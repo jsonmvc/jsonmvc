@@ -1,7 +1,8 @@
 
-let op = '(add|merge|replace)'
+let opRegExpStr = '(add|merge|replace|remove)'
 let separator = '\\s+'
-let path = '([\\/[a-zA-Z0-9]+)'
+let pathRegExpStr = '([\\/[a-zA-Z0-9]+)'
+let pathOptRegExpStr = '(?:\\/[\\/[a-zA-Z0-9]+)'
 let objRegExpStr = `(?:{.+?(?=}\s*(;|$)))`
 let numberRegExpStr = `(?:-?(?:(?:[1-9]\\d*)|0)\\.?\\d*)`
 let textRegExpStr = `(?:'.*?')|(?:".*?")` 
@@ -10,12 +11,12 @@ let htmlPropRegExpStr = `(?:\\[[^\\t\\n\\f\\s\\/>"'=]+\\])`
 // @TODO: Split the remove patch test in another regex
 // so that we can find precise matches for update operations
 let patchReg =
-  '(add|replace|merge|remove)'
+  opRegExpStr
   + separator
-  + path
+  + pathRegExpStr
   + '(?:'
     + separator
-    + '(' + htmlPropRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
+    + '(' + pathOptRegExpStr + '|' + htmlPropRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
   + ')?'
 
 function parsePatch(x) {
@@ -50,8 +51,10 @@ function parsePatch(x) {
   return results
 }
 
+
 export { objRegExpStr }
 export { htmlPropRegExpStr }
 export { numberRegExpStr }
 export { textRegExpStr }
+export { pathOptRegExpStr }
 export default parsePatch
