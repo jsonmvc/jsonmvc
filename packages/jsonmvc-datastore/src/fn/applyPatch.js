@@ -43,18 +43,17 @@ function clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, path) {
 }
 
 function clearCacheRecursive(cachePaths, cacheDynamic, decomposed, staticDeps, path, obj) {
-  if (isPlainObject(obj)) {
-    let k = Object.keys(obj)
-    let i = k.length
-    let prop
-    let newPath
-
-    while (i--) {
-      prop = k[i]
-      newPath = path + '/' + prop
-      delete cachePaths[newPath]
-      clearCacheRecursive(cachePaths, cacheDynamic, decomposed, staticDeps, newPath, obj[prop])
-      clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, newPath)
+  let k = Object.keys(cachePaths)
+  let i = k.length
+  let len = path.length
+  let prop
+  let str
+  while (i--) {
+    prop = k[i]
+    str = prop.slice(0, len)
+    if (str === path) {
+      delete cachePaths[prop]
+      clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, prop)
     }
   }
 }

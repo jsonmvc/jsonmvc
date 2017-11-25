@@ -13,9 +13,37 @@
     bar:
       baz: 123
   patch:
+  - op: add
+    path: /bar/bam
+    value:
+      foo:
+        bam: 123
   - op: remove
     path: /bar
   expectPaths:
     "/bar": undefined
     "/bar/baz": undefined
+    "/bar/bam": undefined
+    "/bar/bam/foo": undefined
+    "/bar/bam/foo/bam": undefined
 
+- comment: Should test a nested dynamic object cached
+  doc:
+    bar:
+      baz:
+        boo: 123
+        bam: 321
+  dynamic:
+    /foo: [/bar/baz]
+  patch:
+  - op: remove
+    path: /bar
+  expectPaths:
+    "/bar": undefined
+    "/bar/baz": undefined
+    "/bar/baz/boo": undefined
+    "/bar/baz/bam": undefined
+    "/foo": null
+    "/foo/boo": undefined
+    "/foo/bam": undefined
+ 
