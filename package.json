@@ -86,6 +86,7 @@
     "rollup-plugin-vue": "^2.4.1",
     "snyk": "^1.40.1",
     "standard": "^10.0.3",
+    "yaml-js": "^0.2.0",
     "yamljs": "^0.3.0"
   },
   "collective": {

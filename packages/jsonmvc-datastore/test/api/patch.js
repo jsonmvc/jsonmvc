@@ -3,7 +3,12 @@
 const fs = require('fs')
 const testsFile = fs.readFileSync(`${__dirname}/patch.yml`, 'utf-8')
 let tests = require('yamljs').parse(testsFile)
-const dbFn = require(`${__dirname}/../../dist/jsonmvc-datastore`)
+let dbFn
+if(__DEV__) {
+  dbFn = require(`${__dirname}/../../src/index`).default
+} else {
+  dbFn = require(`${__dirname}/../../dist/jsonmvc-datastore`)
+}
 const merge = require('lodash/merge')
 const identity = x => x
 

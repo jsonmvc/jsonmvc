@@ -5,7 +5,12 @@ jest.useFakeTimers()
 const fs = require('fs')
 const testsFile = fs.readFileSync(`${__dirname}/node.yml`, 'utf-8')
 let tests = require('yamljs').parse(testsFile)
-const dbFn = require(`${__dirname}/../../dist/jsonmvc-datastore`)
+let dbFn
+if(__DEV__) {
+  dbFn = require(`${__dirname}/../../src/index`).default
+} else {
+  dbFn = require(`${__dirname}/../../dist/jsonmvc-datastore`)
+}
 const decomposePath = require(`${__dirname}/../../src/fn/decomposePath`).default
 const splitPath = require(`${__dirname}/../../src/fn/splitPath`).default
 

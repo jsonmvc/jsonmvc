@@ -3,7 +3,12 @@
 const fs = require('fs')
 const testsFile = fs.readFileSync(`${__dirname}/has.yml`, 'utf-8')
 const tests = require('yamljs').parse(testsFile)
-const dbFn = require(`${__dirname}/../../dist/jsonmvc-datastore`)
+let dbFn
+if(__DEV__) {
+  dbFn = require(`${__dirname}/../../src/index`).default
+} else {
+  dbFn = require(`${__dirname}/../../dist/jsonmvc-datastore`)
+}
 
 const concat = function () {
   return Array.prototype.join.call(arguments, '-')
