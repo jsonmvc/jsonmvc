@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc#readme",
   "dependencies": {
-    "jsonmvc-db": "^0.6.11",
+    "jsonmvc-datastore": "^0.3.4",
     "jsonmvc-helper-guid": "^0.2.5",
     "lodash-es": "^4.17.4",
     "most": "^1.6.1",

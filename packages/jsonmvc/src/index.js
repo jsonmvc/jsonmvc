@@ -6,7 +6,7 @@ import reduce from 'lodash-es/reduce'
 import isArray from 'lodash-es/isArray'
 import isObject from 'lodash-es/isObject'
 
-import DB from 'jsonmvc-db'
+import DB from 'jsonmvc-datastore'
 
 import createControllers from './controllers/controllers'
 import createViews from './views/views'

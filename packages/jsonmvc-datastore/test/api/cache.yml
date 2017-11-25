@@ -1,0 +1,21 @@
+
+- comment: Should test a simple remove cache
+  doc:
+    bar: 123
+  patch:
+  - op: remove
+    path: /bar
+  expectPaths:
+    "/bar": undefined
+
+- comment: Should test a nested object cached
+  doc:
+    bar:
+      baz: 123
+  patch:
+  - op: remove
+    path: /bar
+  expectPaths:
+    "/bar": undefined
+    "/bar/baz": undefined
+
