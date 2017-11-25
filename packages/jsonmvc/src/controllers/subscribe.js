@@ -2,12 +2,24 @@
 import isArray from 'lodash-es/isArray'
 
 function subscribe (db, controller) {
+  function applyPatch(x) {
+    if (x && isArray(x)) {
+      db.patch(x)
+    } else if (x && !isArray(x)) {
+      db.patch([x])
+    } else {
+      console.warn(`Controller ${controller.name} did not return a patch`)
+    }
+  }
   return controller.result.subscribe({
     next: x => {
-      if (x && !isArray(x)) {
-        x = [x]
+      if (x && x.then) {
+        x.then(y => {
+          applyPatch(y)
+        })
+      } else {
+        applyPatch(x)
       }
-      db.patch(x)
     },
     complete: x => {
       console.log(`Controller ${controller.name} has ended`)

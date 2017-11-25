@@ -256,3 +256,54 @@ it('should update the instance with the new modules', () => {
 
 
 })
+
+
+it('should allow controllers to return undefined, value, promise or stream', (done) => {
+ let app = {
+    name: 'app',
+    data: {
+      foo: 123
+    },
+    controllers: [{
+      args: {
+        foo: '/foo'
+      },
+      fn: ({ foo }) => ({
+        op: 'add',
+        path: '/bar',
+        value: foo
+      })
+    }, {
+      args: {
+        bar: '/bar'
+      },
+      fn: ({ bar }) => new Promise((resolve, reject) => {
+        resolve({
+          op: 'add',
+          path: '/bam',
+          value: bar
+        })
+      })
+    }, {
+      args: {
+        bam: '/bam'
+      },
+      fn: ({ bam }) => void 0
+    }]
+  }
+
+  let instance = lib(app)
+  jest.runOnlyPendingTimers()
+
+  let db = instance.db
+
+  expect(db.get('/bar')).toBe(db.get('/foo'))
+
+  jest.useRealTimers()
+  setTimeout(() => {
+    expect(db.get('/bam')).toBe(db.get('/bar'))
+    expect(db.get('/err/patch').length).toBe(0)
+    done()
+  });
+
+})
