@@ -1,0 +1,31 @@
+---
+# Tests for db.has
+# Checks if nodes are found properly
+
+- comment: Should find a static value
+  doc:
+    bar:
+      baz: 123
+  get: /bar/baz
+  expect: true
+
+- comment: Should find a dynamic value
+  doc: {}
+  dynamic:
+    /foo/bar: ['/bar/boo']
+  get: /foo/bar
+  expect: true
+
+- comment: Shouldn't find a static value
+  doc:
+    foo:
+      bar: 123
+  get: /foo/baz
+  expect: false
+
+- comment: Shouldn't find a dynamic value
+  doc: {}
+  dynamic:
+    /foo/baz: ['/bar/boo']
+  get: /foo/qux
+  expect: false

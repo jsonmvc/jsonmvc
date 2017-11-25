@@ -1,0 +1,128 @@
+# Add a test that disallows static overlaping dynamic or the other way around
+
+- comment: Should add a few nodes
+  doc:
+    bar: 123
+  dynamic:
+    /foo: ['/bar']
+    /bam: ['/foo']
+    /qux: ['/bam']
+
+- comment: Shouldn't allow a circular dependency
+  doc: {}
+  dynamic:
+    /foo: ['/bar']
+    /bar: ['/bam']
+    /bam: ['/foo']
+  error: circular dependency
+
+- comment: Shouldn't allow a complex circular dependency
+  doc:
+    baa:
+      bla:
+        boo: 123
+      boo: 123
+    baz:
+      bar: 123
+  dynamic:
+    /baa/bla/foo: ['/baz/bar', '/baa/boo']
+    /baz/bam: ['/baa', '/foo']
+    /foo: ['/baz']
+  error: circular dependency
+
+- comment: Should allow a node to overwrite another node
+  doc: {}
+  dynamic:
+    /foo: ['/bar']
+  overwrite: true
+
+- comment: Shouldn't allow a node with an invalid path
+  doc: {}
+  dynamic:
+    123: ['/bar']
+  error: /err/types/db/2
+
+- comment: Shouldn't allow a node with an invalid deps
+  doc: {}
+  dynamic:
+    /foo: ['bar']
+  error: /err/types/db/2
+
+- comment: Shouldn't allow a node with an invalid function
+  doc: {}
+  dynamic:
+    /foo: ['bar']
+  invalidFn: true
+  error: /err/types/db/2
+
+- comment: Shouldn't allow a node with an invalid deps
+  doc: {}
+  dynamic:
+    /foo: 123
+  error: /err/types/db/2
+
+- comment: Should remove a node
+  doc:
+    bar: 123
+    bam:
+      baz:
+        bim: 321
+  dynamic:
+    /foo: ['/bar']
+    /bam/baz/bloo: ['/foo']
+    /bla: ['/bam']
+  cache:
+  - /bla/baz/bim
+  - /bla/baz
+  - /bla
+  remove: true
+
+- comment: Should trigger listeners when adding a node
+  doc:
+    foo: 321
+    bar:
+      baz: 123
+  dynamic:
+    /bar/bla: ['/foo']
+  listeners:
+  - '/bar'
+  - '/bar/bla'
+
+- comment: Should clear cache when removing a node
+  doc:
+    foo: 123
+  dynamic:
+    /bam: ['/foo']
+    /bla: ['/bam/foo']
+    /boo: ['/bam/foo/bar']
+  nestedFn:
+    /bam: true
+  falseFn:
+    /blo: true
+  remove: true
+  cache:
+  - /bam
+  - /bam/foo
+  - /bam/foo/bar
+  - /bam/baz
+  - /bla
+  - /bla/bar
+  - /blo
+  listeners:
+  - /bla/bar
+  - /bla
+  - /bam
+  - /bam/foo/bar
+
+- comment: Should trigger a listener with a falsy value from a dynamic node
+  doc:
+    foo: 123
+  dynamic:
+    /bar: ['/foo']
+  falseFn:
+    /bar: true
+  listeners:
+  - /bar
+  remove: true
+
+

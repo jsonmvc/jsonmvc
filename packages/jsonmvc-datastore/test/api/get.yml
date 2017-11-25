@@ -1,0 +1,250 @@
+---
+# Tests for db.get
+# Check if the db is interogated properly and that the dynamic nodes produce correct results
+
+- comment: Should give a static value
+  doc:
+    bar: 123
+  get: /bar
+  expect: 123
+
+- comment: Should give an undefined value
+  doc: {}
+  get: /bar
+  expect: undefined
+
+- comment: Should give undefined if the path is undefined
+  doc: {}
+  get: undefined
+  expect: undefined
+
+- comment: Should give undefined if path is not a string
+  doc: {}
+  get: 123
+  expected: undefined
+
+- comment: Should give the root path
+  doc:
+    foo: 123
+  get: /
+  expect:
+    foo: 123
+
+- comment: Should give a complex static value
+  doc:
+    bar:
+      baz: [1, 2, 3]
+      boo: 123
+      foo: '123'
+      bam: null
+  get: /bar
+  expect:
+    baz: [1, 2, 3]
+    boo: 123
+    foo: '123'
+    bam: null
+
+- comment: Shouldn't give back references
+  doc:
+    bar:
+      boo: 123
+  get: /bar
+  reference: boo
+
+- comment: Should give a simple dynamic node
+  doc:
+    bar:
+      boo: 123
+  dynamic:
+    /foo: ['/bar/boo']
+  get: /foo
+  expect: 123
+
+- comment: Should give a null value of a dynamic node when at least one path is undefined
+  doc: {}
+  dynamic:
+    /foo: ['/bar']
+  get: /foo
+  expect: null
+
+- comment: Should give a null value of a dynamic node the dynamic node returns an undefined
+  doc:
+    bar: 123
+  dynamic:
+    /foo: ['/bar']
+  get: /foo
+  expect: null
+  undefinedFn: true
+
+- comment: Should give a null value of a dynamic node the dynamic node throws an error
+  doc:
+    bar: 123
+  dynamic:
+    /foo: ['/bar']
+  get: /foo
+  expect: null
+  errFn: true
+
+- comment: Should give a complex dynamic node
+  doc:
+    bar:
+      boo: 123
+      baz: [1, 2, 3]
+      boo: 123
+      foo: '123'
+      bam: null
+      bro:
+        boo: 111
+  dynamic:
+    /foo: ['/bar']
+  get: /foo
+  expect:
+    boo: 123
+    baz: [1, 2, 3]
+    boo: 123
+    foo: '123'
+    bam: null
+    bro:
+      boo: 111
+
+- comment: Should give a hierarchical dynamic node
+  doc:
+    bar:
+      baz: aaa
+      boo: 123
+    bam: 321
+  dynamic:
+    /foo: ['/bar/boo', '/bar/baz']
+    /bat: ['/foo', '/bam']
+  get: /bat
+  expect: 123-aaa-321
+
+- comment: Should give a mixed dynamic and static node
+  doc:
+    bar:
+      baz: aaa
+      boo: 123
+    bam: 321
+  dynamic:
+    /bar/qux: ['/bar/boo', '/bar/baz']
+    /foo: ['/bar']
+  get: /bar
+  expect:
+    baz: aaa
+    boo: 123
+    qux: 123-aaa
+
+- comment: Should get a nested value in a dynamic node
+  doc:
+    bar:
+      baz:
+        bam: aaa
+    bam: 321
+  dynamic:
+    /foo: ['/bar']
+  get: /foo/baz/bam
+  expect: aaa
+
+- comment: Should get a nested parent value in a dynamic node 
+  doc:
+    bar:
+      baz:
+        bam: aaa
+  dynamic:
+    /foo: ['/bar']
+  get: /foo/baz
+  expect:
+    bam: aaa
+
+- comment: Should get a nested parent value in a dynamic node which has dynamic nodes
+  doc:
+    qux: 123
+    bar:
+      baz:
+        bam: aaa
+  dynamic:
+    /bar/baz/boo: ['/qux']
+    /foo: ['/bar']
+  get: /foo
+  expect:
+    baz:
+      bam: aaa
+      boo: 123
+
+- comment: Should get a null for a nested inexisting value in a dynamic node
+  doc:
+    bar:
+      baz:
+        bam: aaa
+    bam: 321
+  dynamic:
+    /foo: ['/bar']
+  get: /foo/bla
+  expect: undefined
+
+- comment: Should get a falsy value
+  doc:
+    bar:
+      baz: false
+  get: /bar/baz
+  expect: false
+
+- comment: Should get a null value
+  doc:
+    bar:
+      baz: null
+  get: /bar/baz
+  expect: null
+
+- comment: Should return undefined for a nested child on a dynamic node with a bad computation value
+  doc: {}
+  dynamic:
+    /foo: ['/bar']
+  get: /foo/baz
+  expect: undefined
+
+- comment: Should get the complete root node including dynamic nodes
+  doc:
+    bar: 123
+    bam:
+      baz:
+        bim: 321
+  dynamic:
+    /foo: ['/bar']
+    /bam/baz/bloo: ['/foo']
+    /bla: ['/bam']
+  get: /
+  expect:
+    bar: 123
+    foo: 123
+    bam:
+      baz:
+        bim: 321
+        bloo: 123
+    bla:
+      baz:
+        bim: 321
+        bloo: 123
+
+- comment: Should return a path that has only dynamic nodes
+  doc:
+    foo: 123
+  dynamic:
+    /bam/bar/baz: ['/foo']
+  get: /bam
+  expect:
+    bar:
+      baz: 123
+
+- comment: Should return a falsy value from a dynamic node
+  doc:
+    foo: 123
+  dynamic:
+    /bar: ['/foo']
+  falseFn:
+    /bar: true
+  get: /bar
+  expect: false
+
+# @TODO: Should not return a reference to the cache that can then be altered
+

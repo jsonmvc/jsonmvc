@@ -1,0 +1,437 @@
+---
+# Tests for db.on
+# Check if the patches trigger the listeners
+
+- comment: Listener with invalid function
+  doc: {}
+  invalidFn: true
+  listeners:
+  - "/foo"
+
+- comment: Should trigger a listener
+  doc: {}
+  patch:
+  - op: add
+    path: "/foo/bar"
+    value: 123
+  listeners:
+  - "/"
+  - "/foo"
+  - "/foo/bar"
+
+- comment: Should trigger multiple listeners name the same
+  doc: {}
+  patch:
+  - op: add
+    path: "/foo/bar"
+    value: 123
+  listeners:
+  - "/foo/bar"
+  - "/foo/bar"
+
+- comment: Should trigger a listener when multiple static values change underneath that node
+  doc:
+    foo:
+      qux: 123
+  patch:
+  - op: add
+    path: /foo/bar/baz
+    value: 123
+  - op: add
+    path: /foo/bam/boo
+    value: 321
+  - op: add
+    path: /foo/bla/blo
+    value: 444
+  dynamic:
+    /foo/bar/boo: [/foo/bam/boo]
+  async: true
+  listeners:
+  - /foo/bar
+  - /foo
+  - /foo
+  - /bam
+
+- comment: One dynamic node with single path
+  doc:
+    bar: 123
+  patch:
+  - op: add
+    path: /bar
+    value: 321
+  dynamic:
+    /foo: ['/bar']
+  listeners:
+  - "/foo"
+
+- comment: One dynamic node with two paths
+  doc:
+    bar: 123,
+    baz: 321
+  patch:
+  - op: add
+    path: /bar
+    value: 321
+  dynamic:
+    /foo: ['/bar', '/baz']
+  listeners:
+  - "/foo"
+
+- comment: One dynamic node with two paths
+  doc:
+    bar: 123,
+    baz: 123,
+    bam: 123
+  patch:
+  - op: add
+    path: /bar
+    value: 321
+  dynamic:
+    /foo: ['/bar', '/baz', '/bam']
+  listeners:
+  - "/foo"
+
+- comment: Two dynamic nodes with single path
+  doc:
+    bar: 123,
+  patch:
+  - op: add
+    path: /bar
+    value: 321
+  dynamic:
+    /foo: ['/bar']
+    /baz: ['/foo']
+  listeners:
+  - "/baz"
+
+- comment: Two dynamic nodes with two paths
+  doc:
+    bar: 123,
+  patch:
+  - op: add
+    path: /bar
+    value: 321
+  - op: add
+    path: /boo
+    value: 321
+  - op: add
+    path: /qux
+    value: 321
+  dynamic:
+    /foo: ['/bar', '/boo']
+    /baz: ['/foo', '/qux']
+  listeners:
+  - "/baz"
+
+- comment: Three dynamic nodes with three paths
+  doc:
+    bar1: 123,
+  patch:
+  - op: add
+    path: /bar1
+    value: 321
+  - op: add
+    path: /bar2
+    value: 321
+  - op: add
+    path: /bar3
+    value: 321
+  - op: add
+    path: /foo2
+    value: 321
+  - op: add
+    path: /foo3
+    value: 321
+  - op: add
+    path: /baz2
+    value: 321
+  - op: add
+    path: /baz3
+    value: 321
+  dynamic:
+    /foo: ['/bar1', '/bar2', '/bar3']
+    /baz: ['/foo', '/foo2', '/foo3']
+    /bam: ['/baz', '/baz2', '/baz3']
+  listeners:
+  - "/bam"
+
+- comment: Deep listener
+  doc:
+    foo:
+      bar:
+        baz: 123
+  patch:
+  - op: add
+    path: /foo/bar/baz
+    value: 321
+  listeners:
+  - /foo/bar/baz
+
+- comment: Listener with error
+  doc:
+    foo: 123
+  patch:
+  - op: add
+    path: /foo
+    value: 321
+  errFn: true
+  listeners:
+  - /foo
+
+- comment: Multiple patch calls do not trigger
+  doc:
+    foo: 123
+  patch:
+  - op: add
+    path: /foo
+    value: 321
+  - op: add
+    path: /foo
+    value: 321321
+  - op: add
+    path: /foo
+    value: 321321
+  async: true
+  listeners:
+  - /foo
+
+- comment: Should trigger if is listening to a path changed by a merge
+  doc:
+    foo:
+      bar: {}
+  patch:
+  - op: merge
+    path: /foo/bar
+    value:
+      bam: 123
+  dynamic:
+    /bam: ['/foo/bar/bam']
+  listeners:
+  - /bam
+
+- comment: Should trigger a nested dynanamic node
+  doc:
+    foo:
+      bar:
+        baz: aaa
+  patch:
+  - op: add
+    path: /foo/bar/baz
+    value: bbb
+  dynamic:
+    /qux: ['/foo']
+  listeners:
+  - /qux/bar
+
+- comment: Should trigger if the listener is on a sub dynamic property
+  doc:
+    foo:
+      bar: 123
+  dynamic:
+    /bam: ['/foo']
+  patch:
+  - op: add
+    path: /foo/bar
+    value: 124
+  listeners:
+  - /bam/bar
+  async: true
+
+- comment: Should unsubscribe a listener
+  doc:
+    foo: 123
+  patch:
+  - op: add
+    path: /foo
+    value: 124
+  - op: add
+    path: /foo
+    value: 125
+  listeners:
+  - /foo
+  async: true
+  unsubscribe: true
+
+- comment: Should trigger a listener when the dynamic node changes after a merge
+  doc:
+    foo:
+      bar:
+        baz: 125
+  patch:
+  - op: add
+    path: /foo/bar/baz
+    value: 135
+  - op: merge
+    path: /foo/bar
+    value:
+      baz: 145
+  dynamic:
+    /bam: ['/foo/bar/baz']
+  listeners:
+  - /bam
+  - /foo
+  async: true
+  expectDoc:
+    bam: 145
+    foo:
+      bar:
+        baz: 145
+
+- comment: Should trigger all the listeners
+  doc:
+    foo:
+      bar:
+        baz: 123
+  patch:
+  - op: add
+    path: /foo/bar/baz
+    value: 125
+  - op: add
+    path: /foo/bar/bam
+    value: 126
+  - op: add
+    path: /foo/bar/baz
+    value: 127
+  - op: merge
+    path: /foo/bar
+    value:
+      baz: 128
+  - op: merge
+    path: /foo
+    value:
+      bar:
+        baz: 129
+        bam: 130
+  dynamic:
+    /foo2: ['/foo']
+    /foo3: ['/foo']
+    /foo4: ['/foo', '/foo2', '/foo3']
+    /foo5: ['/foo4', '/foo/bar/bam']
+  listeners:
+  - /foo/bar/baz
+  - /foo/bar
+  - /foo
+  - /foo2/bar/baz
+  - /foo2/bar
+  - /foo2
+  - /foo3/bar/bam
+  - /foo3/bar
+  - /foo3
+  - /foo4
+  - /foo5
+  async: true
+  expectDoc:
+    foo2:
+      bar:
+        baz: 129
+        bam: 130
+    foo3:
+      bar:
+        baz: 129
+        bam: 130
+    foo4:
+    - bar:
+        baz: 129
+        bam: 130
+    - bar:
+        baz: 129
+        bam: 130
+    - bar:
+        baz: 129
+        bam: 130
+    foo5:
+    - - bar:
+          baz: 129
+          bam: 130
+      - bar:
+          baz: 129
+          bam: 130
+      - bar:
+          baz: 129
+          bam: 130
+    - 130
+    foo:
+      bar:
+        baz: 129
+        bam: 130
+
+- comment: Test with multiple nested children under a dynamic node
+  doc:
+    foo:
+      bar:
+        bam: 123
+  patch:
+  - op: add
+    path: /foo/bar/bam
+    value: 125
+  - op: add
+    path: /foo/bar/bam
+    value: 127
+  - op: add
+    path: /foo/bar/blo
+    value: 128
+  - op: merge
+    path: /foo
+    value:
+      bar:
+        bam: 129
+        blo: 130
+  dynamic:
+    /baz: ['/foo']
+  listeners:
+  - /baz/bar
+  - /baz/bar/bam
+
+- comment: Should trigger a listner on add that replaces and object
+  doc:
+    foo:
+      bar:
+        baz: 123
+  patch:
+  - op: add
+    path: /foo/bar/baz
+    value: 125
+  - op: add
+    path: /foo/bar
+    value:
+      baz: 127
+  listeners:
+  - /foo/bar/baz
+  async: true
+
+- comment: Should properly expand nested deps and remove the cache
+  doc:
+    fi: 123
+    bla:
+      bam:
+        bak:
+          blu: 123
+  dynamic:
+    /bar: ['/baz/bam']
+    /baz: ['/bla/bam/bak']
+    /bla/bam/bak/baz/lop: ['/qux']
+    /qux: ['/fi']
+  patch:
+  - op: replace
+    path: /fi
+    value: 321
+  - op: replace
+    path: /bla/bam/bak/blu
+    value: 321
+  - op: merge
+    path: /bla
+    value:
+      bam:
+        bak:
+          blu: 555
+  listeners:
+  - /bla
+  - /bar
+  - /bla/bam/bak/blu
+  cache:
+  - /bar
+  - /baz
+  - /bla/bam/bak/blu
+  async: true
+
+# @TODO: Add testing for triggering listeners on node removal / replace

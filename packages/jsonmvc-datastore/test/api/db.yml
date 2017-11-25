@@ -1,0 +1,13 @@
+# Db data tests
+- comment: Should fail with non literal object data
+  doc: [1, 2, 3]
+  error: /err/types/db/1
+
+- comment: Should fail with strings
+  doc: "foo"
+  error: /err/types/db/1
+
+- comment: Should fail with private properties redeclared
+  doc:
+    err: {}
+  error: /err/types/db/2
