@@ -4,12 +4,12 @@ const model = {
   args: {
     ms: '/time/ms'
   },
-  fn: args => {
-    if (!args.ms) {
+  fn: ({ ms }) => {
+    if (!ms) {
       return
     }
 
-    let x = new Date(args.ms)
+    let x = new Date(ms)
     let hh = padZero(x.getHours())
     let mm = padZero(x.getMinutes())
     let ss = padZero(x.getSeconds())
