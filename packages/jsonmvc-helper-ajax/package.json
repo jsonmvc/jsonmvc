@@ -3,6 +3,7 @@
   "description": "Create an ajax request patch.",
   "version": "0.2.5",
   "main": "dist/jsonmvc-helper-ajax.js",
+  "browser": "dist/jsonmvc-helper-ajax.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

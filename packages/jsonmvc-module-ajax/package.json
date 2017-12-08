@@ -3,6 +3,7 @@
   "description": "JSONMVC AJAX Module",
   "version": "0.2.5",
   "main": "dist/jsonmvc-module-ajax.js",
+  "browser": "dist/jsonmvc-module-ajax.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

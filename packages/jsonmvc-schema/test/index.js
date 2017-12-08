@@ -3,9 +3,9 @@ const yaml = require('js-yaml')
 
 let mod
 if(__DEV__) {
-  mod = require('./../src/index').default
+  mod = require('./../src/index')
 } else {
-  mod = require('./../dist/jsonmvc-schema')
+  mod = require('./../dist/index')
 }
 
 /*

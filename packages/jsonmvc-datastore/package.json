@@ -2,6 +2,7 @@
   "name": "jsonmvc-datastore",
   "description": "The jsonmvc data library",
   "main": "dist/jsonmvc-datastore.js",
+  "browser": "dist/jsonmvc-datastore.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

@@ -3,6 +3,7 @@
   "description": "JSONMVC util for parsing changes",
   "version": "0.2.15",
   "main": "dist/jsonmvc-util-changes.js",
+  "browser": "dist/jsonmvc-util-changes.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

@@ -3,6 +3,7 @@
   "description": "A JSONMVC module for firebase integration",
   "version": "0.2.11",
   "main": "dist/jsonmvc-module-firebase.js",
+  "browser": "dist/jsonmvc-module-firebase.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

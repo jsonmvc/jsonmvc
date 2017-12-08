@@ -3,6 +3,7 @@
   "description": "A JSONMVC module for app time management",
   "version": "0.3.0",
   "main": "dist/jsonmvc-module-time.js",
+  "browser": "dist/jsonmvc-module-time.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

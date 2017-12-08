@@ -1,6 +1,6 @@
 import resolveSchema from './fns/resolveSchema'
 
-export default function loadSchema(file) {
+function loadSchema(file) {
   return resolveSchema(file)
   .then((schema) => {
     return {
@@ -8,5 +8,8 @@ export default function loadSchema(file) {
     }
   })
 }
+
+export default loadSchema
+module.exports = loadSchema
 
 // loadSchema(__dirname + '/../test/schema/app.yml')

@@ -3,6 +3,7 @@
   "description": "Write lazy streams. Works as a template for mostjs.",
   "version": "0.2.5",
   "main": "dist/jsonmvc-helper-stream.js",
+  "browser": "dist/jsonmvc-helper-stream.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

@@ -3,6 +3,7 @@
   "description": "A simple observer wrapper based on zen-observable and most",
   "version": "0.2.5",
   "main": "dist/jsonmvc-helper-observer.js",
+  "browser": "dist/jsonmvc-helper-observer.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

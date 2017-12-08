@@ -3,6 +3,7 @@
   "description": "JSONMVC util for loading a module",
   "version": "0.2.15",
   "main": "dist/jsonmvc-util-load.js",
+  "browser": "dist/jsonmvc-util-load.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

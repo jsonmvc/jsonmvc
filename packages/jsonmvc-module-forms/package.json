@@ -3,6 +3,7 @@
   "description": "A JSONMVC module for forms",
   "version": "0.2.5",
   "main": "dist/jsonmvc-module-forms.js",
+  "browser": "dist/jsonmvc-module-forms.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

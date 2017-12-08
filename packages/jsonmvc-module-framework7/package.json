@@ -2,6 +2,7 @@
   "name": "jsonmvc-module-framework7",
   "description": "A JSONMVC module for Framework7 integration",
   "main": "dist/jsonmvc-module-framework7.js",
+  "browser": "dist/jsonmvc-module-framework7.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"

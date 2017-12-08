@@ -6,6 +6,7 @@ import path from 'path'
 import now from 'performance-now'
 import fs from 'fs'
 import { parse as yamlParse } from 'yamljs'
+import babel from 'gulp-babel'
 
 const argv = require('yargs').argv
 
@@ -107,13 +108,33 @@ gulp.task('clean', () => {
 
 gulp.task('build', done => {
   let finished = 0
+  let builds = {}
 
-  forEachPackage((x, count) => {
+  function startBuild(buildName) {
+    builds[buildName] = {
+      startedAt: now()
+    }
+  }
+
+  function finishBuild(buildName, count) {
+    let build = builds[buildName]
+    build.finishedAt = now()
+    build.duration = ((build.finishedAt - build.startedAt) / 1000).toFixed(2)
+
+    console.log(`[ ${build.duration}s ] ${buildName}`)
+
+    finished += 1
+    if (finished === count) {
+      done()
+    }
+  }
+
+  function buildBrowser(packageName, baseFolder) {
+    let packageJSON = require(baseFolder + '/package.json')
     let config = rollupConfig({
-      package: x
+      package: packageName
     })
 
-    let packageJSON = require(__dirname + '/packages/' + x + '/package.json')
     let deps = []
     if (packageJSON.dependencies) {
       deps = Object.keys(packageJSON.dependencies)
@@ -126,21 +147,50 @@ gulp.task('build', done => {
       return acc
     }, {})
 
-    let start = now()
-
-    rollup
+    return rollup
       .rollup(config)
       .then(bundle => {
         bundle.write(config)
+      })
+  }
 
-        let stop = now()
-        let dur = ((stop - start) / 1000).toFixed(2)
+  function buildNode(packageName, baseFolder) {
+    return new Promise((resolve, reject) => {
+      gulp.src(baseFolder + '/src/**/*.js')
+        .pipe(babel({
+          "presets": [
+            ["env", {
+              "targets": {
+                "node": "0.10"
+              }
+            }]
+          ]
+        }))
+        .pipe(gulp.dest(baseFolder + '/dist'))
+        .on('end', resolve)
+        .on('error', reject)
+    })
+  }
 
-        console.log(`[ ${dur}s ] ${x}`)
-        finished += 1
-        if (finished === count) {
-          done()
-        }
+  forEachPackage((x, count) => {
+    let baseFolder = __dirname + '/packages/' + x
+    let packageJSON = require(baseFolder + '/package.json')
+
+    startBuild(x)
+
+    let build
+    if (packageJSON.browser) {
+      build = buildBrowser(x, baseFolder)
+    } else {
+      build = buildNode(x, baseFolder)
+    }
+
+    build
+      .then(() => {
+        finishBuild(x, count)
+      })
+      .catch(e => {
+        console.error(e)
       })
   })
 })
