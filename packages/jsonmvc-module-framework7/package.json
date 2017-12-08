@@ -23,9 +23,9 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-framework7#readme",
   "dependencies": {
     "framework7": "^1.6.4",
-    "jsonmvc-helper-observer": "^0.2.5",
-    "jsonmvc-helper-stream": "^0.2.5",
+    "jsonmvc-helper-observer": "^0.3.6",
+    "jsonmvc-helper-stream": "^0.3.6",
     "lodash-es": "^4.17.4"
   },
-  "version": "0.2.5"
+  "version": "0.3.6"
 }

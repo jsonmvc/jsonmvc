@@ -24,8 +24,7 @@
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-schema#readme",
-  "devDependencies": {},
-  "version": "0.3.5",
+  "version": "0.3.6",
   "dependencies": {
     "ajv": "^5.5.1",
     "js-yaml": "^3.10.0",

@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-module-ui",
   "description": "A JSONMVC module for app ui management",
-  "version": "0.3.2",
+  "version": "0.3.6",
   "main": "dist/jsonmvc-module-ui.js",
   "browser": "dist/jsonmvc-module-ui.js",
   "repository": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-ui#readme",
   "dependencies": {
-    "jsonmvc-helper-stream": "^0.2.5",
+    "jsonmvc-helper-stream": "^0.3.6",
     "lodash-es": "^4.17.4",
     "most": "^1.6.1"
   }

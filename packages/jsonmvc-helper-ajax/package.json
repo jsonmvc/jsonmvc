@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-helper-ajax",
   "description": "Create an ajax request patch.",
-  "version": "0.2.5",
+  "version": "0.3.6",
   "main": "dist/jsonmvc-helper-ajax.js",
   "browser": "dist/jsonmvc-helper-ajax.js",
   "repository": {
@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-helper-ajax#readme",
   "dependencies": {
-    "jsonmvc-helper-guid": "^0.2.5"
+    "jsonmvc-helper-guid": "^0.3.6"
   }
 }

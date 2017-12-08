@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-util-changes",
   "description": "JSONMVC util for parsing changes",
-  "version": "0.2.15",
+  "version": "0.3.6",
   "main": "dist/jsonmvc-util-changes.js",
   "browser": "dist/jsonmvc-util-changes.js",
   "repository": {
@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-util-changes#readme",
   "dependencies": {
-    "jsonmvc-util-load": "^0.2.15"
+    "jsonmvc-util-load": "^0.3.6"
   }
 }

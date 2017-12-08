@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-module-fields",
   "description": "A JSONMVC module for dealing with form fields",
-  "version": "0.2.5",
+  "version": "0.3.6",
   "main": "dist/jsonmvc-module-fields.js",
   "browser": "dist/jsonmvc-module-fields.js",
   "repository": {

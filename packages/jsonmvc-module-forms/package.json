@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc-module-forms",
   "description": "A JSONMVC module for forms",
-  "version": "0.2.5",
+  "version": "0.3.6",
   "main": "dist/jsonmvc-module-forms.js",
   "browser": "dist/jsonmvc-module-forms.js",
   "repository": {
@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-module-forms#readme",
   "dependencies": {
-    "jsonmvc-helper-observer": "^0.2.5",
-    "jsonmvc-helper-stream": "^0.2.5",
+    "jsonmvc-helper-observer": "^0.3.6",
+    "jsonmvc-helper-stream": "^0.3.6",
     "lodash-es": "^4.17.4"
   }
 }
