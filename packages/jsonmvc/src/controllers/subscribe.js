@@ -8,7 +8,7 @@ function subscribe (db, controller) {
     } else if (x && !isArray(x)) {
       db.patch([x])
     } else {
-      console.warn(`Controller ${controller.name} did not return a patch`)
+      // console.warn(`Controller ${controller.name} did not return a patch`)
     }
   }
   return controller.result.subscribe({
