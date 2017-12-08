@@ -1,0 +1,31 @@
+{
+  "name": "jsonmvc-schema",
+  "description": "The jsonmvc schema parser",
+  "main": "dist/jsonmvc-schema.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jsonmvc/jsonmvc.git"
+  },
+  "keywords": [
+    "json",
+    "data",
+    "schema",
+    "dynamic",
+    "immutable",
+    "jsonmvc",
+    "mvc",
+    "framework",
+    "functional",
+    "architecture"
+  ],
+  "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsonmvc/jsonmvc/issues"
+  },
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-schema#readme",
+  "devDependencies": {
+    "json-schema-deref": "^0.4.0"
+  },
+  "version": "0.3.5"
+}

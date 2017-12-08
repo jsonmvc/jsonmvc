@@ -1,0 +1,14 @@
+foo:
+  $ref: 'file:types/meta.yml#properties/foo'
+bar:
+  $ref: 'file:nested/collection/bar.yml'
+baz:
+  $ref: 'file:nested/collection/baz.json#baz'
+users:
+  type: object
+  patternProperties:
+    "^[A-Za-z0-9]+$":
+      type: object
+      properties:
+        name:
+          type: string

@@ -23,7 +23,8 @@ module.exports = config => {
       // }),
       nodeResolve({
         jsnext: true,
-        main: true
+        main: true,
+        browser: true
       }),
       json(),
       alias({

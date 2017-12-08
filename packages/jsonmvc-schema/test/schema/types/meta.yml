@@ -1,0 +1,8 @@
+type: object
+properties:
+  foo:
+    type: object
+    properties:
+      bar:
+        type: string
+        value: 123
