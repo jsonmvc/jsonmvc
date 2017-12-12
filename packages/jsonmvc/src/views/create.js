@@ -8,7 +8,7 @@ import createDataListener from './createDataListener'
 import updateInstanceData from './updateInstanceData'
 import guid from 'jsonmvc-helper-guid'
 
-const PROP_REGEX = /<([a-z]+)>/g
+const PROP_REGEX = /<([a-zA-Z0-9]+)>/g
 
 function createView (db, view, siblings) {
   let observer
