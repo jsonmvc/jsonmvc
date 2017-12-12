@@ -1,7 +1,7 @@
-import resolveSchema from './fns/resolveSchema'
+import deref from 'json-schema-ref-parser'
 
 function loadSchema(file) {
-  return resolveSchema(file)
+  return deref.dereference(file)
   .then((schema) => {
     return {
       schema

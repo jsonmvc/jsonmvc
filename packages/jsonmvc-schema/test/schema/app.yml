@@ -1,9 +1,11 @@
 foo:
-  $ref: 'file:types/meta.yml#properties/foo'
+  $ref: types/meta.yml
 bar:
-  $ref: 'file:nested/collection/bar.yml'
+  $ref: nested/collection/bar.yml
 baz:
-  $ref: 'file:nested/collection/baz.json#baz'
+  $ref: nested/collection/baz.json
+boo:
+  $ref: nested/collection/boo.yml
 users:
   type: object
   patternProperties:
