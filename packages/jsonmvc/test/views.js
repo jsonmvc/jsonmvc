@@ -42,8 +42,8 @@ it('it should allow recursive args paths', () => {
   app.views.push({
     name: 'app',
     args: {
-      baz: '/baz/path',
-      bam: '<baz>'
+      bam: '<baz>',
+      baz: '/baz/path'
     },
     template: `
       <div>

@@ -151,6 +151,22 @@ function createView (db, view, siblings) {
     instance: null
   }
 
+  let orderedArgs = []
+
+  Object.keys(view.args).forEach(x => {
+    let select = false
+    view.args[x].replace(PROP_REGEX, (a, b, c, d) => {
+      if (view.args[b]) {
+        select = true 
+      }
+    })
+    if (select) {
+      orderedArgs.push(x)
+    } else {
+      orderedArgs.unshift(x)
+    }
+  })
+
   component.component = Vue.component(view.name, {
     template: view.template,
     mounted: function () {
@@ -210,7 +226,7 @@ function createView (db, view, siblings) {
       let data = self.__JSONMVC_DATA
       self.paths = {}
 
-      Object.keys(view.args).forEach(x => {
+      orderedArgs.forEach(x => {
         let path = getPath(view.args, props, self, x)
         self.paths[x] = path
 
