@@ -80,7 +80,7 @@ function createView (db, view, siblings) {
   // Find all required props
   props.required = Object.keys(view.args).reduce((acc, x) => {
     view.args[x].replace(PROP_REGEX, (a, b, c, d) => {
-      if (acc.indexOf(b) === -1) {
+      if (acc.indexOf(b) === -1 && !view.args[b]) {
         acc.push(b)
       }
     })
@@ -208,9 +208,11 @@ function createView (db, view, siblings) {
 
       let props = self.__JSONMVC_PROPS
       let data = self.__JSONMVC_DATA
+      self.paths = {}
 
       Object.keys(view.args).forEach(x => {
         let path = getPath(view.args, props, self, x)
+        self.paths[x] = path
 
         let listener = createDataListener(db, path, data, x)
 

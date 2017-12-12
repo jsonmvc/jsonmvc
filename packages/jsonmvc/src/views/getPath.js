@@ -5,7 +5,13 @@ function getPath (schema, props, instance, prop) {
 
   // The path can have multiple props required
   usedProps.forEach(y => {
-    path = path.replace(new RegExp(props.schema.tokens[y].token, 'g'), instance[y])
+    let val
+    if (instance.paths && instance.paths[y]) {
+      val = db.get(instance.paths[y])
+    } else {
+      val = instance[y]
+    }
+    path = path.replace(new RegExp(props.schema.tokens[y].token, 'g'), val);
   })
 
   return path
