@@ -1,0 +1,23 @@
+type: object
+properties:
+  foo:
+    type: object
+    properties: 
+
+      bar:
+        type: object
+        properties:
+          baz:
+            type: integer
+
+      fields:
+        type: object
+        properties:
+          bar:
+            type: object
+            properties:
+              baz:
+                type: object
+                default:
+                  placeholder: Placeholder for baz
+                  label: Label for baz

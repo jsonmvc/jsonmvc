@@ -6,7 +6,7 @@ import fieldErrorModel from './fieldErrorModel'
 
 // Fields are organizated as so:
 // [entity]/[ns]/[field]
-function addValidation(schema, data) {
+function buildValidation(schema, data) {
   let files = {}
   Object.keys(data).forEach(id => {
     let entity = data[id]
@@ -25,7 +25,7 @@ function addValidation(schema, data) {
             fields[fieldName].valuePath = `/${id}/action/data/${ns}/${fieldName}`
             fields[fieldName].submitPath = `/${id}/action/submit`
             let fieldSchema = get(schema, `properties.${id}.properties.${ns}.properties.${fieldName}`)
-            files[`./models/${id}/action/${ns}/${fieldName}/error`] = fieldErrorModel(id, ns, fieldName, fieldSchema)
+            files[`./models/${id}/action/data/${ns}/${fieldName}/error`] = fieldErrorModel(id, ns, fieldName, fieldSchema)
           })
         }
       })
@@ -50,4 +50,4 @@ function addValidation(schema, data) {
   return files
 }
 
-export default addValidation
+export default buildValidation

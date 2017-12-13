@@ -1,3 +1,4 @@
+import Ajv from 'ajv'
 
 function validationModel(id, schema) {
   return {
@@ -18,7 +19,7 @@ function validationModel(id, schema) {
 
       let result = ajv.validate(schema, data)
 
-      if (!result) {
+      if (!result && ajv.errors) {
         return ajv.errors
       } else {
         return

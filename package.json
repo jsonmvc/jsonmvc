@@ -42,6 +42,7 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc#readme",
   "dependencies": {
     "@fdaciuk/ajax": "^2.3.0",
+    "json-schema-defaults": "^0.3.0",
     "jsonmvc-db": "^0.6.11",
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
     "most": "^1.6.2",
@@ -70,6 +71,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "jest": "^21.2.1",
+    "json-schema-resolve-allof": "^1.2.0",
     "lerna": "^2.0.0",
     "lodash-es": "^4.17.4",
     "performance-now": "^2.1.0",

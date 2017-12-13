@@ -16,8 +16,8 @@ function fieldErrorModel(id, ns, field, schema) {
       let ajv = new Ajv()
       let result = ajv.validate(schema, data)
 
-      if (!result) {
-        return ajv.errors
+      if (!result && ajv.errors) {
+        return ajv.errors[0]
       } else {
         return
       }

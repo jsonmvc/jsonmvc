@@ -1,14 +1,14 @@
 import buildSchema from './fns/buildSchema'
-import addValidation from './fns/addValidation'
+import buildValidation from './fns/buildValidation'
 
 const mod = {
   buildSchema,
-  addValidation
+  buildValidation
 }
 
 export {
   buildSchema,
-  addValidation
+  buildValidation
 }
 
 export default mod
