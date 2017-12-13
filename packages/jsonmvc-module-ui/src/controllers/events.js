@@ -8,12 +8,14 @@ import {
   numberRegExpStr,
   textRegExpStr,
   objRegExpStr,
+  arrayRegExpStr,
   htmlAttrRegExpStr,
   pathOptRegExpStr
 } from './../fns/parsePatch'
 
 const numberRegExp = new RegExp('^' + numberRegExpStr + '$', 'g')
 const objRegExp = new RegExp('^' + objRegExpStr, 'g')
+const arrayRegExp = new RegExp('^' + arrayRegExpStr, 'g')
 const textRegExp = new RegExp('^' + textRegExpStr + '$', 'g')
 const htmlAttrRegExp = new RegExp('^' + htmlAttrRegExpStr + '$', 'g')
 const pathRegExp = new RegExp('^' + pathOptRegExpStr + '$', 'g')
@@ -67,13 +69,14 @@ const controller = {
 
         let match = {
           obj: x.value.match(objRegExp) !== null,
+          array: x.value.match(arrayRegExp) !== null,
           htmlAttr: x.value.match(htmlAttrRegExp) !== null,
           path: x.value.match(pathRegExp) !== null,
           text: x.value.match(textRegExp) !== null,
           number: x.value.match(numberRegExp) !== null
         }
 
-        if (match.obj) {
+        if (match.obj || match.array) {
           try {
             x.value = JSON.parse(x.value)
           } catch (e) {

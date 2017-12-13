@@ -68,6 +68,11 @@ it('should init properly', () => {
       path: '/foo4',
       value: 'attr.value'
     }],
+    array: [{
+      op: 'add',
+      path: '/foo10',
+      value: [1, 'a', { foo: 123 }, [1, 'a', { bar: []}]]
+    }],
     object: [{
       op: 'add',
       path: '/foo5',

@@ -12,6 +12,8 @@ function stringifyPatch(x) {
         acc += ` ${z.value}`
       } else if (type === 'object') {
         acc += ` ${JSON.stringify(z.value)}`
+      } else if (type === 'array') {
+        acc += ` ${JSON.stringify(z.value)}`
       }
     }
 

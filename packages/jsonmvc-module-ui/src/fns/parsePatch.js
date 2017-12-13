@@ -4,6 +4,7 @@ let separator = '\\s+'
 let pathRegExpStr = '([\\/[a-zA-Z0-9]+)'
 let pathOptRegExpStr = '(?:\\/[\\/[a-zA-Z0-9]+)'
 let objRegExpStr = `(?:{.+?(?=}\s*(;|$)))`
+let arrayRegExpStr = `(?:\\[.+?(?=\\]\s*(;|$)))`
 let numberRegExpStr = `(?:-?(?:(?:[1-9]\\d*)|0)\\.?\\d*)`
 let textRegExpStr = `(?:'.*?')|(?:".*?")` 
 let htmlAttrRegExpStr = `(?:attr\.[^\\t\\n\\f\\s\\/>"'=]+)`
@@ -16,7 +17,7 @@ let patchReg =
   + pathRegExpStr
   + '(?:'
     + separator
-    + '(' + pathOptRegExpStr + '|' + htmlAttrRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
+    + '(' + pathOptRegExpStr + '|' + arrayRegExpStr + '|' + htmlAttrRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
   + ')?'
 
 function parsePatch(x) {
@@ -42,6 +43,8 @@ function parsePatch(x) {
 // regexp selection, until then this is a hack
       if (patch.value[0] === '{') {
         patch.value += '}'
+      } else if (patch.value[0] === '[') {
+        patch.value += ']'
       }
     }
 
@@ -54,6 +57,7 @@ function parsePatch(x) {
 
 export { objRegExpStr }
 export { htmlAttrRegExpStr }
+export { arrayRegExpStr }
 export { numberRegExpStr }
 export { textRegExpStr }
 export { pathOptRegExpStr }
