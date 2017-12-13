@@ -8,14 +8,14 @@ import {
   numberRegExpStr,
   textRegExpStr,
   objRegExpStr,
-  htmlPropRegExpStr,
+  htmlAttrRegExpStr,
   pathOptRegExpStr
 } from './../fns/parsePatch'
 
 const numberRegExp = new RegExp('^' + numberRegExpStr + '$', 'g')
 const objRegExp = new RegExp('^' + objRegExpStr, 'g')
 const textRegExp = new RegExp('^' + textRegExpStr + '$', 'g')
-const htmlPropRegExp = new RegExp('^' + htmlPropRegExpStr + '$', 'g')
+const htmlAttrRegExp = new RegExp('^' + htmlAttrRegExpStr + '$', 'g')
 const pathRegExp = new RegExp('^' + pathOptRegExpStr + '$', 'g')
 
 const controller = {
@@ -67,7 +67,7 @@ const controller = {
 
         let match = {
           obj: x.value.match(objRegExp) !== null,
-          htmlProp: x.value.match(htmlPropRegExp) !== null,
+          htmlAttr: x.value.match(htmlAttrRegExp) !== null,
           path: x.value.match(pathRegExp) !== null,
           text: x.value.match(textRegExp) !== null,
           number: x.value.match(numberRegExp) !== null
@@ -80,8 +80,8 @@ const controller = {
             console.error('Tried to JSON.parse ', value, ' from the patch ', x, ' and got ', e)
             throw e
           }
-        } else if (match.htmlProp) {
-          let prop = x.value.substr(1, x.value.length - 2)
+        } else if (match.htmlAttr) {
+          let prop = x.value.replace(/^attr\./, '')
           x.value = getValue(el, prop)
         } else if (match.path) {
           x.value = lib.get(x.value)

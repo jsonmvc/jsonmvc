@@ -51,7 +51,7 @@ it('should init properly', () => {
     text: [{
       op: 'add',
       path: '/foo1',
-      value: 'Sample text !@#$%^&*(+"'
+      value: '\'Sample text !@#$%^&*(+"\''
     }],
     number: [{
       op: 'add',
@@ -61,12 +61,12 @@ it('should init properly', () => {
     htmlAttribute: [{
       op: 'add',
       path: '/foo3',
-      value: '[name]'
+      value: 'attr.name'
     }],
     htmlValueAttribute: [{
       op: 'add',
       path: '/foo4',
-      value: '[value]'
+      value: 'attr.value'
     }],
     object: [{
       op: 'add',
@@ -144,10 +144,12 @@ it('should init properly', () => {
         let removedPaths = []
         patch.reverse().forEach(y => {
           if (['add', 'replace'].indexOf(y.op) !== -1 && removedPaths.indexOf(y.path) === -1) {
-            if (y.value[0] === '[') {
+            if (/^attr\./.test(y.value)) {
               expect(db.get(y.path)).toBe(x)
             } else if (y.value[0] === '/') {
               expect(db.get(y.path)).toBe(db.get(y.value))
+            } else if (typeof y.value === 'string') {
+              expect(db.get(y.path)).toEqual(y.value.replace(/^'/, '').replace(/'$/, ''))
             } else {
               expect(db.get(y.path)).toEqual(y.value)
             }

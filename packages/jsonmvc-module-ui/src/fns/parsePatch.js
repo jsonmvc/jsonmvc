@@ -6,7 +6,7 @@ let pathOptRegExpStr = '(?:\\/[\\/[a-zA-Z0-9]+)'
 let objRegExpStr = `(?:{.+?(?=}\s*(;|$)))`
 let numberRegExpStr = `(?:-?(?:(?:[1-9]\\d*)|0)\\.?\\d*)`
 let textRegExpStr = `(?:'.*?')|(?:".*?")` 
-let htmlPropRegExpStr = `(?:\\[[^\\t\\n\\f\\s\\/>"'=]+\\])`
+let htmlAttrRegExpStr = `(?:attr\.[^\\t\\n\\f\\s\\/>"'=]+)`
 
 // @TODO: Split the remove patch test in another regex
 // so that we can find precise matches for update operations
@@ -16,7 +16,7 @@ let patchReg =
   + pathRegExpStr
   + '(?:'
     + separator
-    + '(' + pathOptRegExpStr + '|' + htmlPropRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
+    + '(' + pathOptRegExpStr + '|' + htmlAttrRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
   + ')?'
 
 function parsePatch(x) {
@@ -53,7 +53,7 @@ function parsePatch(x) {
 
 
 export { objRegExpStr }
-export { htmlPropRegExpStr }
+export { htmlAttrRegExpStr }
 export { numberRegExpStr }
 export { textRegExpStr }
 export { pathOptRegExpStr }
