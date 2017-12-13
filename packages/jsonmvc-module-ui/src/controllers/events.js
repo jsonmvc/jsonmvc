@@ -80,7 +80,7 @@ const controller = {
           try {
             x.value = JSON.parse(x.value)
           } catch (e) {
-            console.error('Tried to JSON.parse ', value, ' from the patch ', x, ' and got ', e)
+            console.error('Tried to JSON.parse ', x.value, ' from the patch ', x, ' and got ', e)
             throw e
           }
         } else if (match.htmlAttr) {
