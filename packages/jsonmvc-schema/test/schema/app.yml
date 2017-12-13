@@ -14,3 +14,15 @@ users:
       properties:
         name:
           type: string
+collection:
+  allOf:
+  - $ref: types/meta.yml
+  - $ref: nested/collection/bar.yml
+  - type: object
+    properties:
+      bam:
+        type: integer
+
+other:
+  type: integer
+  default: __SAMPLE_PLACEHOLDER__

@@ -1,3 +1,4 @@
+---
 foo:
   type: object
   properties:
@@ -23,3 +24,17 @@ users:
       properties:
         name:
           type: string
+collection:
+  type: object
+  properties:
+    foo:
+      type: object
+      properties:
+        bar:
+          type: string
+          value: 123
+    bam:
+      type: integer
+other:
+  type: integer
+  default: 123

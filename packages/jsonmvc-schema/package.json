@@ -26,11 +26,11 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-schema#readme",
   "version": "0.3.7",
   "dependencies": {
-    "ajv": "^5.5.1",
     "js-yaml": "^3.10.0",
-    "json-schema-deref": "^0.4.0"
+    "json-schema-resolve-allof": "^1.2.0"
   },
   "devDependencies": {
+    "ajv": "^5.5.1",
     "json-schema-ref-parser": "^4.0.4"
   }
 }

@@ -1,15 +1,18 @@
-import deref from 'json-schema-ref-parser'
+import buildSchema from './fns/buildSchema'
+import addValidation from './fns/addValidation'
 
-function loadSchema(file) {
-  return deref.dereference(file)
-  .then((schema) => {
-    return {
-      schema
-    }
-  })
+const mod = {
+  buildSchema,
+  addValidation
 }
 
-export default loadSchema
-module.exports = loadSchema
+export {
+  buildSchema,
+  addValidation
+}
+
+export default mod
+
+module.exports = mod
 
 // loadSchema(__dirname + '/../test/schema/app.yml')
