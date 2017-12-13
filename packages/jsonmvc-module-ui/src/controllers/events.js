@@ -57,7 +57,13 @@ const controller = {
 
       let str = el.getAttribute('data-patch')
 
-      let patches = parsePatch(str)
+      let patches
+      try {
+        patches = parsePatch(str)
+      } catch (e) {
+        console.error('Patch parse error', e)
+        return []
+      }
 
       // Parse and convert the value
       patches = patches.map(x => {
@@ -93,7 +99,7 @@ const controller = {
         } else if (match.number) {
           x.value = parseFloat(x.value)
         } else {
-          throw new Error('Patch value not recognized "' + x.value + '". It should start and end with {..}, [..], \'..\', "..", or be a number')
+          console.error('Patch value not recognized "' + x.value + '". It should start and end with {..}, [..], \'..\', "..", or be a number')
         }
 
         return x
@@ -101,6 +107,7 @@ const controller = {
 
       return patches
     })
+    .filter(x => x && x.length > 0)
 
 // @TODO: Timestamp events by their exact time relative to the /time/ms time
 // in order to avoid having two events at the same timestamp but in reality they
