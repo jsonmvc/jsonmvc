@@ -17,7 +17,6 @@ if(__DEV__) {
 
 jest.useFakeTimers()
 
-/*
 it('should compose a nested schema', () => {
   let placeholders = {
     '__SAMPLE_PLACEHOLDER__': 123
@@ -29,7 +28,6 @@ it('should compose a nested schema', () => {
     throw e
   })
 })
-*/
 
 
 it('should create models for fields', () => {

@@ -1,5 +1,5 @@
-import cloneDeep from 'lodash-es/cloneDeep'
-import get from 'lodash-es/get'
+import cloneDeep from 'lodash/cloneDeep'
+import get from 'lodash/get'
 
 import validationModel from './validationModel'
 import fieldErrorModel from './fieldErrorModel'
