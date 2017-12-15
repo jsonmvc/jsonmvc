@@ -9,7 +9,7 @@ function fieldErrorModel(id, ns, field, schema) {
       submit: `/${id}/action/submit`
     },
     fn: ({ data, submit }) => {
-      if (!data && !submit) {
+      if ((data == undefined || data === '') && !submit) {
         return
       }
 
