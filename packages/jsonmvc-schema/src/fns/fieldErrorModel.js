@@ -5,11 +5,10 @@ function fieldErrorModel(id, ns, field, schema) {
     name: `/${id}/action/data/${ns}/${field}/error`,
     path: `/${id}/action/data/${ns}/${field}/error`,
     args: {
-      data: `/${id}/action/data/${ns}/${field}/value`,
-      submit: `/${id}/action/submit`
+      data: `/${id}/action/data/${ns}/${field}/value`
     },
     fn: ({ data, submit }) => {
-      if ((data == undefined || data === '') && !submit) {
+      if ((data == undefined || data === '')) {
         return
       }
 
