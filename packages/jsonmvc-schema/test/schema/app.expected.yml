@@ -35,6 +35,8 @@ collection:
           value: 123
     bam:
       type: integer
+    baz:
+      type: number
 other:
   type: integer
   default: 123

@@ -27,7 +27,7 @@
   "version": "0.3.15",
   "dependencies": {
     "js-yaml": "^3.10.0",
-    "json-schema-resolve-allof": "^1.2.0"
+    "json-schema-resolve-allof": "github:dumconstantin/json-schema-resolve-allof#recursive-allOf"
   },
   "devDependencies": {
     "ajv": "^5.5.1",

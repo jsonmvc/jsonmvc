@@ -23,12 +23,12 @@ it('should compose a nested schema', () => {
   }
   return lib.buildSchema(__dirname + '/schema/app.yml', placeholders).then(x => {
     let expectedSchema = yaml.safeLoad(fs.readFileSync(__dirname + '/schema/app.expected.yml', 'utf-8'))
+
     expect(x).toEqual(expectedSchema)
   }).catch(e => {
     throw e
   })
 })
-
 
 it('should create models for fields', () => {
   let schema = yaml.safeLoad(fs.readFileSync(__dirname + '/schema/fields.schema.yml', 'utf-8'))

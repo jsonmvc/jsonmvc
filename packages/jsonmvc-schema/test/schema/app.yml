@@ -19,6 +19,10 @@ collection:
   - $ref: types/meta.yml
   - $ref: nested/collection/bar.yml
   - type: object
+    allOf:
+    - properties:
+        baz:
+          type: number
     properties:
       bam:
         type: integer
