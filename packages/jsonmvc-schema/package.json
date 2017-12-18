@@ -24,7 +24,7 @@
     "url": "https://github.com/jsonmvc/jsonmvc/issues"
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc-schema#readme",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "dependencies": {
     "js-yaml": "^3.10.0",
     "json-schema-resolve-allof": "github:dumconstantin/json-schema-resolve-allof#recursive-allOf"
