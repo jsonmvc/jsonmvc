@@ -6,6 +6,9 @@ Use http://www.collectionsjs.com/ for optimized arrays/objects
 Use https://github.com/montagejs/mop for inspiration on creating ` jsonmvc build `.
 Great info!
 
+Update setup:
+https://hackernoon.com/one-vs-many-why-we-moved-from-multiple-git-repos-to-a-monorepo-and-how-we-set-it-up-f4abb0cfe469
+
 ---
 
 The JSONMVC instance is just a hub for a plug and play plugins.
