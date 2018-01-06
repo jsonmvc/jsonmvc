@@ -8,7 +8,7 @@ function fieldErrorModel(id, ns, field, schema) {
       data: `/${id}/action/data/${ns}/${field}/value`
     },
     fn: ({ data, submit }) => {
-      if ((data == undefined || data === '')) {
+      if (data == undefined) {
         return
       }
 
