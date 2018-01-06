@@ -33,7 +33,11 @@ function validationModel(id, schema) {
             let parts = path.split('.')
             parts.shift()
 
-            let cur = acc
+            if (!acc[x.keyword]) {
+              acc[x.keyword] = {}
+            }
+
+            let cur = acc[x.keyword]
             let part = parts.shift()
             while (parts.length) {
               if (!cur[part]) {
