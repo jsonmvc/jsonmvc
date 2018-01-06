@@ -34,12 +34,13 @@ function validationModel(id, schema) {
             parts.shift()
 
             let cur = acc
-            let part
+            let part = parts.shift()
             while (parts.length) {
-              part = parts.shift()
               if (!cur[part]) {
                 cur[part] = {}
               }
+              cur = cur[part]
+              part = parts.shift()
             }
             cur[part] = x.message.replace(x.dataPath, part)
             return acc
