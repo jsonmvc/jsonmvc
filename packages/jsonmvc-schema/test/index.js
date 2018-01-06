@@ -70,7 +70,7 @@ it('should create models for fields', () => {
   }])
   jest.runOnlyPendingTimers()
 
-  expect(db.get(errors).length).toBe(1)
+  expect(db.get(errors).count).toBe(1)
 
   db.patch([{
     op: 'add',
