@@ -32,13 +32,20 @@ function buildValidation(schema, data) {
 
       Object.keys(validationSchema.properties).forEach(ns => {
         if (validationSchema.properties[ns] && validationSchema.properties[ns].properties) {
+          let required = validationSchema.properties[ns].required || []
           Object.keys(validationSchema.properties[ns].properties).forEach(fieldName => {
-            validationSchema.properties[ns].properties[fieldName] = {
+            let newField = {
               type: 'object',
               properties: {
                 value: validationSchema.properties[ns].properties[fieldName]
               }
             }
+
+            if (required.indexOf(fieldName) !== -1) {
+              newField.required = ['value']
+            }
+
+            validationSchema.properties[ns].properties[fieldName] = newField
           })
         }
       })
