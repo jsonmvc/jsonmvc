@@ -42,7 +42,12 @@ function createViews (db, views) {
   // Define deps
   let deps = reduce(names, (acc, name) => {
     acc[name] = names.filter(x => {
-      return new RegExp(`</${x}>`).test(byNames[name].el)
+      let el = byNames[name].el
+      if (el) {
+        return el.indexOf(`</${x}>`) !== -1
+      } else {
+        return false
+      }
     })
     return acc
   }, {})
