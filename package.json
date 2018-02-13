@@ -42,7 +42,7 @@
   "homepage": "https://github.com/jsonmvc/jsonmvc#readme",
   "dependencies": {
     "@fdaciuk/ajax": "^2.3.0",
-    "json-schema-defaults": "^0.3.0",
+    "json-schema-defaults": "^0.4.0",
     "jsonmvc-db": "^0.6.11",
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
     "most": "^1.6.2",
