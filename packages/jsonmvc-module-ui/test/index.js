@@ -43,6 +43,11 @@ it('should init properly', () => {
   })
 
   let patches = {
+    arrayPatch: [{
+      op: 'add',
+      path: '/bar/-',
+      value: 123
+    }],
     dbPath: [{
       op: 'add',
       path: '/foo/a',
