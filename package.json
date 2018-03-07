@@ -6,7 +6,7 @@
   },
   "scripts": {
     "test": "jest -c jest.src.json",
-    "test:snyk": "snyk test",
+    "test:snyk": "echo \"snyk test; off for now\"",
     "test:dist": "jest -c jest.dist.json",
     "test:full": "npm run clean && npm run build:modules && npm run build && npm run test:snyk && npm test && npm run test:dist",
     "test-on-travis": "npm run build:modules && npm run build && npm test && cat ./coverage/lcov.info | ./node_modules/.bin/codecov && npm run test:dist",

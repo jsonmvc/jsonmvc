@@ -4,7 +4,7 @@ function stringifyPatch(x) {
   x = x.reduce((acc, z, i) => {
     acc += `${z.op} ${z.path}`
 
-    if (z.value) {
+    if (z.value !== undefined) {
       let type = typeof z.value 
       if (type === 'string') {
         acc += ` ${z.value}`
@@ -14,6 +14,8 @@ function stringifyPatch(x) {
         acc += ` ${JSON.stringify(z.value)}`
       } else if (type === 'array') {
         acc += ` ${JSON.stringify(z.value)}`
+      } else if (type === 'boolean') {
+        acc += z.value === true ? ` true` : ` false`
       }
     }
 

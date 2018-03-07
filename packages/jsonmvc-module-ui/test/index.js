@@ -53,6 +53,15 @@ it('should init properly', () => {
       path: '/foo1',
       value: '\'Sample text !@#$%^&*(+"\''
     }],
+    boolean: [{
+      op: 'add',
+      path: '/foot',
+      value: true
+    }, {
+      op: 'add',
+      path: '/foof',
+      value: false
+    }],
     number: [{
       op: 'add',
       path: '/foo2',

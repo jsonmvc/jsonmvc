@@ -1,5 +1,5 @@
 
-function getValue (el, prop) {
+function getValue(el, prop) {
   let val
   
   if (prop === 'value') {

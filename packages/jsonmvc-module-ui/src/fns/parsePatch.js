@@ -7,6 +7,7 @@ let objRegExpStr = `(?:{.+?(?=}\s*(;|$)))`
 let arrayRegExpStr = `(?:\\[.+?(?=\\]\s*(;|$)))`
 let numberRegExpStr = `(?:-?(?:(?:[1-9]\\d*)|0)\\.?\\d*)`
 let textRegExpStr = `(?:'.*?')|(?:".*?")` 
+let booleanRegExpStr = `(?:true|false)` 
 let htmlAttrRegExpStr = `(?:attr\.[^\\t\\n\\f\\s\\/>"'=]+)`
 
 // @TODO: Split the remove patch test in another regex
@@ -17,7 +18,7 @@ let patchReg =
   + pathRegExpStr
   + '(?:'
     + separator
-    + '(' + pathOptRegExpStr + '|' + arrayRegExpStr + '|' + htmlAttrRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + ')'
+    + '(' + pathOptRegExpStr + '|' + arrayRegExpStr + '|' + htmlAttrRegExpStr + '|' + textRegExpStr + '|' + numberRegExpStr + '|' + objRegExpStr + '|' + booleanRegExpStr + ')'
   + ')?'
 
 function parsePatch(x) {
@@ -26,6 +27,7 @@ function parsePatch(x) {
 
   let found
   let results = []
+
   while ((found = reg.exec(x)) !== null) {
     let op = found[1]
     let path = found[2]
@@ -56,6 +58,7 @@ function parsePatch(x) {
 
 
 export { objRegExpStr }
+export { booleanRegExpStr }
 export { htmlAttrRegExpStr }
 export { arrayRegExpStr }
 export { numberRegExpStr }
