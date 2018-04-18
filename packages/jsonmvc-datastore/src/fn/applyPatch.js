@@ -187,7 +187,7 @@ function applyPatch(db, patch, shouldClone) {
       case 'remove':
         if (objIsArray) {
           obj.splice(last, 1)
-        } else {
+        } else if (obj) {
           delete obj[last]
         }
       break
