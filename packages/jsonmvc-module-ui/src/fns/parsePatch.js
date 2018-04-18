@@ -6,12 +6,8 @@ let pathOptRegExpStr = '(?:\\/[\\/[a-zA-Z0-9]+)'
 let objRegExpStr = `(?:{.+?(?=}\s*(;|$)))`
 let arrayRegExpStr = `(?:\\[.+?(?=\\]\s*(;|$)))`
 let numberRegExpStr = `(?:-?(?:(?:[1-9]\\d*)|0)\\.?\\d*)`
-<<<<<<< HEAD
 let textRegExpStr = `(?:'.*?')|(?:".*?")` 
 let booleanRegExpStr = `(?:true|false)` 
-=======
-let textRegExpStr = `(?:'.*?')|(?:".*?")`
->>>>>>> 872dbe185ae4391dfabe768928cfce008176db46
 let htmlAttrRegExpStr = `(?:attr\.[^\\t\\n\\f\\s\\/>"'=]+)`
 
 // @TODO: Split the remove patch test in another regex
