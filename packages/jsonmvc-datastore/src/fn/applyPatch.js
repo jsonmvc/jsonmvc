@@ -103,7 +103,9 @@ function applyPatch(db, patch, shouldClone) {
         obj = obj[part]
       } else {
         obj = obj[part]
-        if (!obj) {
+        if (!obj && x.op === 'remove') {
+          continue root
+        } else if (!obj) {
           revert = i
           break root
         }
@@ -112,6 +114,7 @@ function applyPatch(db, patch, shouldClone) {
       delete cachePaths[path]
       clearDynamic(cachePaths, cacheDynamic, decomposed, staticDeps, path)
     }
+
 
     last = parts[parts.length - 1]
 

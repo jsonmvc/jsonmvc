@@ -607,7 +607,10 @@
   patch:
   - op: remove
     path: "/baz/1e0/qux"
-  error: remove op shouldn't remove from array with bad number
+  expected:
+    foo: 1
+    baz:
+    - qux: hello
 
 - comment: test remove on array
   doc:
@@ -932,6 +935,20 @@
   expected:
     foo: [123]
     bar: 321
+
+
+- comment: should not error when removing inexisting elements
+  doc: {}
+  patch:
+  - op: remove
+    path: /foo/bar/baz
+  - op: add
+    path: /bam/boo
+    value: 123
+  expected:
+    bam:
+      boo: 123
+
 
 #TODO:
 # replace /items/0 does not update the array instead is doing a shift
