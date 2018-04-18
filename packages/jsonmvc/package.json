@@ -1,7 +1,7 @@
 {
   "name": "jsonmvc",
   "description": "The JSONMVC Framework",
-  "version": "0.3.27",
+  "version": "0.3.28",
   "main": "dist/jsonmvc.js",
   "browser": "dist/jsonmvc.js",
   "repository": {
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc#readme",
   "dependencies": {
-    "jsonmvc-datastore": "^0.3.27",
+    "jsonmvc-datastore": "^0.3.28",
     "jsonmvc-helper-guid": "^0.3.6",
     "lodash-es": "^4.17.4",
     "most": "^1.6.1",
