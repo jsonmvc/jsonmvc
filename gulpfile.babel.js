@@ -129,6 +129,8 @@ gulp.task('build', done => {
     }
   }
 
+  const rollupAnalyzer = require('rollup-analyzer')({limit: 5})
+
   function buildBrowser(packageName, baseFolder) {
     let packageJSON = require(baseFolder + '/package.json')
     let config = rollupConfig({
@@ -150,6 +152,7 @@ gulp.task('build', done => {
     return rollup
       .rollup(config)
       .then(bundle => {
+        rollupAnalyzer.formatted(bundle).then(console.log).catch(console.error)
         bundle.write(config)
       })
   }
