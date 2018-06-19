@@ -1,13 +1,6 @@
 
-import isEqual from 'lodash-es/isEqual'
-import flatten from 'lodash-es/flatten'
-import isNumber from 'lodash-es/isNumber'
-import isArray from 'lodash-es/isArray'
-import isPlainObject from 'lodash-es/isPlainObject'
-import merge from 'lodash-es/merge'
 import splitPath from './splitPath'
 import decomposePath from './decomposePath'
-import clone from 'lodash-es/cloneDeep'
 import triggerListener from './triggerListener'
 import pathTriggers from './pathTriggers'
 
@@ -133,11 +126,11 @@ function applyPatch(db, patch, shouldClone) {
       lastFrom = parts[parts.length - 1]
     }
 
-    if (isArray(obj)) {
+    if (_.isArray(obj)) {
       objIsArray = true
       if (last === '-') {
         last = obj.length
-      } else if (!isNumber(last)) {
+      } else if (!_.isNumber(last)) {
         // Must be a number, else what's the point in
         // trying to cast it to one?
         let initial = last
@@ -154,11 +147,11 @@ function applyPatch(db, patch, shouldClone) {
       }
     }
 
-    if (isArray(from)) {
+    if (_.isArray(from)) {
       fromIsArray = true
       if (lastFrom === '-') {
         lastFrom = from.length - 1
-      } else if (!isNumber(lastFrom)) {
+      } else if (!_.isNumber(lastFrom)) {
         // Must be a number, else what's the point in
         // trying to cast it to one?
         let initial = lastFrom
@@ -181,9 +174,9 @@ function applyPatch(db, patch, shouldClone) {
       case 'replace':
 
         if (objIsArray) {
-          obj.splice(last, 0, shouldClone ? clone(xValue) : xValue)
-        } else if (isPlainObject(obj)) {
-          obj[last] = shouldClone ? clone(xValue) : xValue
+          obj.splice(last, 0, shouldClone ? _.cloneDeep(xValue) : xValue)
+        } else if (_.isPlainObject(obj)) {
+          obj[last] = shouldClone ? _.cloneDeep(xValue) : xValue
         }
       break
 
@@ -202,8 +195,8 @@ function applyPatch(db, patch, shouldClone) {
 
         if (x.op === 'move') {
           delete from[lastFrom]
-        } else if (isPlainObject(temp)) {
-          temp = clone(temp)
+        } else if (_.isPlainObject(temp)) {
+          temp = _.cloneDeep(temp)
         }
 
         obj[last] = temp
@@ -211,18 +204,18 @@ function applyPatch(db, patch, shouldClone) {
       break
 
       case 'test':
-        if (!isEqual(obj[last], xValue)) {
+        if (!_.isEqual(obj[last], xValue)) {
           revert = i
           break root
         }
       break
 
       case 'merge':
-        if (!isPlainObject(obj[last])) {
+        if (!_.isPlainObject(obj[last])) {
           revert = i
           break root
         }
-        obj[last] = merge(obj[last], xValue)
+        obj[last] = _.merge(obj[last], xValue)
       break
     }
   }
@@ -237,7 +230,7 @@ function applyPatch(db, patch, shouldClone) {
     trigger = trigger.concat(pathTriggers(db, x.path))
   })
 
-  trigger = flatten(trigger)
+  trigger = _.flatten(trigger)
 
   trigger.map(x => {
     triggerListener(db, x)

@@ -1,6 +1,4 @@
 
-import forEach from 'lodash-es/forEach'
-import isPlainObject from 'lodash-es/isPlainObject'
 import bundleModules from './bundleModules'
 import createControllers from './../controllers/controllers'
 import subscribeController from './../controllers/subscribe'
@@ -12,7 +10,7 @@ function update (instance, modules) {
   let bundle = bundleModules(modules)
 
   if (bundle.controllers && Object.keys(bundle.controllers).length > 0) {
-    forEach(bundle.controllers, (controller, name) => {
+    _.forEach(bundle.controllers, (controller, name) => {
       let current = instance.controllers[name]
       if (current) {
         current.off()
@@ -23,14 +21,14 @@ function update (instance, modules) {
 
     let newControllers = createControllers(instance.db, bundle.controllers)
 
-    forEach(newControllers, (controller, name) => {
+    _.forEach(newControllers, (controller, name) => {
       instance.controllers[name] = controller
       controller.subscription = subscribeController(instance.db, controller)
     })
   }
 
   if (bundle.models && Object.keys(bundle.models).length > 0) {
-    forEach(bundle.models, (model, name) => {
+    _.forEach(bundle.models, (model, name) => {
       let current = instance.models[name]
       if (current && current.remove) {
         current.remove()
@@ -40,7 +38,7 @@ function update (instance, modules) {
 
     let newModels = createModels(instance.db, bundle.models)
 
-    forEach(newModels, (model, name) => {
+    _.forEach(newModels, (model, name) => {
       instance.models[name] = model
     })
   }
@@ -49,7 +47,7 @@ function update (instance, modules) {
     if (bundle.data.initial) {
       Object.keys(bundle.data.initial).forEach(x => {
         let val = bundle.data.initial[x]
-        let op = isPlainObject(val) ? 'merge' : 'add'
+        let op = _.isPlainObject(val) ? 'merge' : 'add'
 
         instance.db.patch([{
           op: op,
@@ -65,7 +63,7 @@ function update (instance, modules) {
   }
 
   if (bundle.views && Object.keys(bundle.views).length > 0) {
-    forEach(instance.views, view => {
+    _.forEach(instance.views, view => {
       view.unsubscribe()
     })
 

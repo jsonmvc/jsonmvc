@@ -1,8 +1,6 @@
 
 import isValidPath from './isValidPath'
 import isValidValue from './isValidValue'
-import isPlainObject from 'lodash-es/isPlainObject'
-import diff from 'lodash-es/difference'
 
 const props = [
   'from',
@@ -30,9 +28,9 @@ function isPatch(schema, patch) {
     let x = patch[i]
 
     if (!(
-      isPlainObject(x)
+      _.isPlainObject(x)
       && isValidPath(x.path)
-      && diff(Object.keys(x), props).length === 0
+      && _.difference(Object.keys(x), props).length === 0
       && ops.indexOf(x.op) !== -1
       && ((x.op === 'add' || x.op === 'replace' || x.op === 'test') ? isValidValue(x.value) : true)
       && ((x.op === 'move' || x.op === 'copy') ? isValidPath(x.from) : true)

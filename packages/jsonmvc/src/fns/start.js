@@ -1,5 +1,4 @@
 import mountView from './mountView'
-import forEach from 'lodash-es/forEach'
 import subscribe from './../controllers/subscribe'
 
 function start (instance) {
@@ -11,7 +10,7 @@ function start (instance) {
   }
 
   if (instance.controllers && Object.keys(instance.controllers).length > 0) {
-    forEach(instance.controllers, (controller, name) => {
+    _.forEach(instance.controllers, (controller, name) => {
       controller.subscription = subscribe(instance.db, controller)
     })
   }

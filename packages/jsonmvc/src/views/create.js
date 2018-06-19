@@ -1,6 +1,5 @@
 
 import Vue from '_vue'
-import * as most from 'most'
 import Observable from 'zen-observable'
 
 import getPath from './getPath'

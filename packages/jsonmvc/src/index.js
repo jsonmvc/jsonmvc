@@ -1,10 +1,4 @@
 
-import omitBy from 'lodash-es/omitBy'
-import merge from 'lodash-es/merge'
-import forEach from 'lodash-es/forEach'
-import reduce from 'lodash-es/reduce'
-import isArray from 'lodash-es/isArray'
-import isObject from 'lodash-es/isObject'
 
 import DB from 'jsonmvc-datastore'
 
@@ -18,11 +12,11 @@ import start from './fns/start'
 
 const jsonmvc = modules => {
 
-  if (!isArray(modules) && !isObject(modules)) {
+  if (!_.isArray(modules) && !_.isObject(modules)) {
     throw new Error('Modules should be an object or an array')
   }
 
-  if (!isArray(modules) && isObject(modules)) {
+  if (!_.isArray(modules) && _.isObject(modules)) {
     modules = [modules]
   }
 
@@ -64,7 +58,7 @@ const jsonmvc = modules => {
     db,
     module: bundle,
     update: modules => {
-      if (!isArray(modules) && isObject(modules)) {
+      if (!_.isArray(modules) && _.isObject(modules)) {
         modules = [modules]
       }
 

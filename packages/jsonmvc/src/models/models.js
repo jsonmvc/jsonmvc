@@ -1,8 +1,6 @@
 
-import forEach from 'lodash-es/forEach'
-
 function createModels (db, models) {
-  forEach(models, model => {
+  _.forEach(models, model => {
     let keys = Object.keys(model.args)
     let args = keys.map(x => model.args[x])
 

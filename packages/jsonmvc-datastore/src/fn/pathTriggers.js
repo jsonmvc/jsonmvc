@@ -1,5 +1,4 @@
 
-import flatten from 'lodash-es/flattenDeep'
 import uniq from 'uniq'
 import decomposePath from './../fn/decomposePath'
 
@@ -30,7 +29,7 @@ function pathTriggers(db, path) {
     trigger = trigger.concat(dep)
   }
 
-  trigger = flatten(trigger)
+  trigger = _.flattenDeep(trigger)
 
   trigger.push(path)
 

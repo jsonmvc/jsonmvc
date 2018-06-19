@@ -1,7 +1,7 @@
 
+import uniq from 'uniq'
 import getFullDeps from './getFullDeps'
 import decomposePath from './decomposePath'
-import uniq from 'lodash-es/uniq'
 
 function expandNodeDeps(dynamic) {
 

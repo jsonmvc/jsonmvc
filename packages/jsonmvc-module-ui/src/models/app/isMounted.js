@@ -1,5 +1,4 @@
 
-import isEmpty from 'lodash-es/isEmpty'
 
 const model = {
   args: {
@@ -7,7 +6,7 @@ const model = {
     views: '/views'
   },
   fn: args => {
-    if (args.views && args.views[args.name] && !isEmpty(args.views[args.name].instances)) {
+    if (args.views && args.views[args.name] && !_.isEmpty(args.views[args.name].instances)) {
       return true
     } else {
       return false

@@ -1,5 +1,4 @@
 
-import isFunction from 'lodash-es/isFunction'
 import getStaticNodes from './../fn/getStaticNodes'
 import triggerListener from './../fn/triggerListener'
 import decomposePath from './../fn/decomposePath'
@@ -24,7 +23,7 @@ const on = db => (path, fn) => {
     fn: fn
   }
 
-  if (!isFunction(fn)) {
+  if (!_.isFunction(fn)) {
     err(db, '/err/types/on/1', obj)
     return
   }

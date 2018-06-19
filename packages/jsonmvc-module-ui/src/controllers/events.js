@@ -1,4 +1,3 @@
-import * as most from 'most'
 import stream from 'jsonmvc-helper-stream'
 
 import getValue from './../fns/getValue'

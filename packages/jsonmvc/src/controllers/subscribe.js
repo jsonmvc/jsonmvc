@@ -1,11 +1,9 @@
 
-import isArray from 'lodash-es/isArray'
-
 function subscribe (db, controller) {
   function applyPatch(x) {
-    if (x && isArray(x)) {
+    if (x && _.isArray(x)) {
       db.patch(x)
-    } else if (x && !isArray(x)) {
+    } else if (x && !_.isArray(x)) {
       db.patch([x])
     } else {
       // console.warn(`Controller ${controller.name} did not return a patch`)

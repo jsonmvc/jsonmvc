@@ -1,6 +1,3 @@
-import isArray from 'lodash-es/isArray'
-import reduce from 'lodash-es/reduce'
-import clone from 'lodash-es/clone'
 
 import createView from './create'
 import viewsErrors from './viewsErrors'
@@ -11,8 +8,8 @@ function createViews (db, views) {
     throw err
   }
 
-  let byNames = reduce(views, (acc, view, file) => {
-    acc[view.name] = clone(view)
+  let byNames = _.reduce(views, (acc, view, file) => {
+    acc[view.name] = _.clone(view)
     acc[view.name].file = file
     return acc
   }, {})
@@ -40,7 +37,7 @@ function createViews (db, views) {
   }])
 
   // Define deps
-  let deps = reduce(names, (acc, name) => {
+  let deps = _.reduce(names, (acc, name) => {
     acc[name] = names.filter(x => {
       let el = byNames[name].el
       if (el) {
@@ -80,7 +77,7 @@ function createViews (db, views) {
 
     let usedStream = instance.stream.subscribe({
       next: x => {
-        if (x && !isArray(x)) {
+        if (x && !_.isArray(x)) {
           x = [x]
         }
         db.patch(x)
