@@ -94,6 +94,9 @@ const controller = {
         } else if (match.htmlAttr) {
           let prop = x.value.replace(/^attr\./, '')
           x.value = getValue(el, prop)
+          if (!isNaN(x.value)) {
+            x.value = parseFloat(x.value)
+          }
         } else if (match.path) {
           x.value = lib.get(x.value)
         } else if (match.text) {
