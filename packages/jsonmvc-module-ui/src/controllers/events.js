@@ -67,6 +67,10 @@ const controller = {
         return []
       }
 
+      // TODO: Add datatype support
+      let dataType = el.getAttribute('data-type')
+
+      let initial = x.value
       // Parse and convert the value
       patches = patches.map(x => {
         if (!x.value) {
@@ -94,20 +98,24 @@ const controller = {
         } else if (match.htmlAttr) {
           let prop = x.value.replace(/^attr\./, '')
           x.value = getValue(el, prop)
-          if (!isNaN(x.value)) {
+          if (dataType === 'numeric') {
+            x.value = numberParser(x.value)
+          } else if (!isNaN(x.value) && x.value !== '' && (!dataType || dataType !== 'string')) {
             x.value = parseFloat(x.value)
           }
         } else if (match.path) {
           x.value = lib.get(x.value)
         } else if (match.text) {
           x.value = x.value.substr(1, x.value.length - 2)
-        } else if (match.number) {
+        } else if (match.number && (!dataType || dataType !== 'string')) {
           x.value = parseFloat(x.value)
         } else if (match.boolean) {
           x.value = x.value === 'true' ? true : false
         } else {
           console.error('Patch value not recognized "' + x.value + '". It should start and end with {..}, [..], \'..\', "..", or be a number')
         }
+
+        el.processedPatchAt = Date.now()
 
         return x
       })

@@ -22,6 +22,8 @@ function click(el) {
   el.dispatchEvent(event)
 }
 
+
+
 it('should init properly', () => {
   let app = {
     controllers: [],
@@ -184,5 +186,4 @@ it('should init properly', () => {
 
     jest.runOnlyPendingTimers()
   })
-
 })
