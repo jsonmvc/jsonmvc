@@ -11,7 +11,7 @@ const rollupGrapher = require('rollup-plugin-grapher')
 const json = require('rollup-plugin-json')
 const uglify = require('rollup-plugin-uglify')
 
-console.warning(`
+console.log(`
   vue.esm.js:10043 must be patched with: 
   if (document.activeElement === 'elm') {
     elm.value = strCur;

@@ -16,6 +16,8 @@ import bundleModules from './fns/bundleModules'
 import processModules from './fns/processModules'
 import start from './fns/start'
 
+// test
+
 const jsonmvc = modules => {
 
   if (!isArray(modules) && !isObject(modules)) {
