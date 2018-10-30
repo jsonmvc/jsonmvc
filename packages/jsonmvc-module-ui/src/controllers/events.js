@@ -67,8 +67,8 @@ const controller = {
         return []
       }
 
-      // TODO: Add datatype support
       let dataType = el.getAttribute('data-type')
+      // TODO: add data type for objects and arrays
 
       let initial = x.value
       // Parse and convert the value
