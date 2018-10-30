@@ -1594,11 +1594,9 @@ Inlining
 ------
 Errors
 ------
-
 1. Add timestamps in order to organize errors (from different types) chronologically
 2. Add arguments and function used for failed nodes
 3. Add complete description to errors to why they happen
-
 
 -----
 Utils
@@ -1611,5 +1609,220 @@ Utils
    issues with decisional trees that get trigger in a rapid succession of the value)
 
 -----
-API
+Structure
 -----
+Have the following app folder structure
+assets/
+nodes/
+rules/
+views/
+config.yml
+
+In nodes/ there are both the former models and controllers in one place:
+models give their computation value to the location where they are placed
+controllers take their computation value from the location where they are placed
+
+it would be great to figure out a convention through which this differentiation can
+occur.
+
+nodes/users/search/results.js -> will give the search result (model)
+nodes/users/actions/Save.js -> will use this location as a basis for triggering and the final location can be somewhere else.
+
+Maybe use the first letter to differentiate between them? This might create a bit of confusion.
+Maybe a special symbol? Like underscore or the likes:
+
+nodes/users/actions/_save.js -> controller
+nodes/users/actions/save.js -> model
+
+There should be a name like upstream or downstream nodes. Or up node and down node.
+Taker and giver. Sink or lift.
+
+Difinetly there should be something in the file naming so that it's very clear from just viewing a folder but also
+from the file syntax. Underscore seems to be the fully portable accross systems.
+
+_save.js
+save_.js
+__save.js
+_save_.js
+
+Begining with an '_' would be the simplest option.
+
+nodes/users/actions/_save.js
+- will be triggered on the patch { op: add, path: /users/actions/save, value: /time/ms }
+- will be able to add more triggerers inside the file (but the main one will be the file location)
+
+list: /users/list
+---
+(value, list) => {
+
+}
+
+What if there are multiple controllers starting on the same path?
+And controllers can have multiple paths that they patch. 
+So neighter the upstream or the downstream can be localized - so maybe use the folder paths just as a tag/category?
+
+---------------------------------------------------------
+
+nodes/users/actions/_saveUser.js:
+
+import moment from 'moment'
+---
+submit: /users/actions/save
+list: /users/list
+---
+if (!submit) {
+  return
+}
+
+get('/time/ms')
+
+patch([
+  add('/foo/bar', 123)
+  remove('/foo/bar)
+  merge('/blap/blap')
+])
+
+patch(add('/foo/bar', 123))
+
+setTimeout(() => {
+  let value = moment(new Date()).format('YYYY-MM-DD')
+  patch(add('/foo/bar', value))
+}, 1000)
+
+-------------------------------------------------------
+
+nodes/users/actions/search/results.js:
+
+list: /users/list
+term: /users/action/search/term
+---
+if (!term || !list) {
+  return
+}
+
+let result = Object.keys(list).reduce((acc, x) => {
+  if (list[x].name === term) {
+    acc[x] = list[x]
+  }
+  return acc
+}, {})
+
+return result
+
+---------------------------------------------
+
+Maybe just keep the separation at the folder level. So instead of separating the through file names we can
+use nesting:
+
+nodes/users/__actions/save.js -> from here on everything is a controller
+nodes/users/actions/search/result.js -> is a model
+
+So the developer needs to pay attention to the folder in which the file which he is operating on exists.
+This is true also for using completely different root folders (static/ and dynamic/) - you still have to
+see where you're at.
+The only problem is that it has to be very visible in order to avoid confusion.
+
+Maybe a doubble underscore will be enough - or one at the begning and one at the end.
+The doubble underscore might be tedious and you might miss an underscore and you'll not get an error - unless
+the underscore is permitted only for the controllers folders.
+
+1. _foo_/blap.js
+2. __foo/blap.js
+
+1 is a bit harder to write but it makes things a bit more clear due to the distance between the word and the slash.
+2. it's easier to write and looks recognizable an seems to feel better on the top of a ascii order folder list
+
+__foo
+foo
+bar
+baz
+
+_foo_
+foo
+bar
+baz
+
+Through this we can reuse the same structure.
+
+----
+
+There is also the possibility to use the same structure for schemas.
+
+So /nodes/users/list/schema.yml - will give the schema for this location
+
+/nodes/users/action/data/schema.yml - will give the schema for /nodes/users/action/data
+
+There can be an implicitly defined schema and one for overwriting. If we can achieve using a single folder structure
+for defining both models, controllers and schema might make things faster but harder to manage in the begining
+
+Unless we use extensions to differentiate between types.
+
+path/path2.yml -> will give the schema for this path
+path/path2.jsm -> will give a model
+path/path2.jsc -> will give a controller
+
+path2.jss
+path2.jsm
+path2.yml
+
+One to one - single
+Many to many - many
+
+This way searching and parsing is also simplified.
+
+nodes/users/action/data.yml -> schema
+nodes/users/search/result.jss -> model
+nodes/users/search/thirdPartyCall.jsm -> controller
+
+---
+one to one  | single output
+many to one |
+
+one to many  | multiple output
+many to many |
+
+4 Types of models - but in essence there are only 2 general cases:
+many to one
+many to many
+
+Of course there is also the temporal dimension which both can be sync and async.
+
+For sync version means that they operate as regular models and are predictable.
+In this sense this is the only differentiator - if it's a sync version or async.
+
+So if we do not use a different syntax for sync and async then they can be compatible -
+as in you can lift a sync model to an async one without changing it's syntax
+
+So we can eliminate the return statement and always use the patch keyword.
+
+By parsing for the use of "get" we can assess automatically if the model is pure or unpure.
+Actually - that might not be the case if the model is still synchroneus as an internal get
+will only mean that the computation needs that data but only when a certain condition is met -
+which makes things more efficient as one can pick which data should trigger and which should not -
+but also frees the node manager to not clone useless data but only when it is needed - e.g. when the
+"get" statement is ran.
+
+I guess it all comes down to the implicit relationship of the file path with the logic.
+
+In order to make the convention less wierd in terms of return statement we can give the
+current location to the patch:
+
+patch(update(self, 23))
+
+So defining models becomes explicit.
+
+patch([
+  add('/path', 23),
+  add(self.path, 23)
+])
+
+The only issue with this is that it can be in a location but patch a completely different location -
+but that then comes down to discipline.
+
+So you could put models anywhere and choose if the path where the file is placed is relevant to the
+patching or not.
+
+Having a "self" global we could add more things to it:
+self.path -> /users/session/search/result (the folder path starting at nodes/ until the file without prefix)
+self.history -> all the past calls and values
+self.schema -> what it should output / validate against
