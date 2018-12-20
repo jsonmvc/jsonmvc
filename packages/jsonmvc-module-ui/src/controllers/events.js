@@ -49,7 +49,16 @@ const controller = {
         e: e
       }
     })
-    .filter(x => !!x.el)
+    .filter(x => {
+      if (!x.el) {
+        return false
+      }
+      let patchOn = x.el.getAttribute('data-patch-on')
+      if (patchOn && patchOn !== x.e.type) {
+        return false
+      }
+      return true
+    })
     .map((x, lib) => {
       if (x.el.hasAttribute('href')) {
         x.e.preventDefault()

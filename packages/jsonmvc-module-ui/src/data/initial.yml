@@ -4,6 +4,7 @@ config:
       click: true
       submit: true
       change: true
+      focusout: true
       keyup:
         debounce: 250
 
