@@ -71,7 +71,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "jest": "^21.2.1",
-    "lerna": "^2.0.0",
+    "lerna": "^3.7.2",
     "lodash-es": "^4.17.4",
     "performance-now": "^2.1.0",
     "promise": "^8.0.1",
