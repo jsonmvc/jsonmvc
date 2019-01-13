@@ -1,0 +1,31 @@
+{
+  "name": "jsonmvc-dom",
+  "description": "The JSONMVC DOM layer",
+  "version": "0.3.33",
+  "main": "dist/jsonmvc-dom.js",
+  "browser": "dist/jsonmvc-dom.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jsonmvc/jsonmvc.git"
+  },
+  "keywords": [
+    "jsonmvc",
+    "framework",
+    "prototyping",
+    "json",
+    "mvc",
+    "architecture",
+    "data",
+    "development"
+  ],
+  "author": "Constantin Dumitrescu <dum.constantin@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsonmvc/jsonmvc/issues"
+  },
+  "homepage": "https://github.com/jsonmvc/jsonmvc/packages/jsonmvc#readme",
+  "dependencies": {
+    "nodom": "^2.1.0",
+    "redom": "^3.17.1"
+  }
+}
