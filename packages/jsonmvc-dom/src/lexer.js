@@ -11,9 +11,6 @@ let inputStream = new InputStream(template);
 
 let tokenStream = new TokenStream(inputStream);
 
-let tokens = [];
-while (!tokenStream.eof()) {
-  tokens.push(tokenStream.next());
-}
+let tokens = tokenStream.run();
 
 console.log(tokens);

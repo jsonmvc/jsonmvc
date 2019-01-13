@@ -34,6 +34,13 @@ class TokenStream {
   eof() {
     return this.peek() === null;
   }
+  run() {
+    let tokens = [];
+    while (!this.eof()) {
+      tokens.push(this.next());
+    }
+    return tokens;
+  }
   error() {}
 
   // If previous char was \n check for indent
