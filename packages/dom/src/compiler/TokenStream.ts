@@ -1,3 +1,5 @@
+import { InputStreamClass } from './InputStream';
+
 // indent | tag | classes | id | attributeStart | (attributeName, attributeContent) | attributeEnd | textSeparator | textContent
 
 // TODO: Add debug information for each token (line number, col number, etc)
@@ -26,48 +28,54 @@
 //    span {{ bar }} // the content will be replaced entirely with dynamic content
 //    span &nbsp;baz // keeping white space accordingly
 
-class TokenStream {
-  constructor(input) {
-    this.input = input;
-    this.current = null;
-    this.htmlTags = ["div"];
+export interface TokenInterface {
+  type: string;
+  value: any;
+}
 
-    this.matchTag = /[a-z0-9\-]/;
-    this.matchCSSClass = /[a-zA-Z0-9]/;
-    this.matchCSSId = /[a-zA-Z0-9]/;
-    this.matchAttributeName = /[a-z\-]/;
+export class TokenStreamClass {
+  private input: InputStreamClass;
+  private matchTag = /[a-z0-9\-]/;
+  private matchCSSClass = /[a-zA-Z0-9]/;
+  private matchCSSId = /[a-zA-Z0-9]/;
+  private matchAttributeName = /[a-z\-]/;
+  private current: TokenInterface | null = null;
+  private readingAttributes = false;
+
+  constructor(input: InputStreamClass) {
+    this.input = input;
   }
 
-  next() {
+  next(): TokenInterface | null {
     const tok = this.current;
     this.current = null;
     return tok || this.readNext();
   }
-  peek() {
+  peek(): TokenInterface | null {
     return this.current || (this.current = this.readNext());
   }
-  eof() {
+  eof(): boolean {
     return this.peek() === null;
   }
-  run() {
-    let tokens = [];
+  run(): TokenInterface[] {
+    const tokens: TokenInterface[] = [];
     while (!this.eof()) {
-      tokens.push(this.next());
+      const token = this.next();
+      if (token !== null) {
+        tokens.push(token);
+      }
     }
     return tokens;
   }
   error() {}
 
-  // If previous char was \n check for indent
-  readNext() {
+  private readNext(): TokenInterface | null {
     this.readWhile(this.isEOL);
     if (this.input.eof()) return null;
     let ch = this.input.peek();
     if (this.isAttributesStart(ch)) {
       if (this.readingAttributes) {
-        this.input.error(
-          'Open attributes char "(" was found inside an attribute definion.'
-        );
+        this.input.error('Open attributes char "(" was found inside an attribute definion.');
       }
       this.readingAttributes = true;
       this.input.next();
@@ -82,10 +90,7 @@ class TokenStream {
       this.readWhile(this.isWhiteSpace);
       return this.readAttribute();
     }
-    if (
-      (this.input.peekPrev() === "" || this.input.peekPrev() === "\n") &&
-      this.isIndent(ch)
-    ) {
+    if ((this.input.peekPrev() === '' || this.input.peekPrev() === '\n') && this.isIndent(ch)) {
       return this.readIndent();
     }
     if (this.isTagStart(ch)) {
@@ -101,91 +106,94 @@ class TokenStream {
       return this.readContent();
     }
     this.input.error(`Can't recognize char "${ch}"`);
+    return null;
   }
-  readWhile(predicate) {
-    let str = "";
+
+  private readWhile(predicate): string {
+    let str = '';
     while (!this.input.eof() && predicate(this.input.peek())) {
       str += this.input.next();
     }
     return str;
   }
 
-  isEOL(ch) {
-    return ch === "\n";
+  private isEOL(ch): boolean {
+    return ch === '\n';
   }
-  isWhiteSpace(ch) {
+  private isWhiteSpace(ch): boolean {
     return /\s/.test(ch);
   }
-  isIndent(ch) {
+  private isIndent(ch): boolean {
     return /\s/.test(ch);
   }
-  isIdStart(ch) {
-    return ch === "#";
+  private isIdStart(ch): boolean {
+    return ch === '#';
   }
-  isTagStart(ch) {
+  private isTagStart(ch): boolean {
     return /[a-z]/.test(ch);
   }
-  isContentStart(ch) {
+  private isContentStart(ch): boolean {
     return /\s/.test(ch);
   }
-  isAttributesStart(ch) {
-    return ch === "(";
+  private isAttributesStart(ch): boolean {
+    return ch === '(';
   }
-  isAttributeEnd(ch) {
-    return ch === ")";
+  private isAttributeEnd(ch): boolean {
+    return ch === ')';
   }
-  isClassStart(ch) {
-    return ch === ".";
+  private isClassStart(ch): boolean {
+    return ch === '.';
   }
-  readTag() {
+
+  private readTag(): TokenInterface {
     let tag = this.readWhile(x => this.matchTag.test(x));
     return {
-      type: "tag",
-      value: tag
+      type: 'tag',
+      value: tag,
     };
   }
-  readContent() {
+  private readContent(): TokenInterface {
     // skip content separator
     this.input.next();
-    let content = this.readWhile(x => x !== "\n");
+    let content = this.readWhile(x => x !== '\n');
     return {
-      type: "content",
-      value: content
+      type: 'content',
+      value: content,
     };
   }
-  readId() {
+  private readId(): TokenInterface {
     // skip id separator
     this.input.next();
     let id = this.readWhile(x => this.matchCSSId.test(x));
     // TODO: Verify that the id is valid
     return {
-      type: "id",
-      value: id
+      type: 'id',
+      value: id,
     };
   }
-  readClass() {
+  private readClass(): TokenInterface {
     // skip class indicator
     this.input.next();
     let className = this.readWhile(x => this.matchCSSClass.test(x));
     return {
-      type: "class",
-      value: className
+      type: 'class',
+      value: className,
     };
   }
-  readAttribute() {
+  private readAttribute(): TokenInterface {
     let attributeName = this.readWhile(x => this.matchAttributeName.test(x));
     let ch = this.input.peek();
     let value;
-    if (ch === "=") {
+    if (ch === '=') {
       this.input.next();
       ch = this.input.peek();
       if (ch !== '"') {
-        input.error('Expecting " to begin attribute value');
+        this.input.error('Expecting " to begin attribute value');
       }
       // Remove the first quotes
       this.input.next();
       value = this.readWhile(x => {
-        return x !== '"' || (x === '"' && this.input.peekPrev() === "\\");
+        return x !== '"' || (x === '"' && this.input.peekPrev() === '\\');
       });
       // Remove the last quotes
       this.input.next();
@@ -193,23 +201,18 @@ class TokenStream {
       value = null;
     }
     return {
-      type: "attribute",
+      type: 'attribute',
       value: {
         name: attributeName,
-        value: value
-      }
+        value: value,
+      },
     };
   }
-  readIndent() {
+  private readIndent() {
     let indent = this.readWhile(x => this.isIndent(x));
     return {
-      type: "newLineIndent",
-      value: indent.length
+      type: 'newLineIndent',
+      value: indent.length,
     };
   }
-  is_HTMLTag(x) {
-    return this.htmlTags.indexOf(x) !== -1;
-  }
 }
-
-module.exports = TokenStream;

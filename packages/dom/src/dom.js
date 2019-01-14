@@ -1,4 +1,4 @@
-const { Document } = require("nodom");
+const { Document } = require('nodom');
 global.document = new Document();
 const {
   el,
@@ -19,5 +19,5 @@ const {
   setChildren,
   s,
   svg,
-  text
-} = require("redom");
+  text,
+} = require('redom');

@@ -1,15 +1,16 @@
-module.exports = class InputStream {
+export class InputStreamClass {
+  input: string;
+  pos: number = 0;
+  line: number = 1;
+  col: number = 1;
   constructor(input) {
     this.input = input;
-    this.pos = 0;
-    this.line = 1;
-    this.col = 1;
   }
 
-  next() {
+  next(): string {
     const ch = this.input.charAt(this.pos);
     this.pos += 1;
-    if (ch == "\n") {
+    if (ch == '\n') {
       this.line += 1;
       this.col = 0;
     } else {
@@ -17,16 +18,16 @@ module.exports = class InputStream {
     }
     return ch;
   }
-  peekPrev() {
+  peekPrev(): string {
     return this.input.charAt(this.pos - 1);
   }
-  peek() {
+  peek(): string {
     return this.input.charAt(this.pos);
   }
-  eof() {
-    return this.peek() == "";
+  eof(): boolean {
+    return this.peek() == '';
   }
   error(msg) {
-    throw new Error(msg + " (" + this.line + ":" + this.col + ")");
+    throw new Error(msg + ' (' + this.line + ':' + this.col + ')');
   }
-};
+}

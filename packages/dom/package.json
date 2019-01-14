@@ -1,5 +1,5 @@
 {
-  "name": "jsonmvc-dom",
+  "name": "@jsonmvc/dom",
   "description": "The JSONMVC DOM layer",
   "version": "0.3.33",
   "main": "dist/jsonmvc-dom.js",
@@ -7,6 +7,9 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:jsonmvc/jsonmvc.git"
+  },
+  "scripts": {
+    "tsc": "tsc"
   },
   "keywords": [
     "jsonmvc",

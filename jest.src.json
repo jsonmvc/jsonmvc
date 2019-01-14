@@ -4,24 +4,19 @@
     "__DEV__": true
   },
   "transform": {
+    "^.+\\.tsx?$": "ts-jest",
     ".*": "babel-jest"
   },
-  "transformIgnorePatterns": [
-    "<rootDir>/node_modules/(?!lodash-es)"
-  ],
-  "testRegex": "test/.*\\.js$",
+  "transformIgnorePatterns": ["<rootDir>/node_modules/(?!lodash-es)"],
+  "testRegex": "test/.*\\.tsx?$",
   "testEnvironment": "jsdom",
   "collectCoverage": true,
   "coverageDirectory": "./../coverage",
-  "collectCoverageFrom": [
-    "packages/**/src/**/*.js"
-  ],
+  "collectCoverageFrom": ["packages/**/src/**/*.js"],
   "verbose": true,
   "moduleNameMapper": {
     "vue": "vue/dist/vue.esm.js"
   },
-  "moduleDirectories": [
-    "node_modules",
-    "src"
-  ]
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+  "moduleDirectories": ["node_modules", "src"]
 }
