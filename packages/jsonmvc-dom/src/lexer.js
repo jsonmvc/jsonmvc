@@ -6,8 +6,13 @@ div
   | .foobar
   |#f // both are valid with or without whitespace
   |(
-  | foogaa="23\a"
-  | bar="23\\"aa"
+  | data-patch:mouseenter="
+  |   add /foo/bar 123;
+  |   add /bar/baz 321;
+  | "
+  | data-patch:click="
+  |   add /foo/bar 123;
+  | "
   |) foo bar baz bam {{ foo }}
 `;
 
