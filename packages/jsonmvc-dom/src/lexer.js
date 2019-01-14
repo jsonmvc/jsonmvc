@@ -2,8 +2,13 @@ const TokenStream = require("./compiler/tokenStream");
 const InputStream = require("./compiler/inputStream");
 
 let template = `
-div.foobar#foog(aa="23\a" bar="23\\"aa") foo bar baz bam
-  div(foo="23\a" bar-id="23\\"aa") foo bar baz bam
+div
+  | .foobar
+  |#f // both are valid with or without whitespace
+  |(
+  | foogaa="23\a"
+  | bar="23\\"aa"
+  |) foo bar baz bam {{ foo }}
 `;
 
 let inputStream = new InputStream(template);

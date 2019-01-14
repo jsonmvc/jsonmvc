@@ -1,16 +1,30 @@
 // indent | tag | classes | id | attributeStart | (attributeName, attributeContent) | attributeEnd | textSeparator | textContent
-/*
-indent = /\s+/
-tag = /^[a-z][a-zA-Z0-9]+$/
-classes = /^\.[a-zA-Z0-9\-]+$/
-id = /^#\.[a-zA-Z0-9\-]+$/
-attributeStart = (
-attributeEnd = )
-attributeName= /^:?[a-z\-]+=\"/ 
-attributeContent= /./
-contentSeparator = /\s/
-content = /./
-*/
+
+// TODO: Add debug information for each token (line number, col number, etc)
+
+// TODO: Don't fail on error but return an ERROR Token that will be used by the
+// parser to create an error element which will show the developer in-dom
+// both the error message and the erroring element without affecting the
+// rest of the template
+
+// TODO: Ensure that the tokenizer never gets into an infinite loop
+
+// TODO: Define an error code index
+
+// TODO: Allow comment block on the same line as content ` div // this will foobar `
+// this only works if the first 2 chars in the content area are a slash - the user should
+// escape them ` div \// this will be shown `
+
+// TODO: Allow block comments /* ... */
+
+// TODO: After | ignore all white spaces until content
+
+// TODO: Tokenize the content if {{ }} is encountered:
+// `div foo {{ bar }} baz` becomes:
+// `div
+//    span foo&nbsp; // preserving white space
+//    span {{ bar }} // the content will be replaced entirely with dynamic content
+//    span &nbsp;baz // keeping white space accordingly
 
 class TokenStream {
   constructor(input) {
@@ -50,6 +64,11 @@ class TokenStream {
     if (this.input.eof()) return null;
     let ch = this.input.peek();
     if (this.isAttributesStart(ch)) {
+      if (this.readingAttributes) {
+        this.input.error(
+          'Open attributes char "(" was found inside an attribute definion.'
+        );
+      }
       this.readingAttributes = true;
       this.input.next();
       ch = this.input.peek();
@@ -138,6 +157,7 @@ class TokenStream {
     // skip id separator
     this.input.next();
     let id = this.readWhile(x => this.matchCSSId.test(x));
+    // TODO: Verify that the id is valid
     return {
       type: "id",
       value: id
