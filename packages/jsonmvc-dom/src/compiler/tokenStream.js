@@ -21,6 +21,7 @@ class TokenStream {
     this.matchTag = /[a-z0-9\-]/;
     this.matchCSSClass = /[a-zA-Z0-9]/;
     this.matchCSSId = /[a-zA-Z0-9]/;
+    this.matchAttributeName = /[a-z\-]/;
   }
 
   next() {
@@ -47,7 +48,21 @@ class TokenStream {
   readNext() {
     this.readWhile(this.isEOL);
     if (this.input.eof()) return null;
-    const ch = this.input.peek();
+    let ch = this.input.peek();
+    if (this.isAttributesStart(ch)) {
+      this.readingAttributes = true;
+      this.input.next();
+      ch = this.input.peek();
+    }
+    if (this.isAttributeEnd(ch)) {
+      this.readingAttributes = false;
+      this.input.next();
+      ch = this.input.peek();
+    }
+    if (this.readingAttributes) {
+      this.readWhile(this.isWhiteSpace);
+      return this.readAttribute();
+    }
     if (
       (this.input.peekPrev() === "" || this.input.peekPrev() === "\n") &&
       this.isIndent(ch)
@@ -79,6 +94,9 @@ class TokenStream {
   isEOL(ch) {
     return ch === "\n";
   }
+  isWhiteSpace(ch) {
+    return /\s/.test(ch);
+  }
   isIndent(ch) {
     return /\s/.test(ch);
   }
@@ -90,6 +108,12 @@ class TokenStream {
   }
   isContentStart(ch) {
     return /\s/.test(ch);
+  }
+  isAttributesStart(ch) {
+    return ch === "(";
+  }
+  isAttributeEnd(ch) {
+    return ch === ")";
   }
   isClassStart(ch) {
     return ch === ".";
@@ -115,7 +139,7 @@ class TokenStream {
     this.input.next();
     let id = this.readWhile(x => this.matchCSSId.test(x));
     return {
-      type: "cssId",
+      type: "id",
       value: id
     };
   }
@@ -124,8 +148,36 @@ class TokenStream {
     this.input.next();
     let className = this.readWhile(x => this.matchCSSClass.test(x));
     return {
-      type: "cssClass",
+      type: "class",
       value: className
+    };
+  }
+  readAttribute() {
+    let attributeName = this.readWhile(x => this.matchAttributeName.test(x));
+    let ch = this.input.peek();
+    let value;
+    if (ch === "=") {
+      this.input.next();
+      ch = this.input.peek();
+      if (ch !== '"') {
+        input.error('Expecting " to begin attribute value');
+      }
+      // Remove the first quotes
+      this.input.next();
+      value = this.readWhile(x => {
+        return x !== '"' || (x === '"' && this.input.peekPrev() === "\\");
+      });
+      // Remove the last quotes
+      this.input.next();
+    } else {
+      value = null;
+    }
+    return {
+      type: "attribute",
+      value: {
+        name: attributeName,
+        value: value
+      }
     };
   }
   readIndent() {
