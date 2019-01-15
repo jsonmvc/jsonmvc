@@ -30,7 +30,7 @@ import { InputStreamClass } from './InputStream';
 
 export interface TokenInterface {
   type: string;
-  value: any;
+  value?: any;
 }
 
 export class TokenStreamClass {
@@ -41,6 +41,19 @@ export class TokenStreamClass {
   private matchAttributeName = /[a-z\-]/;
   private current: TokenInterface | null = null;
   private readingAttributes = false;
+  private readingPipe = false;
+  private readSofIndent = false;
+  private _infiniteLoopWatcher: number = 0;
+
+  set infiniteLoopWatcher(inc: number) {
+    this._infiniteLoopWatcher += 1;
+    if (this._infiniteLoopWatcher > 500) {
+      throw new Error('Loop limit reached');
+    }
+  }
+  get infiniteLoopWatcher() {
+    return this._infiniteLoopWatcher;
+  }
 
   constructor(input: InputStreamClass) {
     this.input = input;
@@ -64,48 +77,75 @@ export class TokenStreamClass {
       if (token !== null) {
         tokens.push(token);
       }
+      this.infiniteLoopWatcher += 1;
     }
     return tokens;
   }
   error() {}
 
   private readNext(): TokenInterface | null {
+    this.infiniteLoopWatcher += 1;
     if (this.input.eof()) return null;
     let ch = this.input.peek();
-    if (ch === '\n' || this.input.peekPrev() === '') {
+
+    if (this.input.sof() && !this.readSofIndent) {
+      this.readSofIndent = true;
+      return this.readIndent();
+    }
+
+    if (ch === '\n') {
+      if (this.readingPipe) {
+        this.readingPipe = false;
+      }
       this.readWhile(this.isEOL);
       return this.readIndent();
     }
+    if (this.isPipeStart(ch)) {
+      this.readingPipe = true;
+      this.input.next();
+      return this.readPipe();
+    }
     if (this.isAttributesStart(ch)) {
       if (this.readingAttributes) {
-        this.input.error('Open attributes char "(" was found inside an attribute definion.');
+        this.input.error('Open attributes char "(" was found inside an attribute definition.');
       }
       this.readingAttributes = true;
-      this.input.next();
       ch = this.input.peek();
+      if (ch === '') {
+        return null;
+      }
     }
     if (this.isAttributeEnd(ch)) {
       this.readingAttributes = false;
       this.input.next();
       ch = this.input.peek();
+      if (ch === '') {
+        return null;
+      }
     }
     if (this.readingAttributes) {
-      this.readWhile(this.isWhiteSpace);
+      this.readWhile(x => !/[a-z]/.test(x));
       return this.readAttribute();
     }
-    // if ((this.input.peekPrev() === '' || this.input.peekPrev() === '\n') && this.isIndent(ch)) {
-    //   return this.readIndent();
-    // }
-    if (this.isTagStart(ch)) {
+    if (this.isTagStart(ch) && !this.readingPipe) {
       return this.readTag();
     }
     if (this.isClassStart(ch)) {
+      // skip class indicator
+      this.input.next();
       return this.readClass();
     }
     if (this.isIdStart(ch)) {
+      // skip id separator
+      this.input.next();
       return this.readId();
     }
     if (this.isContentStart(ch)) {
+      // skip content separator
+      this.input.next();
+      return this.readContent();
+    }
+    if (this.readingPipe) {
       return this.readContent();
     }
     this.input.error(`Can't recognize char "${ch}"`);
@@ -122,6 +162,9 @@ export class TokenStreamClass {
 
   private isEOL(ch): boolean {
     return ch === '\n';
+  }
+  private isPipeStart(ch): boolean {
+    return ch === '|';
   }
   private isWhiteSpace(ch): boolean {
     return /\s/.test(ch);
@@ -155,9 +198,14 @@ export class TokenStreamClass {
       value: tag,
     };
   }
+  private readPipe(): TokenInterface {
+    this.readWhile(this.isWhiteSpace);
+    return {
+      type: 'pipe',
+    };
+  }
+
   private readContent(): TokenInterface {
-    // skip content separator
-    this.input.next();
     let content = this.readWhile(x => x !== '\n');
     return {
       type: 'content',
@@ -165,8 +213,6 @@ export class TokenStreamClass {
     };
   }
   private readId(): TokenInterface {
-    // skip id separator
-    this.input.next();
     let id = this.readWhile(x => this.matchCSSId.test(x));
     // TODO: Verify that the id is valid
     return {
@@ -175,8 +221,6 @@ export class TokenStreamClass {
     };
   }
   private readClass(): TokenInterface {
-    // skip class indicator
-    this.input.next();
     let className = this.readWhile(x => this.matchCSSClass.test(x));
     return {
       type: 'class',
@@ -196,8 +240,13 @@ export class TokenStreamClass {
       // Remove the first quotes
       this.input.next();
       value = this.readWhile(x => {
-        return x !== '"' || (x === '"' && this.input.peekPrev() === '\\');
+        return (x !== '"' || (x === '"' && this.input.peekPrev() === '\\')) && x !== '\n';
       });
+      if (this.input.peek() == '\n' || this.input.eof()) {
+        this.input.error(
+          'Reached the end of the line without finding a matching """ to close the attribute.'
+        );
+      }
       // Remove the last quotes
       this.input.next();
     } else {

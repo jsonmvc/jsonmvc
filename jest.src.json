@@ -12,7 +12,11 @@
   "testEnvironment": "jsdom",
   "collectCoverage": true,
   "coverageDirectory": "./../coverage",
-  "collectCoverageFrom": ["packages/**/src/**/*.js"],
+  "collectCoverageFrom": [
+    "<rootDir>/**/src/**/*.ts",
+    "!<rootDir>/**/src/**/*.d.ts",
+    "!<rootDir>/**/src/test/*"
+  ],
   "verbose": true,
   "moduleNameMapper": {
     "vue": "vue/dist/vue.esm.js"
