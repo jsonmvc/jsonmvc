@@ -72,7 +72,7 @@ export class ElementClass {
   toTokens(): TokenInterface[] {
     let x = JSON.parse(JSON.stringify(this.tpl));
     let tokens: TokenInterface[] = [];
-    if (x.indent) {
+    if (x.indent !== undefined) {
       tokens.push({
         type: 'newLineIndent',
         value: x.indent,

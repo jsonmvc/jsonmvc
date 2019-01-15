@@ -70,9 +70,12 @@ export class TokenStreamClass {
   error() {}
 
   private readNext(): TokenInterface | null {
-    this.readWhile(this.isEOL);
     if (this.input.eof()) return null;
     let ch = this.input.peek();
+    if (ch === '\n' || this.input.peekPrev() === '') {
+      this.readWhile(this.isEOL);
+      return this.readIndent();
+    }
     if (this.isAttributesStart(ch)) {
       if (this.readingAttributes) {
         this.input.error('Open attributes char "(" was found inside an attribute definion.');
@@ -90,9 +93,9 @@ export class TokenStreamClass {
       this.readWhile(this.isWhiteSpace);
       return this.readAttribute();
     }
-    if ((this.input.peekPrev() === '' || this.input.peekPrev() === '\n') && this.isIndent(ch)) {
-      return this.readIndent();
-    }
+    // if ((this.input.peekPrev() === '' || this.input.peekPrev() === '\n') && this.isIndent(ch)) {
+    //   return this.readIndent();
+    // }
     if (this.isTagStart(ch)) {
       return this.readTag();
     }
