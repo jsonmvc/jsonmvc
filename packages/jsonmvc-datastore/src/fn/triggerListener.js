@@ -1,56 +1,50 @@
-
-import 'setimmediate'
-import getNode from './getNode'
-import err from './err'
+import "setimmediate";
+import getNode from "./getNode";
+import err from "./err";
 
 function callNode(db, path, i) {
-  let fns = db.updates.fns[path]
+  let fns = db.updates.fns[path];
 
   if (!fns || !fns[i]) {
-    return
+    return;
   }
 
-  let fn = fns[i]
+  let fn = fns[i];
 
-  let val = getNode(db, path)
-  let cacheTest = JSON.stringify(val)
+  let val = getNode(db, path);
+  let cacheTest = JSON.stringify(val);
 
   if (db.updates.cache[path][i] !== cacheTest) {
-    db.updates.cache[path][i] = cacheTest
-
-    ;(function () {
+    db.updates.cache[path][i] = cacheTest;
+    (function() {
       try {
-        fn.call(null, val)
+        fn.call(null, val);
       } catch (e) {
-        err(db, '/err/types/on/2', {
+        err(db, "/err/types/on/2", {
           path: path,
-          error: e.message + ' ' + e.stack
-        })
+          error: e.message + " " + e.stack,
+          errObj: e
+        });
       }
-    }())
-
+    })();
   }
 }
 
 function triggerListener(db, path) {
-
-  let fns = db.updates.fns[path]
+  let fns = db.updates.fns[path];
 
   if (!fns) {
-    return
+    return;
   }
 
-  let ids = Object.keys(fns)
-  let len = ids.length
+  let ids = Object.keys(fns);
+  let len = ids.length;
 
   for (let i = 0; i < len; i += 1) {
-
     setImmediate(() => {
-      callNode(db, path, ids[i])
-    })
-
+      callNode(db, path, ids[i]);
+    });
   }
-
 }
 
-export default triggerListener
+export default triggerListener;

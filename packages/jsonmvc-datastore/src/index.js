@@ -1,15 +1,13 @@
+import on from "./api/on";
+import get from "./api/get";
+import has from "./api/has";
+import patch from "./api/patch";
+import node from "./api/node";
+import err from "./fn/err";
 
-import on from './api/on'
-import get from './api/get'
-import has from './api/has'
-import patch from './api/patch'
-import node from './api/node'
-import err from './fn/err'
-
-import errTypes from './errors.js'
+import errTypes from "./errors.js";
 
 function jsonmvcdb(data) {
-
   // An error message should contain:
   // 1. Error number
   // 2. Location
@@ -27,16 +25,13 @@ function jsonmvcdb(data) {
         on: []
       }
     },
+    errors: {},
     cache: {
       paths: {},
       dynamic: {}
     },
-    updates: {
-
-    },
-    triggers: {
-
-    },
+    updates: {},
+    triggers: {},
     dynamic: {
       decomposed: {},
       patching: {},
@@ -53,23 +48,23 @@ function jsonmvcdb(data) {
       triggers: {},
       fns: {}
     }
-  }
+  };
 
   if (data) {
-    let datac = JSON.parse(JSON.stringify(data))
-    if (typeof datac === 'string' || datac.toString() !== '[object Object]') {
-      err(db, '/err/types/db/1', datac)
+    let datac = JSON.parse(JSON.stringify(data));
+    if (typeof datac === "string" || datac.toString() !== "[object Object]") {
+      err(db, "/err/types/db/1", datac);
     } else if (datac.err) {
-      err(db, '/err/types/db/2', datac)
+      err(db, "/err/types/db/2", datac);
     } else {
-      db.static = JSON.parse(JSON.stringify(data))
+      db.static = JSON.parse(JSON.stringify(data));
       db.static.err = {
         types: errTypes,
         db: [],
         patch: [],
         node: [],
         on: []
-      }
+      };
     }
   }
 
@@ -80,7 +75,7 @@ function jsonmvcdb(data) {
     patch: patch(db),
     node: node(db),
     db: db
-  }
+  };
 }
 
-export default jsonmvcdb
+export default jsonmvcdb;

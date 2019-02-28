@@ -1,13 +1,12 @@
-
-import splitPath from './splitPath'
-import getValue from './getValue'
-import setValue from './setValue'
-import decomposePath from './decomposePath'
-import setCache from './setCache'
-import err from './err'
+import splitPath from "./splitPath";
+import getValue from "./getValue";
+import setValue from "./setValue";
+import decomposePath from "./decomposePath";
+import setCache from "./setCache";
+import err from "./err";
 
 const getNode = (db, path) => {
-  let result
+  let result;
   // @TODO: If there is a schema and the dynamic node
   // then return an empty value for that type:
   // object -> {}
@@ -21,105 +20,106 @@ const getNode = (db, path) => {
   // as needed
 
   if (db.cache.paths.hasOwnProperty(path)) {
-    return db.cache.paths[path]
+    return db.cache.paths[path];
   }
 
-  let defaultValue = null
+  let defaultValue = null;
 
-  let decomposed = decomposePath(path)
-  let decomposedBkp = decomposed.slice()
-  decomposed.unshift(path)
+  let decomposed = decomposePath(path);
+  let decomposedBkp = decomposed.slice();
+  decomposed.unshift(path);
 
-  let dynamicParent
-  let dynamicChildren
-  let isDynamic = false
+  let dynamicParent;
+  let dynamicChildren;
+  let isDynamic = false;
   do {
-    dynamicParent = decomposed.shift()
+    dynamicParent = decomposed.shift();
 
     if (db.dynamic.fns[dynamicParent]) {
-      isDynamic = true
-      dynamicChildren = path.substr(dynamicParent.length)
+      isDynamic = true;
+      dynamicChildren = path.substr(dynamicParent.length);
     }
+  } while (decomposed.length != 0 && isDynamic === false);
 
-  } while (decomposed.length != 0 && isDynamic === false)
-
-  let dynamicChildrenBkp = dynamicChildren
+  let dynamicChildrenBkp = dynamicChildren;
 
   if (isDynamic) {
-    let nodes = db.dynamic.deps[dynamicParent]
-    let args = nodes.map(x => getNode(db, x))
+    let nodes = db.dynamic.deps[dynamicParent];
+    let args = nodes.map(x => getNode(db, x));
 
     // @TODO: decide how to handle case that uses only
     // existing values vs nodes that handle non existing
     // values
     try {
-      result = db.dynamic.fns[dynamicParent].apply(null, args)
+      result = db.dynamic.fns[dynamicParent].apply(null, args);
       if (result === undefined) {
-        result = defaultValue
+        result = defaultValue;
         // @TODO: log this as an error, an edge case
         // that the developer didn't forsee when writing
         // his function
       }
-    } catch(e) {
-      result = defaultValue
-      e.message += `\n path: ${path}`
-      e.message += `\n node: ${dynamicParent}`
-      err(db, '/err/types/node/5', e.message)
+    } catch (e) {
+      result = defaultValue;
+      e.message += `\n path: ${path}`;
+      e.message += `\n node: ${dynamicParent}`;
+      err(db, "/err/types/node/5", {
+        error: e.message,
+        errObj: e
+      });
     }
 
     if (dynamicChildren) {
-      dynamicChildren = dynamicChildren.split('/')
-      dynamicChildren.shift()
+      dynamicChildren = dynamicChildren.split("/");
+      dynamicChildren.shift();
 
       do {
-        let child = dynamicChildren.shift()
+        let child = dynamicChildren.shift();
         if (result) {
-          result = result[child]
+          result = result[child];
         } else {
-          result = void 0
+          result = void 0;
           break;
         }
-      } while (dynamicChildren.length !== 0)
-
+      } while (dynamicChildren.length !== 0);
     }
-
   } else {
-    let val = getValue(db.static, path)
+    let val = getValue(db.static, path);
 
     if (val === undefined && db.dynamic.nesting[path]) {
-      val = {}
+      val = {};
     }
 
     // If root was found
     if (val !== undefined) {
-
-      if (val !== null && val.toString && val.toString() === '[object Object]') {
-        let nodes = db.dynamic.nesting[path]
+      if (
+        val !== null &&
+        val.toString &&
+        val.toString() === "[object Object]"
+      ) {
+        let nodes = db.dynamic.nesting[path];
 
         if (nodes) {
           val = nodes.reduce((acc, x) => {
-            let node = getNode(db, x)
-            let root = x
-            if (path !== '/') {
-              root = root.replace(path, '')
+            let node = getNode(db, x);
+            let root = x;
+            if (path !== "/") {
+              root = root.replace(path, "");
             }
-            setValue(acc, root, node)
-            return acc
-          }, val)
+            setValue(acc, root, node);
+            return acc;
+          }, val);
         }
-
       } else {
         // val remains the same and does't need cloning
       }
-
     }
 
-    result = val
+    result = val;
   }
 
-  setCache(db, path, result, isDynamic ? dynamicParent : false)
+  setCache(db, path, result, isDynamic ? dynamicParent : false);
 
-  return result
-}
+  return result;
+};
 
-export default getNode
+export default getNode;
