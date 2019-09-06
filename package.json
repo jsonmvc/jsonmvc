@@ -47,7 +47,7 @@
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
     "most": "^1.6.2",
     "opencollective": "^1.0.3",
-    "shortid": "^2.2.8",
+    "shortid": "^2.2.15",
     "source-map-support": "0.5.0",
     "vue": "^2.4.3",
     "zen-observable": "^0.6.0"
