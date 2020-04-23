@@ -45,7 +45,7 @@
     "json-schema-defaults": "^0.3.0",
     "jsonmvc-db": "^0.6.11",
     "lodash": "https://registry.npmjs.org/lodash/-/lodash-4.17.2.tgz",
-    "most": "^1.6.2",
+    "most": "^1.8.1",
     "opencollective": "^1.0.3",
     "shortid": "^2.2.8",
     "source-map-support": "0.5.0",
